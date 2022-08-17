@@ -40,6 +40,34 @@ LOGO = """
 """
 
 
+def show_menu():
+    """
+    Function prints out the menu and get the user input.
+    Validation of users choice is also being made.
+    """
+
+    while True:
+        menu_options = {
+            1: "List music collection",
+            2: "Search item in music collection",
+            3: "Add item to collection",
+            4: "Change item in collection",
+            5: "Remove item from collection",
+            6: "Sort collection",
+            7: "Show total value of collection",
+            0: "Exit application",
+        }
+        print("\n")
+
+        for choice in menu_options.keys():
+            console.print(
+                choice, " - ", menu_options[choice], style="cyan"
+            )
+
+        option = input("\nEnter your choice: ")
+        option = option.strip()
+
+
 def main():
     """
     Run all application functions
@@ -47,7 +75,7 @@ def main():
 
     os.system("clear")
     console.print(f"{LOGO}", style="dark_orange3")
-    #show_menu()
+    show_menu()
 
 
 main()
