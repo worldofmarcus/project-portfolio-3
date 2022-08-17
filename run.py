@@ -68,9 +68,8 @@ def show_menu():
         option = option.strip()
         if option == "1":
             list_collection()
-
-
-
+        elif option == "2":
+            search_collection()
         elif option == "3":
             while True:
                 os.system("clear")
@@ -111,11 +110,62 @@ def show_menu():
                 else:
                     add_item(user_data, "collection")
                     break
+        elif option == "4":
+            change_item()
+        elif option == "5":
+            remove_item()
+        elif option == "6":
+            while True:
+                os.system("clear")
+                console.print(f"{LOGO}", style="dark_orange3")
+                console.print(
+                    "\nPlease choose a sorting credential.",
+                    style="success",
+                )
+                console.print("\n1. Artist", style="cyan")
+                console.print("2. Title", style="cyan")
+                console.print("3. Label", style="cyan")
+                console.print("4. Format", style="cyan")
+                console.print("5. Rating", style="cyan")
+                console.print("6. Released", style="cyan")
+                console.print("7. Date Added", style="cyan")
+                console.print("8. Value", style="cyan")
+                console.print("0. Back to main menu", style="cyan")
+
+                sorting_credential = input("\nEnter your choice: ")
+                sorting_credential = sorting_credential.strip()
+                if sorting_credential == "0":
+                    console.print(
+                        "\nHeading back to main menu", style="success"
+                    )
+                    sleep(3)
+                    os.system("clear")
+                    console.print(f"{LOGO}", style="dark_orange3")
+                    show_menu()
+                    break
+                elif validate_data(sorting_credential):
+                    sort_collection(sorting_credential)
+                    break
+
         elif option == "7":
             sum_value = calculate_total_value()
             console.print(
                 f"\nThe collection is worth €{sum_value}", style="success"
             )
+        elif option == "0":
+            console.print(
+                "\nThank you for using WoM Record Collection!",
+                style="success",
+            )
+            sleep(3)
+            break
+        else:
+            console.print(
+                "\nInvalid Option. Please Try Again", style="red bold"
+            )
+            sleep(3)
+            main()
+
 
 def list_collection():
     """
@@ -192,6 +242,7 @@ def calculate_total_value():
     console.print(f"{LOGO}", style="dark_orange3")
     return sum_value
 
+
 def change_item():
     """
     This function changes item in the record collection
@@ -203,10 +254,25 @@ def remove_item():
     This function removes item in the record collection
     """
 
+
 def search_collection():
     """
     This function search for item in the record collection
     """
+
+
+def sort_collection(sorting_credential):
+    """
+    Sorting collection based on users choice of sorting
+    credentials.
+    """
+
+    console.print("\nPlease wait. Sorting collection.", style="success")
+    sleep(2)
+    collection.sort(((int(sorting_credential)), "asc"))
+    data = collection.get_all_values()
+    create_table(data)
+
 
 def main():
     """
