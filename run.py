@@ -68,6 +68,47 @@ def show_menu():
         option = option.strip()
         if option == "1":
             list_collection()
+        elif option == "3":
+            while True:
+                os.system("clear")
+                console.print(f"{LOGO}", style="dark_orange3")
+                console.print(
+                    "\nTo add an item to the record collection, follow these"
+                    "\ninstructions (or choose 0 to return to main menu):",
+                    style="bold cyan",
+                )
+                console.print(
+                    "\n* Add all columns with comma separation"
+                    "\n(Artist,Title,Label,Format, Rating (1-5),"
+                    "\nReleased,Date Added (yyyy-mm-dd),Value)",
+                    style="cyan",
+                )
+                console.print(
+                    "\n* Example: Shield,Vampiresongs,Desperate Fight Records,"
+                    "\nCD,5,1995,2022-08-17,50",
+                    style="cyan",
+                )
+                user_input = input("\nAdd data: ")
+                user_data = list(user_input.split(","))
+                if user_input == "0":
+                    console.print(
+                        "\nHeading back to main menu", style="success"
+                    )
+                    sleep(3)
+                    os.system("clear")
+                    console.print(f"{LOGO}", style="dark_orange3")
+                    show_menu()
+                    break
+                elif len(user_data) != 8:
+                    console.print(
+                        "\nExactly 8 values are required. Please try again",
+                        style="error",
+                    )
+                    sleep(3)
+                else:
+                    add_item(user_data, "collection")
+                    break
+
 
 def list_collection():
     """
@@ -81,6 +122,7 @@ def list_collection():
     data = collection.get_all_values()
     create_table(data)
 
+
 def create_table(data):
     """
     This function creates the table. First it plots the
@@ -89,14 +131,14 @@ def create_table(data):
     """
 
     table = Table()
-    table.add_column("Artist", style="black bold on grey78")
-    table.add_column("Title", style="black bold on grey78")
-    table.add_column("Label", style="black bold on grey78")
-    table.add_column("Format", style="black bold on grey78")
-    table.add_column("Rating (1-5)", style="black bold on grey78")
-    table.add_column("Released", style="black bold on grey78")
-    table.add_column("Date Added", style="black bold on grey78")
-    table.add_column("Value (€)", style="black bold on grey78")
+    table.add_column("Artist")
+    table.add_column("Title")
+    table.add_column("Label")
+    table.add_column("Format")
+    table.add_column("Rating (1-5)")
+    table.add_column("Released")
+    table.add_column("Date Added")
+    table.add_column("Value (€)")
 
     for row in data[0::1]:
         table.add_row(*row, style="black bold on grey78")
@@ -104,6 +146,28 @@ def create_table(data):
     os.system("clear")
     console.print(f"{LOGO}", style="dark_orange3")
     console.print(table)
+
+
+def add_item(new_row, worksheet):
+    """
+    This function adds item to the record collection
+    """
+
+    console.print(f"\nUpdating {worksheet}' worksheet.\n", style="success")
+    sleep(2)
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    # converts string numbers in list to integers - taken from
+    # https://www.geeksforgeeks.org/python-convert-numeric-string-to-integers-in-mixed-list/
+    new_row_converted = [
+        int(ele) if ele.isdigit() else ele for ele in new_row
+    ]
+
+    # adds new row to the end of the current data
+    worksheet_to_update.append_row(new_row_converted)
+    os.system("clear")
+    console.print(f"{LOGO}", style="dark_orange3")
+    list_collection()
+
 
 def main():
     """
