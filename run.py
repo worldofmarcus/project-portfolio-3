@@ -271,6 +271,8 @@ def sort_collection(sorting_credential):
     sleep(2)
     collection.sort(((int(sorting_credential)), "asc"))
     data = collection.get_all_values()
+    console.print("\nPlease wait. Listing collection.", style="success")
+    sleep(2)
     create_table(data)
 
 
@@ -282,6 +284,29 @@ def main():
     os.system("clear")
     console.print(f"{LOGO}", style="dark_orange3")
     show_menu()
+
+
+def validate_data(sorting_credentials):
+    """
+    Validation function that converts string values to integers.
+    If sorting crentials is larger than 8 or if the value cannot
+    be converted to an integer an error is raised.
+    """
+
+    try:
+        if int(sorting_credentials) > 8:
+            raise ValueError(
+                f"Please choose a number between 1-8 (or 0 main menu), you provided {sorting_credentials}"
+            )
+
+    except ValueError as error_message:
+        console.print(
+            f"Invalid data: {error_message}. Please try again.\n",
+            style="red bold",
+        )
+        sleep(3)
+        return False
+    return True
 
 
 main()
