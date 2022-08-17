@@ -66,7 +66,44 @@ def show_menu():
 
         option = input("\nEnter your choice: ")
         option = option.strip()
+        if option == "1":
+            list_collection()
 
+def list_collection():
+    """
+    This function import all the values from the collection
+    sheet and pass it to the variable 'data'. After that
+    the function calls the create_table function.
+    """
+
+    console.print("\nPlease wait. Listing collection.", style="success")
+    sleep(2)
+    data = collection.get_all_values()
+    create_table(data)
+
+def create_table(data):
+    """
+    This function creates the table. First it plots the
+    columns and then it plots out all the rows in the
+    data collection (from the collection sheet)
+    """
+
+    table = Table()
+    table.add_column("Artist", style="black bold on grey78")
+    table.add_column("Title", style="black bold on grey78")
+    table.add_column("Label", style="black bold on grey78")
+    table.add_column("Format", style="black bold on grey78")
+    table.add_column("Rating (1-5)", style="black bold on grey78")
+    table.add_column("Released", style="black bold on grey78")
+    table.add_column("Date Added", style="black bold on grey78")
+    table.add_column("Value (€)", style="black bold on grey78")
+
+    for row in data[0::1]:
+        table.add_row(*row, style="black bold on grey78")
+
+    os.system("clear")
+    console.print(f"{LOGO}", style="dark_orange3")
+    console.print(table)
 
 def main():
     """
