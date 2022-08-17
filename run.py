@@ -68,6 +68,9 @@ def show_menu():
         option = option.strip()
         if option == "1":
             list_collection()
+
+
+
         elif option == "3":
             while True:
                 os.system("clear")
@@ -108,7 +111,11 @@ def show_menu():
                 else:
                     add_item(user_data, "collection")
                     break
-
+        elif option == "7":
+            sum_value = calculate_total_value()
+            console.print(
+                f"\nThe collection is worth €{sum_value}", style="success"
+            )
 
 def list_collection():
     """
@@ -168,6 +175,22 @@ def add_item(new_row, worksheet):
     console.print(f"{LOGO}", style="dark_orange3")
     list_collection()
 
+
+def calculate_total_value():
+    """
+    Calculate the total value of record collection.
+    """
+    console.print(
+        "\nPlease wait. Calculating total value of the record collection.",
+        style="success",
+    )
+    sleep(2)
+    value_data = collection.col_values(8)
+    value_data = list(map(int, value_data))
+    sum_value = sum(value_data)
+    os.system("clear")
+    console.print(f"{LOGO}", style="dark_orange3")
+    return sum_value
 
 def main():
     """
