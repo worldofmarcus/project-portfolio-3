@@ -192,6 +192,22 @@ def calculate_total_value():
     console.print(f"{LOGO}", style="dark_orange3")
     return sum_value
 
+def change_item():
+    """
+    This function changes item in the record collection
+    """
+
+
+def remove_item():
+    """
+    This function removes item in the record collection
+    """
+
+def search_collection():
+    """
+    This function search for item in the record collection
+    """
+
 def main():
     """
     Run all application functions
