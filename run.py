@@ -37,6 +37,11 @@ LOGO = """
 ██████  █████   ██      ██    ██ ██████  ██   ██ ███████
 ██   ██ ██      ██      ██    ██ ██   ██ ██   ██      ██
 ██   ██ ███████  ██████  ██████  ██   ██ ██████  ███████
+
+\nWelcome to WOM Records, an application that keeps
+track on your record collection. Use the menu below
+to start using the application!
+\nAuthor: Marcus Eriksson
 """
 
 
@@ -75,19 +80,19 @@ def show_menu():
                 os.system("clear")
                 console.print(f"{LOGO}", style="dark_orange3")
                 console.print(
-                    "\nTo add an item to the record collection, follow these"
+                    "\nTo add an item to the record collection,follow these"
                     "\ninstructions (or choose 0 to return to main menu):",
                     style="bold cyan",
                 )
                 console.print(
                     "\n* Add all columns with comma separation"
                     "\n(Artist,Title,Label,Format, Rating (1-5),"
-                    "\nReleased,Date Added (yyyy-mm-dd),Value)",
+                    "\nReleased,Value)",
                     style="cyan",
                 )
                 console.print(
                     "\n* Example: Shield,Vampiresongs,Desperate Fight Records,"
-                    "\nCD,5,1995,2022-08-17,50",
+                    "\nCD,5,1995,50",
                     style="cyan",
                 )
                 user_input = input("\nAdd data: ")
@@ -101,7 +106,7 @@ def show_menu():
                     console.print(f"{LOGO}", style="dark_orange3")
                     show_menu()
                     break
-                elif len(user_data) != 8:
+                elif len(user_data) != 7:
                     console.print(
                         "\nExactly 8 values are required. Please try again",
                         style="error",
@@ -128,8 +133,7 @@ def show_menu():
                 console.print("4. Format", style="cyan")
                 console.print("5. Rating", style="cyan")
                 console.print("6. Released", style="cyan")
-                console.print("7. Date Added", style="cyan")
-                console.print("8. Value", style="cyan")
+                console.print("7. Value", style="cyan")
                 console.print("0. Back to main menu", style="cyan")
 
                 sorting_credential = input("\nEnter your choice: ")
@@ -187,14 +191,14 @@ def create_table(data):
     data collection (from the collection sheet)
     """
 
-    table = Table()
+    table = Table(width=80)
+    table.add_column("ID)")
     table.add_column("Artist")
     table.add_column("Title")
     table.add_column("Label")
     table.add_column("Format")
-    table.add_column("Rating (1-5)")
+    table.add_column("Rating")
     table.add_column("Released")
-    table.add_column("Date Added")
     table.add_column("Value (€)")
 
     for row in data[0::1]:
@@ -210,7 +214,7 @@ def add_item(new_row, worksheet):
     This function adds item to the record collection
     """
 
-    console.print(f"\nUpdating {worksheet}' worksheet.\n", style="success")
+    console.print(f"\nUpdating {worksheet} worksheet.\n", style="success")
     sleep(2)
     worksheet_to_update = SHEET.worksheet(worksheet)
     # converts string numbers in list to integers - taken from
@@ -235,7 +239,7 @@ def calculate_total_value():
         style="success",
     )
     sleep(2)
-    value_data = collection.col_values(8)
+    value_data = collection.col_values(7)
     value_data = list(map(int, value_data))
     sum_value = sum(value_data)
     os.system("clear")
@@ -253,7 +257,9 @@ def remove_item():
     """
     This function removes item in the record collection
     """
-
+    cell = collection.find("16", in_column=1)
+    row = cell.row
+    collection.delete_rows(row)
 
 def search_collection():
     """
@@ -276,17 +282,7 @@ def sort_collection(sorting_credential):
     create_table(data)
 
 
-def main():
-    """
-    Run all application functions
-    """
-
-    os.system("clear")
-    console.print(f"{LOGO}", style="dark_orange3")
-    show_menu()
-
-
-def validate_data(sorting_credentials):
+def validate_data(user_choice):
     """
     Validation function that converts string values to integers.
     If sorting crentials is larger than 8 or if the value cannot
@@ -294,9 +290,9 @@ def validate_data(sorting_credentials):
     """
 
     try:
-        if int(sorting_credentials) > 8:
+        if int(user_choice) > 7:
             raise ValueError(
-                f"Please choose a number between 1-8 (or 0 main menu), you provided {sorting_credentials}"
+                f"Only numbers between 0-7! You provided {user_choice}"
             )
 
     except ValueError as error_message:
@@ -307,6 +303,16 @@ def validate_data(sorting_credentials):
         sleep(3)
         return False
     return True
+
+
+def main():
+    """
+    Run all application functions
+    """
+
+    os.system("clear")
+    console.print(f"{LOGO}", style="dark_orange3")
+    show_menu()
 
 
 main()
