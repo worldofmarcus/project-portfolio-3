@@ -27,7 +27,9 @@ custom_theme = Theme({"error": "bold red", "success": "bold green"})
 console = Console(theme=custom_theme)
 
 WELCOME = """
-Welcome to WOM Records, an application that keep track on your record
+*** WOM RECORD COLLECTION ***
+
+Welcome to WoM Record Collection, an application that keep track on your record
 collection. Use the menu below to start using the application!
 """
 
@@ -64,12 +66,16 @@ def show_menu():
             search_collection()
         elif option == "3":     # call function 'add item'
             add_item()
+            break
         elif option == "4":     # call function 'change item'
             change_item()
+            break
         elif option == "5":     # call function 'remove item'
             remove_item()
+            break
         elif option == "6":     # call function 'sort_collection'
             sort_collection()
+            break
         elif option == "7":     # call function 'calculate_total_value'
             sum_value = calculate_total_value()
             console.print(
@@ -82,13 +88,12 @@ def show_menu():
             )
             sleep(3)
             break
-        else:
+        else:                   # print out to user that option is invalid
             console.print(
                 "\nInvalid Option. Please Try Again", style="red bold"
             )
             sleep(3)
             main()
-
 
 def add_id():
     """
@@ -157,8 +162,7 @@ def add_item():
         )
         console.print(
             "\n* Example: Shield,Vampiresongs,Desperate Fight Records,"
-            "\nCD,50",
-            style="cyan",
+            "\nCD,50", style="cyan"
         )
 
         user_input = input("\nAdd data: \n")
