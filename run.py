@@ -482,7 +482,6 @@ def main():
 
     os.system("clear")
     console.print(f"{WELCOME}", style="dark_orange3")
-    add_id()
     show_menu()
 
 
