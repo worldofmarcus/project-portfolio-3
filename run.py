@@ -29,7 +29,6 @@ console = Console(theme=custom_theme)
 WELCOME = """
 Welcome to WOM Records, an application that keep track on your record
 collection. Use the menu below to start using the application!
-\nAuthor: Marcus Eriksson
 """
 
 
@@ -135,7 +134,6 @@ def create_table(data):
         table.add_row(*row)
 
     os.system("clear")
-    console.print(f"{WELCOME}", style="dark_orange3")
     console.print(table)
 
 
@@ -145,7 +143,6 @@ def add_item():
     """
 
     os.system("clear")
-    console.print(f"{WELCOME}", style="dark_orange3")
 
     while True:
         console.print(
@@ -225,7 +222,6 @@ def change_item():
     """
 
     os.system("clear")
-    console.print(f"{WELCOME}", style="dark_orange3")
     data = collection.get_all_values()
     create_table(data)
 
@@ -314,7 +310,6 @@ def remove_item():
     """
 
     os.system("clear")
-    console.print(f"{WELCOME}", style="dark_orange3")
     data = collection.get_all_values()
     create_table(data)
 
@@ -358,7 +353,6 @@ def search_collection():
     """
     while True:
         os.system("clear")
-        console.print(f"{WELCOME}", style="dark_orange3")
         console.print(
             "\nWhat do you want to search for?"
             "\nArtist, Title, Label,Format,Rating,Released,Value",
@@ -389,7 +383,6 @@ def sort_collection():
     """
 
     os.system("clear")
-    console.print(f"{WELCOME}", style="dark_orange3")
     data = collection.get_all_values()
     create_table(data)
     while True:
