@@ -32,6 +32,7 @@ collection. Use the menu below to start using the application!
 \nAuthor: Marcus Eriksson
 """
 
+
 def show_menu():
     """
     Function prints out the menu and get the user input.
@@ -128,8 +129,6 @@ def create_table(data):
     table.add_column("Title")
     table.add_column("Label")
     table.add_column("Format")
-    table.add_column("Rating")
-    table.add_column("Released")
     table.add_column("Value (€)")
 
     for row in data[0::1]:
@@ -145,8 +144,9 @@ def add_item():
     This function adds item to the record collection
     """
 
-    data = collection.get_all_values()
-    create_table(data)
+    os.system("clear")
+    console.print(f"{WELCOME}", style="dark_orange3")
+
     while True:
         console.print(
             "\nTo add an item to the record collection,follow these"
@@ -176,9 +176,9 @@ def add_item():
             console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
             break
-        elif len(user_data) != 7:
+        elif len(user_data) != 5:
             console.print(
-                "\nExactly 7 values are required. Please try again",
+                "\nExactly 5 values are required. Please try again",
                 style="error",
             )
             sleep(3)
@@ -211,7 +211,7 @@ def calculate_total_value():
         style="success",
     )
     sleep(2)
-    value_data = collection.col_values(8)
+    value_data = collection.col_values(6)
     value_data = list(map(int, value_data))
     sum_value = sum(value_data)
     os.system("clear")
@@ -224,12 +224,15 @@ def change_item():
     This function changes item in the record collection
     """
 
+    os.system("clear")
+    console.print(f"{WELCOME}", style="dark_orange3")
     data = collection.get_all_values()
     create_table(data)
 
     while True:
         option = input("\nEnter ID for the row to change (0 for main menu): \n")
         option = option.strip()
+
         if option == "0":
             console.print(
                 "\nHeading back to main menu", style="success"
@@ -253,7 +256,7 @@ def change_item():
                 table.add_column("Released")
                 table.add_column("Value (€)")
                 table.add_row(data[1], data[2], data[3], data[4], data[5],
-                              data[6], data[7], style="black bold on grey78")
+                              data[6])
                 console.print(table)
                 console.print(
                     f"\nTo change {data[2]} by {data[1]}, follow these"
@@ -398,9 +401,7 @@ def sort_collection():
         console.print("2. Title", style="cyan")
         console.print("3. Label", style="cyan")
         console.print("4. Format", style="cyan")
-        console.print("5. Rating", style="cyan")
-        console.print("6. Released", style="cyan")
-        console.print("7. Value", style="cyan")
+        console.print("5. Value", style="cyan")
         console.print("0. Back to main menu", style="cyan")
 
         sorting_credential = input("\nEnter your choice: \n")
@@ -429,7 +430,7 @@ def sort_collection():
 def validate_remove(option):
     """
     Validation function that converts string values to integers.
-    If sorting crentials is larger than 8 or if the value cannot
+    If sorting crentials is larger than 5 or if the value cannot
     be converted to an integer an error is raised.
     """
 
@@ -453,14 +454,14 @@ def validate_remove(option):
 def validate_data(user_choice):
     """
     Validation function that converts string values to integers.
-    If sorting crentials is larger than 8 or if the value cannot
+    If sorting crentials is larger than 5 or if the value cannot
     be converted to an integer an error is raised.
     """
 
     try:
-        if int(user_choice) > 7:
+        if int(user_choice) > 5:
             raise ValueError(
-                f"Only numbers between 0-7! You provided {user_choice}"
+                f"Only numbers between 0-5! You provided {user_choice}"
             )
 
     except ValueError as error_message:
