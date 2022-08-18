@@ -73,7 +73,7 @@ def show_menu():
         option = input("\nEnter your choice: ")
         option = option.strip()
         if option == "1":       # call function 'list_collection'
-            list_collection()
+            add_id()
         elif option == "2":     # call function 'search_collection'
             search_collection()
         elif option == "3":     # call function 'add item'
@@ -104,11 +104,14 @@ def show_menu():
             main()
 
 
-def list_collection():
+def add_id():
     """
-    This function import all the values from the collection
-    sheet and pass it to the variable 'data'. After that
-    the function calls the create_table function.
+    This function adds an numeric ID to each row in the first column
+    in the sheet. This is being used in the other functions to keep
+    track of what ID each item has. A process indicator is also being
+    showed so that the user has an idea of how long the listing of
+    the collection will take. When the adding of ID:s is done
+    the create_table function is called.
     """
 
     console.print("\nPlease wait. Listing collection.", style="success")
@@ -155,9 +158,10 @@ def add_item():
     """
     This function adds item to the record collection
     """
+
+    data = collection.get_all_values()
+    create_table(data)
     while True:
-        os.system("clear")
-        console.print(f"{LOGO}", style="dark_orange3")
         console.print(
             "\nTo add an item to the record collection,follow these"
             "\ninstructions (or choose 0 to return to main menu):",
@@ -208,7 +212,7 @@ def add_item():
             worksheet_to_update.append_row(new_row_converted)
             os.system("clear")
             console.print(f"{LOGO}", style="dark_orange3")
-            list_collection()
+            add_id()
             break
 
 
@@ -233,7 +237,10 @@ def change_item():
     """
     This function changes item in the record collection
     """
-    list_collection()
+
+    data = collection.get_all_values()
+    create_table(data)
+
     while True:
         option = input("\nEnter ID for the row to change (0 for main menu): ")
         option = option.strip()
@@ -305,7 +312,7 @@ def change_item():
                     print(row_converted)
                     collection.append_row(row_converted)
                     collection.delete_rows(row)
-                    list_collection()
+                    add_id()
                     break
 
 
@@ -313,9 +320,12 @@ def remove_item():
     """
     This function removes item in the record collection
     """
+
     os.system("clear")
     console.print(f"{LOGO}", style="dark_orange3")
-    list_collection()
+    data = collection.get_all_values()
+    create_table(data)
+
     while True:
         option = input("\nEnter ID for the row to remove (0 for main menu): ")
         option = option.strip()
@@ -330,18 +340,24 @@ def remove_item():
             break
         elif validate_remove(option):
             user_confirm = input("\nAre you sure? ").lower()
+
             if user_confirm == "n":
                 console.print("Aborting...", style="error")
                 sleep(2)
                 remove_item()
-            else:
+
+            elif user_confirm == "y":
                 console.print(f"Removing row with ID {option}", style="error")
                 sleep(1)
                 cell = collection.find(option, in_column=1)
                 row = cell.row
                 collection.delete_rows(row)
-                list_collection()
+                data = collection.get_all_values()
+                create_table(data)
                 break
+            else:
+                console.print("Invalid input. Please try again", style="error")
+                sleep(1)
 
 
 def search_collection():
@@ -379,9 +395,12 @@ def sort_collection():
     Sorting collection based on users choice of sorting
     credentials.
     """
+
+    os.system("clear")
+    console.print(f"{LOGO}", style="dark_orange3")
+    data = collection.get_all_values()
+    create_table(data)
     while True:
-        os.system("clear")
-        console.print(f"{LOGO}", style="dark_orange3")
         console.print(
             "\nPlease choose a sorting credential.",
             style="success",
@@ -409,10 +428,10 @@ def sort_collection():
         elif validate_data(sorting_credential):
             console.print("\nPlease wait. Sorting collection.", style="success")
             sleep(2)
-            collection.sort(((int(sorting_credential)), "asc"))
+            sorting_credential = int(sorting_credential)
+            sorting_credential += 1
+            collection.sort((sorting_credential, "asc"))
             data = collection.get_all_values()
-            console.print("\nPlease wait. Listing collection.", style="success")
-            sleep(2)
             create_table(data)
             break
 
@@ -473,7 +492,7 @@ def main():
 
     os.system("clear")
     console.print(f"{LOGO}", style="dark_orange3")
-    list_collection()
+    add_id()
     show_menu()
 
 
