@@ -39,7 +39,7 @@ LOGO = """
 ██   ██ ██      ██      ██    ██ ██   ██ ██   ██      ██
 ██   ██ ███████  ██████  ██████  ██   ██ ██████  ███████
 
-\nWelcome to WOM Records, an application that keeps
+\nWelcome to WOM Records, an application that keep
 track on your record collection. Use the menu below
 to start using the application!
 \nAuthor: Marcus Eriksson
@@ -70,7 +70,7 @@ def show_menu():
                 choice, " - ", menu_options[choice], style="cyan"
             )
 
-        option = input("\nEnter your choice: ")
+        option = input("\nEnter your choice: \n")
         option = option.strip()
         if option == "1":       # call function 'list_collection'
             add_id()
@@ -179,7 +179,7 @@ def add_item():
             style="cyan",
         )
 
-        user_input = input("\nAdd data: ")
+        user_input = input("\nAdd data: \n")
         user_data = list(user_input.split(","))
         if user_input == "0":
             console.print(
@@ -199,7 +199,7 @@ def add_item():
         else:
             worksheet_to_update = SHEET.worksheet("collection")
             user_data.insert(0, '0')
-            console.print(f"\nUpdating worksheet.", style="success")
+            console.print("\nUpdating worksheet.", style="success")
             sleep(2)
 
             # converts string numbers in list to integers - taken from
@@ -242,7 +242,7 @@ def change_item():
     create_table(data)
 
     while True:
-        option = input("\nEnter ID for the row to change (0 for main menu): ")
+        option = input("\nEnter ID for the row to change (0 for main menu): \n")
         option = option.strip()
         if option == "0":
             console.print(
@@ -285,7 +285,7 @@ def change_item():
                     "\nCD,5,1995,50",
                     style="cyan",
                 )
-                user_input = input("\nAdd data: ")
+                user_input = input("\nAdd data: \n")
                 user_data = list(user_input.split(","))
                 if user_input == "0":
                     console.print(
@@ -304,12 +304,15 @@ def change_item():
                     sleep(3)
                 else:
                     user_data.insert(0, '0')
-                    console.print(f"\nUpdating {data[2]} by {data[1]}", style="success")
+                    console.print(
+                        f"\nUpdating {data[2]} by {data[1]}",
+                        style="success"
+                    )
                     sleep(1)
                     cell = collection.find(option, in_column=1)
                     row = cell.row
-                    row_converted = [int(ele) if ele.isdigit() else ele for ele in user_data]
-                    print(row_converted)
+                    row_converted = [int(ele) if ele.isdigit()
+                                     else ele for ele in user_data]
                     collection.append_row(row_converted)
                     collection.delete_rows(row)
                     add_id()
@@ -327,7 +330,7 @@ def remove_item():
     create_table(data)
 
     while True:
-        option = input("\nEnter ID for the row to remove (0 for main menu): ")
+        option = input("\nEnter ID for the row to remove (0 for main menu): \n")
         option = option.strip()
         if option == "0":
             console.print(
@@ -414,7 +417,7 @@ def sort_collection():
         console.print("7. Value", style="cyan")
         console.print("0. Back to main menu", style="cyan")
 
-        sorting_credential = input("\nEnter your choice: ")
+        sorting_credential = input("\nEnter your choice: \n")
         sorting_credential = sorting_credential.strip()
         if sorting_credential == "0":
             console.print(
@@ -426,7 +429,8 @@ def sort_collection():
             show_menu()
             break
         elif validate_data(sorting_credential):
-            console.print("\nPlease wait. Sorting collection.", style="success")
+            console.print("\nPlease wait. Sorting collection.",
+                          style="success")
             sleep(2)
             sorting_credential = int(sorting_credential)
             sorting_credential += 1
