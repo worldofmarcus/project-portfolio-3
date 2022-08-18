@@ -72,93 +72,24 @@ def show_menu():
 
         option = input("\nEnter your choice: ")
         option = option.strip()
-        if option == "1":
+        if option == "1":       # call function 'list_collection'
             list_collection()
-        elif option == "2":
+        elif option == "2":     # call function 'search_collection'
             search_collection()
-        elif option == "3":
-            while True:
-                os.system("clear")
-                console.print(f"{LOGO}", style="dark_orange3")
-                console.print(
-                    "\nTo add an item to the record collection,follow these"
-                    "\ninstructions (or choose 0 to return to main menu):",
-                    style="bold cyan",
-                )
-                console.print(
-                    "\n* Add all columns with comma separation"
-                    "\n(Artist,Title,Label,Format, Rating (1-5),"
-                    "\nReleased,Value)",
-                    style="cyan",
-                )
-                console.print(
-                    "\n* Example: Shield,Vampiresongs,Desperate Fight Records,"
-                    "\nCD,5,1995,50",
-                    style="cyan",
-                )
-
-                user_input = input("\nAdd data: ")
-                user_data = list(user_input.split(","))
-                if user_input == "0":
-                    console.print(
-                        "\nHeading back to main menu", style="success"
-                    )
-                    sleep(3)
-                    os.system("clear")
-                    console.print(f"{LOGO}", style="dark_orange3")
-                    show_menu()
-                    break
-                elif len(user_data) != 7:
-                    console.print(
-                        "\nExactly 7 values are required. Please try again",
-                        style="error",
-                    )
-                    sleep(3)
-                else:
-                    user_data.insert(0, '0')
-                    add_item(user_data, "collection")
-                    break
-        elif option == "4":
+        elif option == "3":     # call function 'add item'
+            add_item()
+        elif option == "4":     # call function 'change item'
             change_item()
-        elif option == "5":
+        elif option == "5":     # call function 'remove item'
             remove_item()
-        elif option == "6":
-            while True:
-                os.system("clear")
-                console.print(f"{LOGO}", style="dark_orange3")
-                console.print(
-                    "\nPlease choose a sorting credential.",
-                    style="success",
-                )
-                console.print("\n1. Artist", style="cyan")
-                console.print("2. Title", style="cyan")
-                console.print("3. Label", style="cyan")
-                console.print("4. Format", style="cyan")
-                console.print("5. Rating", style="cyan")
-                console.print("6. Released", style="cyan")
-                console.print("7. Value", style="cyan")
-                console.print("0. Back to main menu", style="cyan")
-
-                sorting_credential = input("\nEnter your choice: ")
-                sorting_credential = sorting_credential.strip()
-                if sorting_credential == "0":
-                    console.print(
-                        "\nHeading back to main menu", style="success"
-                    )
-                    sleep(3)
-                    os.system("clear")
-                    console.print(f"{LOGO}", style="dark_orange3")
-                    show_menu()
-                    break
-                elif validate_data(sorting_credential):
-                    sort_collection(sorting_credential)
-                    break
-        elif option == "7":
+        elif option == "6":     # call function 'sort_collection'
+            sort_collection()
+        elif option == "7":     # call function 'calculate_total_value'
             sum_value = calculate_total_value()
             console.print(
                 f"\nThe collection is worth €{sum_value}", style="success"
             )
-        elif option == "0":
+        elif option == "0":     # exits program
             console.print(
                 "\nThank you for using WoM Record Collection!",
                 style="success",
@@ -188,7 +119,7 @@ def list_collection():
         task = progress.add_task("[green]Processing...", total=max_rows)
         while i < max_rows:
             collection.update_cell(i, 1, (i))
-            i = i + 1
+            i += 1
             progress.update(task, advance=1)
     collection.update_cell(i, 1, (i))
     data = collection.get_all_values()
@@ -220,26 +151,65 @@ def create_table(data):
     console.print(table)
 
 
-def add_item(new_row, worksheet):
+def add_item():
     """
     This function adds item to the record collection
     """
+    while True:
+        os.system("clear")
+        console.print(f"{LOGO}", style="dark_orange3")
+        console.print(
+            "\nTo add an item to the record collection,follow these"
+            "\ninstructions (or choose 0 to return to main menu):",
+            style="bold cyan",
+        )
+        console.print(
+            "\n* Add all columns with comma separation"
+            "\n(Artist,Title,Label,Format, Rating (1-5),"
+            "\nReleased,Value)",
+            style="cyan",
+        )
+        console.print(
+            "\n* Example: Shield,Vampiresongs,Desperate Fight Records,"
+            "\nCD,5,1995,50",
+            style="cyan",
+        )
 
-    console.print(f"\nUpdating {worksheet} worksheet.\n", style="success")
-    sleep(2)
-    worksheet_to_update = SHEET.worksheet(worksheet)
+        user_input = input("\nAdd data: ")
+        user_data = list(user_input.split(","))
+        if user_input == "0":
+            console.print(
+                "\nHeading back to main menu", style="success"
+            )
+            sleep(3)
+            os.system("clear")
+            console.print(f"{LOGO}", style="dark_orange3")
+            show_menu()
+            break
+        elif len(user_data) != 7:
+            console.print(
+                "\nExactly 7 values are required. Please try again",
+                style="error",
+            )
+            sleep(3)
+        else:
+            worksheet_to_update = SHEET.worksheet("collection")
+            user_data.insert(0, '0')
+            console.print(f"\nUpdating worksheet.", style="success")
+            sleep(2)
 
-    # converts string numbers in list to integers - taken from
-    # https://www.geeksforgeeks.org/python-convert-numeric-string-to-integers-in-mixed-list/
-    new_row_converted = [
-        int(ele) if ele.isdigit() else ele for ele in new_row
-    ]
+            # converts string numbers in list to integers - taken from
+            # https://www.geeksforgeeks.org/python-convert-numeric-string-to-integers-in-mixed-list/
+            new_row_converted = [
+                int(ele) if ele.isdigit() else ele for ele in user_data
+            ]
 
-    # adds new row to the end of the current data
-    worksheet_to_update.append_row(new_row_converted)
-    os.system("clear")
-    console.print(f"{LOGO}", style="dark_orange3")
-    list_collection()
+            # adds new row to the end of the current data
+            worksheet_to_update.append_row(new_row_converted)
+            os.system("clear")
+            console.print(f"{LOGO}", style="dark_orange3")
+            list_collection()
+            break
 
 
 def calculate_total_value():
@@ -292,10 +262,9 @@ def change_item():
                 table.add_row(data[1], data[2], data[3], data[4], data[5],
                               data[6], data[7], style="black bold on grey78")
                 console.print(table)
-
                 console.print(
                     f"\nTo change {data[2]} by {data[1]}, follow these"
-                    "\ninstructions (or choose 0 to return to main menu):",
+                    "\ninstructions (or choose 0 to return to change menu):",
                     style="bold cyan",
                 )
                 console.print(
@@ -309,18 +278,16 @@ def change_item():
                     "\nCD,5,1995,50",
                     style="cyan",
                 )
-
                 user_input = input("\nAdd data: ")
                 user_data = list(user_input.split(","))
-                user_data
                 if user_input == "0":
                     console.print(
-                        "\nHeading back to main menu", style="success"
+                        "\nHeading back to change menu", style="success"
                     )
                     sleep(3)
                     os.system("clear")
                     console.print(f"{LOGO}", style="dark_orange3")
-                    show_menu()
+                    change_item()
                     break
                 elif len(user_data) != 7:
                     console.print(
@@ -334,7 +301,6 @@ def change_item():
                     sleep(1)
                     cell = collection.find(option, in_column=1)
                     row = cell.row
-                    print(row)
                     row_converted = [int(ele) if ele.isdigit() else ele for ele in user_data]
                     print(row_converted)
                     collection.append_row(row_converted)
@@ -363,13 +329,19 @@ def remove_item():
             show_menu()
             break
         elif validate_remove(option):
-            console.print(f"Removing row with ID {option}", style="error")
-            sleep(1)
-            cell = collection.find(option, in_column=1)
-            row = cell.row
-            collection.delete_rows(row)
-            list_collection()
-            break
+            user_confirm = input("\nAre you sure? ").lower()
+            if user_confirm == "n":
+                console.print("Aborting...", style="error")
+                sleep(2)
+                remove_item()
+            else:
+                console.print(f"Removing row with ID {option}", style="error")
+                sleep(1)
+                cell = collection.find(option, in_column=1)
+                row = cell.row
+                collection.delete_rows(row)
+                list_collection()
+                break
 
 
 def search_collection():
@@ -380,7 +352,38 @@ def search_collection():
         os.system("clear")
         console.print(f"{LOGO}", style="dark_orange3")
         console.print(
-            "\nWhat do you want to search for? See options below.",
+            "\nWhat do you want to search for?"
+            "\nArtist, Title, Label,Format,Rating,Released,Value",
+            style="success"
+        )
+
+        search_credential = input("\nSearch Criteria (0 for main menu): ")
+        search_credential = search_credential.strip()
+
+        if search_credential == "0":
+            console.print(
+                "\nHeading back to main menu", style="success"
+            )
+            sleep(3)
+            os.system("clear")
+            console.print(f"{LOGO}", style="dark_orange3")
+            show_menu()
+            break
+        else:
+            print("Checking result")
+            break
+
+
+def sort_collection():
+    """
+    Sorting collection based on users choice of sorting
+    credentials.
+    """
+    while True:
+        os.system("clear")
+        console.print(f"{LOGO}", style="dark_orange3")
+        console.print(
+            "\nPlease choose a sorting credential.",
             style="success",
         )
         console.print("\n1. Artist", style="cyan")
@@ -392,9 +395,9 @@ def search_collection():
         console.print("7. Value", style="cyan")
         console.print("0. Back to main menu", style="cyan")
 
-        search_credential = input("\nEnter your choice: ")
-        search_credential = search_credential.strip()
-        if search_credential == "0":
+        sorting_credential = input("\nEnter your choice: ")
+        sorting_credential = sorting_credential.strip()
+        if sorting_credential == "0":
             console.print(
                 "\nHeading back to main menu", style="success"
             )
@@ -403,25 +406,15 @@ def search_collection():
             console.print(f"{LOGO}", style="dark_orange3")
             show_menu()
             break
-        elif validate_data(search_credential):
+        elif validate_data(sorting_credential):
+            console.print("\nPlease wait. Sorting collection.", style="success")
+            sleep(2)
+            collection.sort(((int(sorting_credential)), "asc"))
             data = collection.get_all_values()
-            search_credential = input("\nSearch: ")
+            console.print("\nPlease wait. Listing collection.", style="success")
+            sleep(2)
+            create_table(data)
             break
-
-
-def sort_collection(sorting_credential):
-    """
-    Sorting collection based on users choice of sorting
-    credentials.
-    """
-
-    console.print("\nPlease wait. Sorting collection.", style="success")
-    sleep(2)
-    collection.sort(((int(sorting_credential)), "asc"))
-    data = collection.get_all_values()
-    console.print("\nPlease wait. Listing collection.", style="success")
-    sleep(2)
-    create_table(data)
 
 
 def validate_remove(option):
@@ -473,11 +466,14 @@ def validate_data(user_choice):
 
 def main():
     """
-    Run all application functions
+    Clear terminal, print logo and
+    run relevant functions to start
+    application.
     """
 
     os.system("clear")
     console.print(f"{LOGO}", style="dark_orange3")
+    list_collection()
     show_menu()
 
 
