@@ -153,7 +153,6 @@ def show_menu():
                 elif validate_data(sorting_credential):
                     sort_collection(sorting_credential)
                     break
-
         elif option == "7":
             sum_value = calculate_total_value()
             console.print(
@@ -191,7 +190,6 @@ def list_collection():
             collection.update_cell(i, 1, (i))
             i = i + 1
             progress.update(task, advance=1)
-            #sleep(1)
     collection.update_cell(i, 1, (i))
     data = collection.get_all_values()
     create_table(data)
@@ -204,8 +202,8 @@ def create_table(data):
     data collection (from the collection sheet)
     """
 
-    table = Table(width=80)
-    table.add_column("ID)")
+    table = Table()
+    table.add_column("ID")
     table.add_column("Artist")
     table.add_column("Title")
     table.add_column("Label")
@@ -253,7 +251,7 @@ def calculate_total_value():
         style="success",
     )
     sleep(2)
-    value_data = collection.col_values(7)
+    value_data = collection.col_values(8)
     value_data = list(map(int, value_data))
     sum_value = sum(value_data)
     os.system("clear")
@@ -265,6 +263,84 @@ def change_item():
     """
     This function changes item in the record collection
     """
+    list_collection()
+    while True:
+        option = input("\nEnter ID for the row to change (0 for main menu): ")
+        option = option.strip()
+        if option == "0":
+            console.print(
+                "\nHeading back to main menu", style="success"
+            )
+            sleep(3)
+            os.system("clear")
+            console.print(f"{LOGO}", style="dark_orange3")
+            show_menu()
+            break
+        elif validate_remove(option):
+            while True:
+                os.system("clear")
+                console.print(f"{LOGO}", style="dark_orange3")
+                data = collection.row_values(option)
+                table = Table()
+                table.add_column("Artist")
+                table.add_column("Title")
+                table.add_column("Label")
+                table.add_column("Format")
+                table.add_column("Rating")
+                table.add_column("Released")
+                table.add_column("Value (€)")
+                table.add_row(data[1], data[2], data[3], data[4], data[5],
+                              data[6], data[7], style="black bold on grey78")
+                console.print(table)
+
+                console.print(
+                    f"\nTo change {data[2]} by {data[1]}, follow these"
+                    "\ninstructions (or choose 0 to return to main menu):",
+                    style="bold cyan",
+                )
+                console.print(
+                    "\n* Add all columns with comma separation"
+                    "\n(Artist,Title,Label,Format, Rating (1-5),"
+                    "\nReleased,Value)",
+                    style="cyan",
+                )
+                console.print(
+                    "\n* Example: Shield,Vampiresongs,Desperate Fight Records,"
+                    "\nCD,5,1995,50",
+                    style="cyan",
+                )
+
+                user_input = input("\nAdd data: ")
+                user_data = list(user_input.split(","))
+                user_data
+                if user_input == "0":
+                    console.print(
+                        "\nHeading back to main menu", style="success"
+                    )
+                    sleep(3)
+                    os.system("clear")
+                    console.print(f"{LOGO}", style="dark_orange3")
+                    show_menu()
+                    break
+                elif len(user_data) != 7:
+                    console.print(
+                        "\nExactly 7 values are required. Please try again",
+                        style="error",
+                    )
+                    sleep(3)
+                else:
+                    user_data.insert(0, '0')
+                    console.print(f"\nUpdating {data[2]} by {data[1]}", style="success")
+                    sleep(1)
+                    cell = collection.find(option, in_column=1)
+                    row = cell.row
+                    print(row)
+                    row_converted = [int(ele) if ele.isdigit() else ele for ele in user_data]
+                    print(row_converted)
+                    collection.append_row(row_converted)
+                    collection.delete_rows(row)
+                    list_collection()
+                    break
 
 
 def remove_item():
@@ -275,7 +351,7 @@ def remove_item():
     console.print(f"{LOGO}", style="dark_orange3")
     list_collection()
     while True:
-        option = input("\nEnter ID for the row you want to remove (or 0 for main menu): ")
+        option = input("\nEnter ID for the row to remove (0 for main menu): ")
         option = option.strip()
         if option == "0":
             console.print(
@@ -295,10 +371,42 @@ def remove_item():
             list_collection()
             break
 
+
 def search_collection():
     """
     This function search for item in the record collection
     """
+    while True:
+        os.system("clear")
+        console.print(f"{LOGO}", style="dark_orange3")
+        console.print(
+            "\nWhat do you want to search for? See options below.",
+            style="success",
+        )
+        console.print("\n1. Artist", style="cyan")
+        console.print("2. Title", style="cyan")
+        console.print("3. Label", style="cyan")
+        console.print("4. Format", style="cyan")
+        console.print("5. Rating", style="cyan")
+        console.print("6. Released", style="cyan")
+        console.print("7. Value", style="cyan")
+        console.print("0. Back to main menu", style="cyan")
+
+        search_credential = input("\nEnter your choice: ")
+        search_credential = search_credential.strip()
+        if search_credential == "0":
+            console.print(
+                "\nHeading back to main menu", style="success"
+            )
+            sleep(3)
+            os.system("clear")
+            console.print(f"{LOGO}", style="dark_orange3")
+            show_menu()
+            break
+        elif validate_data(search_credential):
+            data = collection.get_all_values()
+            search_credential = input("\nSearch: ")
+            break
 
 
 def sort_collection(sorting_credential):
