@@ -9,6 +9,7 @@ from rich.console import Console
 from rich.theme import Theme
 from rich.table import Table
 from rich.progress import Progress
+from rich import box
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -25,26 +26,11 @@ collection = SHEET.worksheet("collection")
 custom_theme = Theme({"error": "bold red", "success": "bold green"})
 console = Console(theme=custom_theme)
 
-LOGO = """
-██     ██  ██████  ███    ███
-██     ██ ██    ██ ████  ████
-██  █  ██ ██    ██ ██ ████ ██
-██ ███ ██ ██    ██ ██  ██  ██
- ███ ███   ██████  ██      ██
-
-
-██████  ███████  ██████  ██████  ██████  ██████  ███████
-██   ██ ██      ██      ██    ██ ██   ██ ██   ██ ██
-██████  █████   ██      ██    ██ ██████  ██   ██ ███████
-██   ██ ██      ██      ██    ██ ██   ██ ██   ██      ██
-██   ██ ███████  ██████  ██████  ██   ██ ██████  ███████
-
-\nWelcome to WOM Records, an application that keep
-track on your record collection. Use the menu below
-to start using the application!
+WELCOME = """
+Welcome to WOM Records, an application that keep track on your record
+collection. Use the menu below to start using the application!
 \nAuthor: Marcus Eriksson
 """
-
 
 def show_menu():
     """
@@ -136,7 +122,7 @@ def create_table(data):
     data collection (from the collection sheet)
     """
 
-    table = Table()
+    table = Table(box=box.MINIMAL_DOUBLE_HEAD)
     table.add_column("ID")
     table.add_column("Artist")
     table.add_column("Title")
@@ -147,10 +133,10 @@ def create_table(data):
     table.add_column("Value (€)")
 
     for row in data[0::1]:
-        table.add_row(*row, style="black bold on grey78")
+        table.add_row(*row)
 
     os.system("clear")
-    console.print(f"{LOGO}", style="dark_orange3")
+    console.print(f"{WELCOME}", style="dark_orange3")
     console.print(table)
 
 
@@ -187,7 +173,7 @@ def add_item():
             )
             sleep(3)
             os.system("clear")
-            console.print(f"{LOGO}", style="dark_orange3")
+            console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
             break
         elif len(user_data) != 7:
@@ -211,7 +197,7 @@ def add_item():
             # adds new row to the end of the current data
             worksheet_to_update.append_row(new_row_converted)
             os.system("clear")
-            console.print(f"{LOGO}", style="dark_orange3")
+            console.print(f"{WELCOME}", style="dark_orange3")
             add_id()
             break
 
@@ -229,7 +215,7 @@ def calculate_total_value():
     value_data = list(map(int, value_data))
     sum_value = sum(value_data)
     os.system("clear")
-    console.print(f"{LOGO}", style="dark_orange3")
+    console.print(f"{WELCOME}", style="dark_orange3")
     return sum_value
 
 
@@ -250,13 +236,13 @@ def change_item():
             )
             sleep(3)
             os.system("clear")
-            console.print(f"{LOGO}", style="dark_orange3")
+            console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
             break
         elif validate_remove(option):
             while True:
                 os.system("clear")
-                console.print(f"{LOGO}", style="dark_orange3")
+                console.print(f"{WELCOME}", style="dark_orange3")
                 data = collection.row_values(option)
                 table = Table()
                 table.add_column("Artist")
@@ -293,7 +279,7 @@ def change_item():
                     )
                     sleep(3)
                     os.system("clear")
-                    console.print(f"{LOGO}", style="dark_orange3")
+                    console.print(f"{WELCOME}", style="dark_orange3")
                     change_item()
                     break
                 elif len(user_data) != 7:
@@ -325,7 +311,7 @@ def remove_item():
     """
 
     os.system("clear")
-    console.print(f"{LOGO}", style="dark_orange3")
+    console.print(f"{WELCOME}", style="dark_orange3")
     data = collection.get_all_values()
     create_table(data)
 
@@ -338,7 +324,7 @@ def remove_item():
             )
             sleep(3)
             os.system("clear")
-            console.print(f"{LOGO}", style="dark_orange3")
+            console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
             break
         elif validate_remove(option):
@@ -369,7 +355,7 @@ def search_collection():
     """
     while True:
         os.system("clear")
-        console.print(f"{LOGO}", style="dark_orange3")
+        console.print(f"{WELCOME}", style="dark_orange3")
         console.print(
             "\nWhat do you want to search for?"
             "\nArtist, Title, Label,Format,Rating,Released,Value",
@@ -385,7 +371,7 @@ def search_collection():
             )
             sleep(3)
             os.system("clear")
-            console.print(f"{LOGO}", style="dark_orange3")
+            console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
             break
         else:
@@ -400,7 +386,7 @@ def sort_collection():
     """
 
     os.system("clear")
-    console.print(f"{LOGO}", style="dark_orange3")
+    console.print(f"{WELCOME}", style="dark_orange3")
     data = collection.get_all_values()
     create_table(data)
     while True:
@@ -425,7 +411,7 @@ def sort_collection():
             )
             sleep(3)
             os.system("clear")
-            console.print(f"{LOGO}", style="dark_orange3")
+            console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
             break
         elif validate_data(sorting_credential):
@@ -489,13 +475,13 @@ def validate_data(user_choice):
 
 def main():
     """
-    Clear terminal, print logo and
+    Clear terminal, print WELCOME and
     run relevant functions to start
     application.
     """
 
     os.system("clear")
-    console.print(f"{LOGO}", style="dark_orange3")
+    console.print(f"{WELCOME}", style="dark_orange3")
     add_id()
     show_menu()
 
