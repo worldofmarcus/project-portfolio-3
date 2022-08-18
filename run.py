@@ -8,6 +8,7 @@ from google.oauth2.service_account import Credentials
 from rich.console import Console
 from rich.theme import Theme
 from rich.table import Table
+from rich.progress import Progress
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -95,6 +96,7 @@ def show_menu():
                     "\nCD,5,1995,50",
                     style="cyan",
                 )
+
                 user_input = input("\nAdd data: ")
                 user_data = list(user_input.split(","))
                 if user_input == "0":
@@ -108,11 +110,12 @@ def show_menu():
                     break
                 elif len(user_data) != 7:
                     console.print(
-                        "\nExactly 8 values are required. Please try again",
+                        "\nExactly 7 values are required. Please try again",
                         style="error",
                     )
                     sleep(3)
                 else:
+                    user_data.insert(0, '0')
                     add_item(user_data, "collection")
                     break
         elif option == "4":
@@ -179,7 +182,17 @@ def list_collection():
     """
 
     console.print("\nPlease wait. Listing collection.", style="success")
-    sleep(2)
+    i = 1
+    max_rows = len(collection.get_all_values())
+
+    with Progress() as progress:
+        task = progress.add_task("[green]Processing...", total=max_rows)
+        while i < max_rows:
+            collection.update_cell(i, 1, (i))
+            i = i + 1
+            progress.update(task, advance=1)
+            #sleep(1)
+    collection.update_cell(i, 1, (i))
     data = collection.get_all_values()
     create_table(data)
 
@@ -217,6 +230,7 @@ def add_item(new_row, worksheet):
     console.print(f"\nUpdating {worksheet} worksheet.\n", style="success")
     sleep(2)
     worksheet_to_update = SHEET.worksheet(worksheet)
+
     # converts string numbers in list to integers - taken from
     # https://www.geeksforgeeks.org/python-convert-numeric-string-to-integers-in-mixed-list/
     new_row_converted = [
@@ -257,9 +271,12 @@ def remove_item():
     """
     This function removes item in the record collection
     """
-    cell = collection.find("16", in_column=1)
+    cell = collection.find("8", in_column=1)
     row = cell.row
     collection.delete_rows(row)
+    os.system("clear")
+    console.print(f"{LOGO}", style="dark_orange3")
+    list_collection()
 
 def search_collection():
     """
