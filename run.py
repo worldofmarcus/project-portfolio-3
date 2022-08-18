@@ -152,13 +152,12 @@ def add_item():
         )
         console.print(
             "\n* Add all columns with comma separation"
-            "\n(Artist,Title,Label,Format, Rating (1-5),"
-            "\nReleased,Value)",
+            "\n(Artist,Title,Label,Format,Value)",
             style="cyan",
         )
         console.print(
             "\n* Example: Shield,Vampiresongs,Desperate Fight Records,"
-            "\nCD,5,1995,50",
+            "\nCD,50",
             style="cyan",
         )
 
@@ -193,8 +192,6 @@ def add_item():
 
             # adds new row to the end of the current data
             worksheet_to_update.append_row(new_row_converted)
-            os.system("clear")
-            console.print(f"{WELCOME}", style="dark_orange3")
             add_id()
             break
 
@@ -212,7 +209,6 @@ def calculate_total_value():
     value_data = list(map(int, value_data))
     sum_value = sum(value_data)
     os.system("clear")
-    console.print(f"{WELCOME}", style="dark_orange3")
     return sum_value
 
 
@@ -241,18 +237,14 @@ def change_item():
         elif validate_remove(option):
             while True:
                 os.system("clear")
-                console.print(f"{WELCOME}", style="dark_orange3")
                 data = collection.row_values(option)
-                table = Table()
+                table = Table(box=box.MINIMAL_DOUBLE_HEAD)
                 table.add_column("Artist")
                 table.add_column("Title")
                 table.add_column("Label")
                 table.add_column("Format")
-                table.add_column("Rating")
-                table.add_column("Released")
                 table.add_column("Value (€)")
-                table.add_row(data[1], data[2], data[3], data[4], data[5],
-                              data[6])
+                table.add_row(data[1], data[2], data[3], data[4], data[5])
                 console.print(table)
                 console.print(
                     f"\nTo change {data[2]} by {data[1]}, follow these"
@@ -281,9 +273,9 @@ def change_item():
                     console.print(f"{WELCOME}", style="dark_orange3")
                     change_item()
                     break
-                elif len(user_data) != 7:
+                elif len(user_data) != 5:
                     console.print(
-                        "\nExactly 7 values are required. Please try again",
+                        "\nExactly 5 values are required. Please try again",
                         style="error",
                     )
                     sleep(3)
