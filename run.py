@@ -271,12 +271,29 @@ def remove_item():
     """
     This function removes item in the record collection
     """
-    cell = collection.find("8", in_column=1)
-    row = cell.row
-    collection.delete_rows(row)
     os.system("clear")
     console.print(f"{LOGO}", style="dark_orange3")
     list_collection()
+    while True:
+        option = input("\nEnter ID for the row you want to remove (or 0 for main menu): ")
+        option = option.strip()
+        if option == "0":
+            console.print(
+                "\nHeading back to main menu", style="success"
+            )
+            sleep(3)
+            os.system("clear")
+            console.print(f"{LOGO}", style="dark_orange3")
+            show_menu()
+            break
+        elif validate_remove(option):
+            console.print(f"Removing row with ID {option}", style="error")
+            sleep(1)
+            cell = collection.find(option, in_column=1)
+            row = cell.row
+            collection.delete_rows(row)
+            list_collection()
+            break
 
 def search_collection():
     """
@@ -297,6 +314,30 @@ def sort_collection(sorting_credential):
     console.print("\nPlease wait. Listing collection.", style="success")
     sleep(2)
     create_table(data)
+
+
+def validate_remove(option):
+    """
+    Validation function that converts string values to integers.
+    If sorting crentials is larger than 8 or if the value cannot
+    be converted to an integer an error is raised.
+    """
+
+    max_rows = len(collection.get_all_values())
+    try:
+        if int(option) > max_rows:
+            raise ValueError(
+                f"Only numbers within the ID range! You provided {option}"
+            )
+
+    except ValueError as error_message:
+        console.print(
+            f"Invalid data: {error_message}. Please try again.\n",
+            style="red bold",
+        )
+        sleep(3)
+        return False
+    return True
 
 
 def validate_data(user_choice):
