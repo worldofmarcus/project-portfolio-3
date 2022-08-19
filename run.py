@@ -30,7 +30,7 @@ console = Console(theme=custom_theme)
 WELCOME = """
 *** WOM RECORD COLLECTION ***
 
-Welcome to WoM Record Collection, an application that keep track on your record
+Welcome to WoM Record Collection, an application that keeps track on your record
 collection. Use the menu below to start using the application!
 """
 
@@ -100,7 +100,7 @@ def show_menu():
 def add_id():
     """
     This function adds an numeric ID to each row in the first column
-    in the sheet. This is being used in the other functions to keep
+    in the sheet. This is being used by the other functions to keep
     track of what ID each item has. A process indicator is also being
     showed so that the user has an idea of how long the listing of
     the collection will take. When the adding of ID:s is done
@@ -108,9 +108,8 @@ def add_id():
     """
 
     console.print("\nPlease wait. Listing collection.", style="success")
-    i = 1
     max_rows = len(collection.get_all_values())
-
+    i = 1
     with Progress() as progress:
         task = progress.add_task("[green]Processing...", total=max_rows)
         while i < max_rows:
@@ -230,7 +229,7 @@ def edit_item():
             console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
             break
-        elif validate_remove(option):
+        elif validate_max_rows(option):
             while True:
                 os.system("clear")
                 data = collection.row_values(option)
@@ -296,7 +295,7 @@ def remove_item():
             console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
             break
-        elif validate_remove(option):
+        elif validate_max_rows(option):
             user_confirm = input("\nAre you sure? ").lower()
 
             if user_confirm == "n":
@@ -318,26 +317,12 @@ def remove_item():
                 sleep(1)
 
 
-def edit_collection(row, column):
-    """
-    This function updates a specific cell based on input
-    from user.
-    """
-
-    new_value = input("\nPlease add new value: \n")
-    column = int(column)
-    column += 1
-    worksheet_to_update = SHEET.worksheet("collection")
-    worksheet_to_update.update_cell(row, column, new_value)
-    console.print("\nUpdating cell.", style="success")
-    sleep(2)
-    edit_item()
-
-
 def sort_collection():
     """
     Sorting collection based on users choice of sorting
-    credentials.
+    credentials. The function also creates a new table.
+    The reason is that the user should not be able to
+    sort the data based on ID.
     """
 
     os.system("clear")
@@ -393,7 +378,23 @@ def calculate_total_value():
     return sum_value
 
 
-def validate_remove(option):
+def edit_collection(row, column):
+    """
+    This function updates a specific cell based on input
+    from user.
+    """
+
+    new_value = input("\nPlease add new value: \n")
+    column = int(column)
+    column += 1
+    worksheet_to_update = SHEET.worksheet("collection")
+    worksheet_to_update.update_cell(row, column, new_value)
+    console.print("\nUpdating cell.", style="success")
+    sleep(2)
+    edit_item()
+
+
+def validate_max_rows(option):
     """
     Validation function that converts string values to integers.
     If sorting crentials is larger than 5 or if the value cannot
