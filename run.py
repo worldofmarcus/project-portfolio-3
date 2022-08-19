@@ -1,5 +1,4 @@
 """Import modules"""
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
 
 import os
 from time import sleep
@@ -42,29 +41,22 @@ def show_menu():
     """
 
     while True:
-        menu_options = {
-            1: "List music collection",
-            2: "Search item in music collection",
-            3: "Add item to collection",
-            4: "Edit item in collection",
-            5: "Remove item from collection",
-            6: "Sort collection",
-            7: "Show total value of collection",
-            0: "Exit application",
-        }
         print("\n")
-
-        for choice in menu_options.keys():
-            console.print(
-                choice, " - ", menu_options[choice], style="cyan"
-            )
+        console.print("1 - List music collection", style="cyan")
+        console.print("2: Search item in music collection", style="cyan")
+        console.print("3: Add item to collection", style="cyan")
+        console.print("4: Edit item in collection", style="cyan")
+        console.print("5: Remove item from collection", style="cyan")
+        console.print("6: Sort collection", style="cyan")
+        console.print("7: Show total value of collection", style="cyan")
+        console.print("0: Exit application", style="cyan")
 
         option = input("\nEnter your choice: \n")
         option = option.strip()
         if option == "1":       # call function 'list_collection'
             add_id()
-        elif option == "2":     # call function 'search_collection'
-            search_collection()
+        elif option == "2":     # call function 'search_item'
+            search_item()
         elif option == "3":     # call function 'add item'
             add_item()
             break
@@ -80,12 +72,12 @@ def show_menu():
         elif option == "7":     # call function 'calculate_total_value'
             sum_value = calculate_total_value()
             console.print(
-                f"\nThe collection is worth €{sum_value}", style="success"
+                f"Collections value is €{sum_value}", style="success"
             )
         elif option == "0":     # exits program
             console.print(
-                "\nThank you for using WoM Record Collection!"
-                , style="success")
+                "\nThank you for using WoM Record Collection!",
+                style="success")
             sleep(2)
             console.print(
                 "\nApplication has shutdown. Use the RUN APP button if"
@@ -145,7 +137,7 @@ def create_table(data):
     console.print(table)
 
 
-def search_collection():
+def search_item():
     """
     This function search for item in the record collection
     """
@@ -155,8 +147,10 @@ def add_item():
     """
     This function adds item to the record collection
     """
-
     os.system("clear")
+    add_id()
+    data = collection.get_all_values()
+
 
     while True:
         console.print(
@@ -165,7 +159,7 @@ def add_item():
             style="bold cyan",
         )
         console.print(
-            "\n* Add all columns with comma separation"
+            "\n* Add all columns with comma separation and without spaces"
             "\n(Artist,Title,Label,Format,Value)",
             style="cyan",
         )
@@ -174,7 +168,7 @@ def add_item():
             "\nCD,50", style="cyan"
         )
 
-        user_input = input("\nAdd data: \n")
+        user_input = input("\nAdd items: \n")
         user_data = list(user_input.split(","))
         if user_input == "0":
             console.print(
@@ -206,7 +200,6 @@ def add_item():
             # adds new row to the end of the current data
             worksheet_to_update.append_row(new_row_converted)
             add_id()
-            break
 
 
 def edit_item():
@@ -215,10 +208,11 @@ def edit_item():
     """
 
     os.system("clear")
+    add_id()
     data = collection.get_all_values()
-    create_table(data)
 
-    while True:
+    break_out_flag = True
+    while break_out_flag:
         option = input("\nEnter ID for row to edit (0 for main menu): \n")
         option = option.strip()
 
@@ -230,6 +224,7 @@ def edit_item():
             os.system("clear")
             console.print(f"{WELCOME}", style="cyan")
             show_menu()
+            break_out_flag = False
             break
         elif validate_max_rows(option):
             while True:
@@ -253,23 +248,24 @@ def edit_item():
 
                 if user_input == "0":
                     console.print(
-                        "\nHeading back to change menu", style="success"
+                        "\nHeading back to edit menu", style="success"
                     )
                     sleep(3)
                     os.system("clear")
                     console.print(f"{WELCOME}", style="cyan")
                     edit_item()
+                    break_out_flag = False
                     break
                 elif user_input == "1":
-                    edit_collection(option, user_input)
+                    update_cell(option, user_input)
                 elif user_input == "2":
-                    edit_collection(option, user_input)
+                    update_cell(option, user_input)
                 elif user_input == "3":
-                    edit_collection(option, user_input)
+                    update_cell(option, user_input)
                 elif user_input == "4":
-                    edit_collection(option, user_input)
+                    update_cell(option, user_input)
                 elif user_input == "5":
-                    edit_collection(option, user_input)
+                    update_cell(option, user_input)
                 else:
                     console.print("Please choose a number between 0 and 5",
                                   style="error")
@@ -282,10 +278,11 @@ def remove_item():
     """
 
     os.system("clear")
+    add_id()
     data = collection.get_all_values()
-    create_table(data)
 
-    while True:
+    break_out_flag = True
+    while break_out_flag:
         option = input("\nEnter ID for row to remove (0 for main menu): \n")
         option = option.strip()
         if option == "0":
@@ -296,6 +293,7 @@ def remove_item():
             os.system("clear")
             console.print(f"{WELCOME}", style="cyan")
             show_menu()
+            break_out_flag = False
             break
         elif validate_max_rows(option):
             user_confirm = input("\nAre you sure? ").lower()
@@ -313,11 +311,9 @@ def remove_item():
                 collection.delete_rows(row)
                 data = collection.get_all_values()
                 create_table(data)
-                break
             else:
                 console.print("Invalid input. Please try again", style="error")
                 sleep(1)
-
 
 def sort_collection():
     """
@@ -328,8 +324,8 @@ def sort_collection():
     """
 
     os.system("clear")
+    add_id()
     data = collection.get_all_values()
-    create_table(data)
     while True:
         console.print(
             "\nPlease choose a sorting credential.",
@@ -380,7 +376,7 @@ def calculate_total_value():
     return sum_value
 
 
-def edit_collection(row, column):
+def update_cell(row, column):
     """
     This function updates a specific cell based on input
     from user.
@@ -393,7 +389,6 @@ def edit_collection(row, column):
     worksheet_to_update.update_cell(row, column, new_value)
     console.print("\nUpdating cell.", style="success")
     sleep(2)
-    edit_item()
 
 
 def validate_max_rows(option):
