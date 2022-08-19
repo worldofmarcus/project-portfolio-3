@@ -23,7 +23,8 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("music_collection")
 collection = SHEET.worksheet("collection")
 
-custom_theme = Theme({"error": "bold red", "success": "bold green"})
+custom_theme = Theme({"error": "bold white on red",
+                     "success": "bold black on green"})
 console = Console(theme=custom_theme)
 
 WELCOME = """
@@ -45,7 +46,7 @@ def show_menu():
             1: "List music collection",
             2: "Search item in music collection",
             3: "Add item to collection",
-            4: "Change item in collection",
+            4: "Edit item in collection",
             5: "Remove item from collection",
             6: "Sort collection",
             7: "Show total value of collection",
@@ -67,8 +68,8 @@ def show_menu():
         elif option == "3":     # call function 'add item'
             add_item()
             break
-        elif option == "4":     # call function 'change item'
-            change_item()
+        elif option == "4":     # call function 'edit item'
+            edit_item()
             break
         elif option == "5":     # call function 'remove item'
             remove_item()
@@ -94,6 +95,7 @@ def show_menu():
             )
             sleep(3)
             main()
+
 
 def add_id():
     """
@@ -140,6 +142,12 @@ def create_table(data):
 
     os.system("clear")
     console.print(table)
+
+
+def search_collection():
+    """
+    This function search for item in the record collection
+    """
 
 
 def add_item():
@@ -200,23 +208,7 @@ def add_item():
             break
 
 
-def calculate_total_value():
-    """
-    Calculate the total value of record collection.
-    """
-    console.print(
-        "\nPlease wait. Calculating total value of the record collection.",
-        style="success",
-    )
-    sleep(2)
-    value_data = collection.col_values(6)
-    value_data = list(map(int, value_data))
-    sum_value = sum(value_data)
-    os.system("clear")
-    return sum_value
-
-
-def change_item():
+def edit_item():
     """
     This function changes item in the record collection
     """
@@ -226,7 +218,7 @@ def change_item():
     create_table(data)
 
     while True:
-        option = input("\nEnter ID for the row to change (0 for main menu): \n")
+        option = input("\nEnter ID for row to edit (0 for main menu): \n")
         option = option.strip()
 
         if option == "0":
@@ -251,23 +243,13 @@ def change_item():
                 table.add_row(data[1], data[2], data[3], data[4], data[5])
                 console.print(table)
                 console.print(
-                    f"\nTo change {data[2]} by {data[1]}, follow these"
-                    "\ninstructions (or choose 0 to return to change menu):",
-                    style="bold cyan",
+                    f"\nTo edit {data[2]} by {data[1]}, please choose a cell"
+                    "\nto edit\n"
+                    "\n1. Artist, 2. Title, 3.Label, 4. Format, 5. Value"
+                    "\n0. Back to change menu", style="bold cyan"
                 )
-                console.print(
-                    "\n* Add all columns with comma separation"
-                    "\n(Artist,Title,Label,Format, Rating (1-5),"
-                    "\nReleased,Value)",
-                    style="cyan",
-                )
-                console.print(
-                    "\n* Example: Shield,Vampiresongs,Desperate Fight Records,"
-                    "\nCD,5,1995,50",
-                    style="cyan",
-                )
-                user_input = input("\nAdd data: \n")
-                user_data = list(user_input.split(","))
+                user_input = input("\nChoose cell to edit: \n")
+
                 if user_input == "0":
                     console.print(
                         "\nHeading back to change menu", style="success"
@@ -275,29 +257,22 @@ def change_item():
                     sleep(3)
                     os.system("clear")
                     console.print(f"{WELCOME}", style="dark_orange3")
-                    change_item()
+                    edit_item()
                     break
-                elif len(user_data) != 5:
-                    console.print(
-                        "\nExactly 5 values are required. Please try again",
-                        style="error",
-                    )
-                    sleep(3)
+                elif user_input == "1":
+                    edit_collection(option, user_input)
+                elif user_input == "2":
+                    edit_collection(option, user_input)
+                elif user_input == "3":
+                    edit_collection(option, user_input)
+                elif user_input == "4":
+                    edit_collection(option, user_input)
+                elif user_input == "5":
+                    edit_collection(option, user_input)
                 else:
-                    user_data.insert(0, '0')
-                    console.print(
-                        f"\nUpdating {data[2]} by {data[1]}",
-                        style="success"
-                    )
-                    sleep(1)
-                    cell = collection.find(option, in_column=1)
-                    row = cell.row
-                    row_converted = [int(ele) if ele.isdigit()
-                                     else ele for ele in user_data]
-                    collection.append_row(row_converted)
-                    collection.delete_rows(row)
-                    add_id()
-                    break
+                    console.print("Please choose a number between 0 and 5",
+                                  style="error")
+                    sleep(2)
 
 
 def remove_item():
@@ -310,7 +285,7 @@ def remove_item():
     create_table(data)
 
     while True:
-        option = input("\nEnter ID for the row to remove (0 for main menu): \n")
+        option = input("\nEnter ID for row to remove (0 for main menu): \n")
         option = option.strip()
         if option == "0":
             console.print(
@@ -343,33 +318,20 @@ def remove_item():
                 sleep(1)
 
 
-def search_collection():
+def edit_collection(row, column):
     """
-    This function search for item in the record collection
+    This function updates a specific cell based on input
+    from user.
     """
-    while True:
-        os.system("clear")
-        console.print(
-            "\nWhat do you want to search for?"
-            "\nArtist, Title, Label,Format,Rating,Released,Value",
-            style="success"
-        )
 
-        search_credential = input("\nSearch Criteria (0 for main menu): ")
-        search_credential = search_credential.strip()
-
-        if search_credential == "0":
-            console.print(
-                "\nHeading back to main menu", style="success"
-            )
-            sleep(3)
-            os.system("clear")
-            console.print(f"{WELCOME}", style="dark_orange3")
-            show_menu()
-            break
-        else:
-            print("Checking result")
-            break
+    new_value = input("\nPlease add new value: \n")
+    column = int(column)
+    column += 1
+    worksheet_to_update = SHEET.worksheet("collection")
+    worksheet_to_update.update_cell(row, column, new_value)
+    console.print("\nUpdating cell.", style="success")
+    sleep(2)
+    edit_item()
 
 
 def sort_collection():
@@ -413,7 +375,22 @@ def sort_collection():
             collection.sort((sorting_credential, "asc"))
             data = collection.get_all_values()
             create_table(data)
-            break
+
+
+def calculate_total_value():
+    """
+    Calculate the total value of record collection.
+    """
+    console.print(
+        "\nPlease wait. Calculating total value of the record collection.",
+        style="success",
+    )
+    sleep(2)
+    value_data = collection.col_values(6)
+    value_data = list(map(int, value_data))
+    sum_value = sum(value_data)
+    os.system("clear")
+    return sum_value
 
 
 def validate_remove(option):
