@@ -299,7 +299,7 @@ def remove_item():
             break_out_flag = False
             break
         elif validate_max_rows(option):
-            user_confirm = input("\nAre you sure? ").lower()
+            user_confirm = input("\nAre you sure?(y/n) ").lower()
 
             if user_confirm == "n":
                 console.print("Aborting...", style="error")
