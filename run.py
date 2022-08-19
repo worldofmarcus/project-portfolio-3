@@ -149,14 +149,12 @@ def add_item():
     """
     os.system("clear")
     add_id()
-    data = collection.get_all_values()
-
 
     while True:
         console.print(
             "\nTo add an item to the record collection,follow these"
             "\ninstructions (or choose 0 to return to main menu):",
-            style="bold cyan",
+            style="cyan",
         )
         console.print(
             "\n* Add all columns with comma separation and without spaces"
@@ -239,10 +237,15 @@ def edit_item():
                 table.add_row(data[1], data[2], data[3], data[4], data[5])
                 console.print(table)
                 console.print(
-                    f"\nTo edit {data[2]} by {data[1]}, please choose a cell"
-                    "\nto edit\n"
-                    "\n1. Artist, 2. Title, 3.Label, 4. Format, 5. Value"
-                    "\n0. Back to change menu", style="bold cyan"
+                    f"\nTo edit {data[2]} by {data[1]}, please choose the"
+                    "\nvalue you want to edit.\n"
+                    "\n1. Artist"
+                    "\n2. Title"
+                    "\n3. Label"
+                    "\n4. Format"
+                    "\n5. Value"
+                    "\n0. Back to edit menu",
+                    style="cyan"
                 )
                 user_input = input("\nChoose cell to edit: \n")
 
@@ -302,7 +305,7 @@ def remove_item():
                 console.print("Aborting...", style="error")
                 sleep(2)
                 remove_item()
-
+                break_out_flag = False
             elif user_confirm == "y":
                 console.print(f"Removing row with ID {option}", style="error")
                 sleep(1)
@@ -314,6 +317,7 @@ def remove_item():
             else:
                 console.print("Invalid input. Please try again", style="error")
                 sleep(1)
+
 
 def sort_collection():
     """
