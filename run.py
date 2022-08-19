@@ -167,8 +167,19 @@ def add_item():
         )
 
         user_input = input("\nAdd items: \n")
+        user_input = user_input.replace(" ", "")
         user_data = list(user_input.split(","))
-        if user_input == "0":
+        while " " in user_data:
+            user_data.remove(" ")
+
+        if not any(user_data):
+            console.print(
+                "\nYou did not provide any information. Please try again",
+                style="error"
+            )
+            sleep(3)
+
+        elif user_input == "0":
             console.print(
                 "\nHeading back to main menu", style="success"
             )
@@ -177,12 +188,14 @@ def add_item():
             console.print(f"{WELCOME}", style="cyan")
             show_menu()
             break
+
         elif len(user_data) != 5:
             console.print(
                 "\nExactly 5 values are required. Please try again",
-                style="error",
+                style="error"
             )
             sleep(3)
+
         else:
             worksheet_to_update = SHEET.worksheet("collection")
             user_data.insert(0, '0')
