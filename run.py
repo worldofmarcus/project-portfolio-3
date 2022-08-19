@@ -80,7 +80,7 @@ def show_menu():
                 style="success")
             sleep(2)
             console.print(
-                "\nApplication has shutdown. Use the RUN APP button if"
+                "\nApplication has shutdown. Use the RUN PROGRAM button if"
                 "\nyou want to restart the app.", style="success")
             break
         else:                   # print out to user that option is invalid
