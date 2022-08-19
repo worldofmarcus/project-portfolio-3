@@ -23,8 +23,8 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("music_collection")
 collection = SHEET.worksheet("collection")
 
-custom_theme = Theme({"error": "bold white on red",
-                     "success": "bold black on green"})
+custom_theme = Theme({"error": "bold white on bright_red",
+                     "success": "bold black on green3"})
 console = Console(theme=custom_theme)
 
 WELCOME = """
@@ -180,7 +180,7 @@ def add_item():
             )
             sleep(3)
             os.system("clear")
-            console.print(f"{WELCOME}", style="dark_orange3")
+            console.print(f"{WELCOME}", style="cyan")
             show_menu()
             break
         elif len(user_data) != 5:
@@ -226,7 +226,7 @@ def edit_item():
             )
             sleep(3)
             os.system("clear")
-            console.print(f"{WELCOME}", style="dark_orange3")
+            console.print(f"{WELCOME}", style="cyan")
             show_menu()
             break
         elif validate_max_rows(option):
@@ -255,7 +255,7 @@ def edit_item():
                     )
                     sleep(3)
                     os.system("clear")
-                    console.print(f"{WELCOME}", style="dark_orange3")
+                    console.print(f"{WELCOME}", style="cyan")
                     edit_item()
                     break
                 elif user_input == "1":
@@ -292,7 +292,7 @@ def remove_item():
             )
             sleep(3)
             os.system("clear")
-            console.print(f"{WELCOME}", style="dark_orange3")
+            console.print(f"{WELCOME}", style="cyan")
             show_menu()
             break
         elif validate_max_rows(option):
@@ -348,7 +348,7 @@ def sort_collection():
             )
             sleep(3)
             os.system("clear")
-            console.print(f"{WELCOME}", style="dark_orange3")
+            console.print(f"{WELCOME}", style="cyan")
             show_menu()
             break
         elif validate_data(sorting_credential):
@@ -449,7 +449,7 @@ def main():
     """
 
     os.system("clear")
-    console.print(f"{WELCOME}", style="dark_orange3")
+    console.print(f"{WELCOME}", style="cyan")
     show_menu()
 
 
