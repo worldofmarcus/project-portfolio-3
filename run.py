@@ -23,15 +23,15 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("music_collection")
 collection = SHEET.worksheet("collection")
 
-custom_theme = Theme({"error": "bold white on bright_red",
-                     "success": "bold black on green3"})
+custom_theme = Theme({"error": "bold red",
+                     "success": "bold green"})
 console = Console(theme=custom_theme)
 
 WELCOME = """
 *** WOM RECORD COLLECTION ***
 
-Welcome to WoM Record Collection, an application that keeps track on your record
-collection. Use the menu below to start using the application!
+WOM keeps track on your record collection!
+Use the menu below to start using the application!
 """
 
 
@@ -84,10 +84,12 @@ def show_menu():
             )
         elif option == "0":     # exits program
             console.print(
-                "\nThank you for using WoM Record Collection!",
-                style="success",
-            )
-            sleep(3)
+                "\nThank you for using WoM Record Collection!"
+                , style="success")
+            sleep(2)
+            console.print(
+                "\nApplication has shutdown. Use the RUN APP button if"
+                "\nyou want to restart the app.", style="success")
             break
         else:                   # print out to user that option is invalid
             console.print(
