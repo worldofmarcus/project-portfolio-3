@@ -154,31 +154,40 @@ def search_item():
     data = collection.get_all_values()
     data = list(map(lambda x: list(map(lambda y: y.upper(), x)), data))
     matches = []
-    console.print("\nInput your search credentials below. 0 for main menu", style="cyan")
+    console.print("\nInput your search credentials below. "
+                  "0 for main menu", style="cyan")
     user_input = input("\nInput your search credential: \n").upper()
-    for match in data:
-        if user_input in match:
-            matches.append(match)
 
-    table = Table(box=box.MINIMAL_DOUBLE_HEAD)
-    table.add_column("ID")
-    table.add_column("ARTIST")
-    table.add_column("TITLE")
-    table.add_column("LABEL")
-    table.add_column("FORMAT")
-    table.add_column("VALUE (€)")
-    for row in matches[0::1]:
-        table.add_row(*row)
-    os.system("clear")
-    console.print(table)
-
-    rows = len(matches)
-    if rows == 0:
-        console.print("\nNo match! Please try again\n", style="error")
-        sleep(2)
+    if user_input == "0":
+            console.print("\nHeading back to main menu", style="success")
+            sleep(3)
+            os.system("clear")
+            console.print(f"{WELCOME}", style="dark_orange")
+            show_menu()
     else:
-        pass
-    search_item()
+        for match in data:
+            if user_input in match:
+                matches.append(match)
+
+        table = Table(box=box.MINIMAL_DOUBLE_HEAD)
+        table.add_column("ID")
+        table.add_column("ARTIST")
+        table.add_column("TITLE")
+        table.add_column("LABEL")
+        table.add_column("FORMAT")
+        table.add_column("VALUE (€)")
+        for row in matches[0::1]:
+            table.add_row(*row)
+        os.system("clear")
+        console.print(table)
+
+        rows = len(matches)
+        if rows == 0:
+            console.print("\nNo match! Please try again\n", style="error")
+            sleep(2)
+        else:
+            pass
+        search_item()
 
 
 def add_item():
@@ -367,9 +376,6 @@ def remove_item():
 
     os.system("clear")
     add_id()
-    data = collection.get_all_values()
-
-
     while True:
         option = input(
             "\nEnter ID for row to remove (0 for main menu): \n"
@@ -384,11 +390,11 @@ def remove_item():
             break
         elif validate_max_rows(option):
             user_confirm = input("\nAre you sure?(Y/N) ").upper()
-
             if user_confirm == "N":
                 console.print("Aborting...", style="error")
                 sleep(2)
                 remove_item()
+                break
             elif user_confirm == "Y":
                 console.print(
                     f"Removing row with ID {option}", style="error"
@@ -397,11 +403,11 @@ def remove_item():
                 cell = collection.find(option, in_column=1)
                 row = cell.row
                 collection.delete_rows(row)
-                data = collection.get_all_values()
                 add_id()
+                break
             else:
                 console.print(
-                    "Invalid input. Please try again", style="error"
+                    "Invalid input. Please choose ID to remove again.", style="error"
                 )
                 sleep(1)
 
