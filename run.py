@@ -22,8 +22,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("music_collection")
 collection = SHEET.worksheet("collection")
 
-custom_theme = Theme({"error": "bold red",
-                     "success": "bold green"})
+custom_theme = Theme({"error": "bold red", "success": "bold green"})
 console = Console(theme=custom_theme)
 
 WELCOME = """
@@ -53,37 +52,40 @@ def show_menu():
 
         option = input("\nEnter your choice: \n")
         option = option.strip()
-        if option == "1":       # call function 'list_collection'
+        if option == "1":  # call function 'list_collection'
             add_id()
-        elif option == "2":     # call function 'search_item'
+        elif option == "2":  # call function 'search_item'
             search_item()
-        elif option == "3":     # call function 'add item'
+        elif option == "3":  # call function 'add item'
             add_item()
             break
-        elif option == "4":     # call function 'edit item'
+        elif option == "4":  # call function 'edit item'
             edit_item()
             break
-        elif option == "5":     # call function 'remove item'
+        elif option == "5":  # call function 'remove item'
             remove_item()
             break
-        elif option == "6":     # call function 'sort_collection'
+        elif option == "6":  # call function 'sort_collection'
             sort_collection()
             break
-        elif option == "7":     # call function 'calculate_total_value'
+        elif option == "7":  # call function 'calculate_total_value'
             sum_value = calculate_total_value()
             console.print(
                 f"Collections value is €{sum_value}", style="success"
             )
-        elif option == "0":     # exits program
+        elif option == "0":  # exits program
             console.print(
                 "\nThank you for using WoM Record Collection!",
-                style="success")
+                style="success",
+            )
             sleep(2)
             console.print(
                 "\nApplication has shutdown. Use the RUN PROGRAM button if"
-                "\nyou want to restart the app.", style="success")
+                "\nyou want to restart the app.",
+                style="success",
+            )
             break
-        else:                   # print out to user that option is invalid
+        else:  # print out to user that option is invalid
             console.print(
                 "\nInvalid Option. Please Try Again", style="red bold"
             )
@@ -112,7 +114,9 @@ def add_id():
             progress.update(task, advance=1)
     collection.update_cell(i, 1, (i))
     data = collection.get_all_values()
-    data = list(map(lambda x: list(map(lambda y: y.upper(), x)), data))  #Change all strings to uppercase
+    data = list(
+        map(lambda x: list(map(lambda y: y.upper(), x)), data)
+    )  # Change all strings to uppercase
     create_table(data)
 
 
@@ -192,6 +196,7 @@ def add_item():
                 os.system("clear")
                 console.print(f"{WELCOME}", style="cyan")
                 show_menu()
+                break
             elif option == "Y":
                 break
             else:
@@ -199,26 +204,43 @@ def add_item():
         while True:
             user_artist = input("\nAdd artist: \n").upper()
             if not user_artist.strip():
-                console.print("You did not provide any artist information. Please try again.", style="error")
+                console.print(
+                    "You did not provide any artist information. "
+                    "Please try again.",
+                    style="error",
+                )
             else:
                 break
+
         while True:
             user_title = input("\nAdd title: \n").upper()
             if not user_title.strip():
-                console.print("You did not provide any title information. Please try again.", style="error")
+                console.print(
+                    "You did not provide any title information. "
+                    "Please try again.",
+                    style="error",
+                )
             else:
                 break
 
         while True:
             user_label = input("\nAdd label: \n").upper()
             if not user_label.strip():
-                console.print("You did not provide any label information. Please try again.", style="error")
+                console.print(
+                    "You did not provide any label information. "
+                    "Please try again.",
+                    style="error",
+                )
             else:
                 break
         while True:
             user_format = input("\nAdd format: \n").upper()
             if not user_format.strip():
-                console.print("You did not provide any information. Please try again.", style="error")
+                console.print(
+                    "You did not provide any format information. "
+                    "Please try again.",
+                    style="error",
+                )
             else:
                 break
 
@@ -227,14 +249,20 @@ def add_item():
                 user_value = input("Add value: \n")
                 user_value.strip()
                 user_value = int(user_value)
+                break_out_flag = False
                 break
             except ValueError:
-                console.print("You need to provide a number! Please try again!", style="error")
+                console.print(
+                    "You need to provide a number! Please try again!",
+                    style="error",
+                )
 
-        user_input = accumulate_input(user_artist, user_title, user_label, user_format, user_value)
+        user_input = accumulate_input(
+            user_artist, user_title, user_label, user_format, user_value
+        )
 
         worksheet_to_update = SHEET.worksheet("collection")
-        user_input.insert(0, '0')
+        user_input.insert(0, "0")
         console.print("\nUpdating worksheet.", style="success")
         sleep(2)
 
@@ -243,8 +271,21 @@ def add_item():
         add_id()
 
 
-def accumulate_input(user_artist, user_title, user_label, user_format, user_value):
-    user_input = [user_artist.strip(), user_title.strip(), user_label.strip(), user_format.strip(), user_value]
+def accumulate_input(str1, str2, str3, str4, int1):
+    """
+    This function accumulate the users input from the add function to a list
+    and then strips the strings in the list to remove blank spaces before
+    and after the string. No need to strip the user_value, it has been
+    handeled in the add function.
+    """
+
+    user_input = [
+        str1.strip(),
+        str2.strip(),
+        str3.strip(),
+        str4.strip(),
+        int1,
+    ]
     return user_input
 
 
@@ -263,9 +304,7 @@ def edit_item():
         option = option.strip()
 
         if option == "0":
-            console.print(
-                "\nHeading back to main menu", style="success"
-            )
+            console.print("\nHeading back to main menu", style="success")
             sleep(3)
             os.system("clear")
             console.print(f"{WELCOME}", style="cyan")
@@ -293,7 +332,7 @@ def edit_item():
                     "\n4. Format"
                     "\n5. Value"
                     "\n0. Back to edit menu",
-                    style="cyan"
+                    style="cyan",
                 )
                 user_input = input("\nChoose cell to edit: \n")
 
@@ -318,8 +357,10 @@ def edit_item():
                 elif user_input == "5":
                     update_cell(option, user_input)
                 else:
-                    console.print("Please choose a number between 0 and 5",
-                                  style="error")
+                    console.print(
+                        "Please choose a number between 0 and 5",
+                        style="error",
+                    )
                     sleep(2)
 
 
@@ -334,12 +375,12 @@ def remove_item():
 
     break_out_flag = True
     while break_out_flag:
-        option = input("\nEnter ID for row to remove (0 for main menu): \n")
+        option = input(
+            "\nEnter ID for row to remove (0 for main menu): \n"
+        )
         option = option.strip()
         if option == "0":
-            console.print(
-                "\nHeading back to main menu", style="success"
-            )
+            console.print("\nHeading back to main menu", style="success")
             sleep(3)
             os.system("clear")
             console.print(f"{WELCOME}", style="cyan")
@@ -347,7 +388,7 @@ def remove_item():
             break_out_flag = False
             break
         elif validate_max_rows(option):
-            user_confirm = input("\nAre you sure?(y/n) ").lower()
+            user_confirm = input("\nAre you sure?(Y/N) ").upper()
 
             if user_confirm == "n":
                 console.print("Aborting...", style="error")
@@ -355,7 +396,9 @@ def remove_item():
                 remove_item()
                 break_out_flag = False
             elif user_confirm == "y":
-                console.print(f"Removing row with ID {option}", style="error")
+                console.print(
+                    f"Removing row with ID {option}", style="error"
+                )
                 sleep(1)
                 cell = collection.find(option, in_column=1)
                 row = cell.row
@@ -363,7 +406,9 @@ def remove_item():
                 data = collection.get_all_values()
                 create_table(data)
             else:
-                console.print("Invalid input. Please try again", style="error")
+                console.print(
+                    "Invalid input. Please try again", style="error"
+                )
                 sleep(1)
 
 
@@ -393,17 +438,16 @@ def sort_collection():
         sorting_credential = input("\nEnter your choice: \n")
         sorting_credential = sorting_credential.strip()
         if sorting_credential == "0":
-            console.print(
-                "\nHeading back to main menu", style="success"
-            )
+            console.print("\nHeading back to main menu", style="success")
             sleep(3)
             os.system("clear")
             console.print(f"{WELCOME}", style="cyan")
             show_menu()
             break
         elif validate_data(sorting_credential):
-            console.print("\nPlease wait. Sorting collection.",
-                          style="success")
+            console.print(
+                "\nPlease wait. Sorting collection.", style="success"
+            )
             sleep(2)
             sorting_credential = int(sorting_credential)
             sorting_credential += 1
@@ -445,9 +489,10 @@ def update_cell(row, column):
 
 def validate_max_rows(option):
     """
-    Validation function that converts string values to integers.
-    If sorting crentials is larger than 5 or if the value cannot
-    be converted to an integer an error is raised.
+    Validation function that converts the recieved value option
+    from the function edit_value to an integer and then checks
+    if the option is within the max row in the sheet and if the
+    value can be converted to an integer. If not, an error is raised.
     """
 
     max_rows = len(collection.get_all_values())
@@ -469,9 +514,9 @@ def validate_max_rows(option):
 
 def validate_data(user_choice):
     """
-    Validation function that converts string values to integers.
-    If sorting crentials is larger than 5 or if the value cannot
-    be converted to an integer an error is raised.
+    Validation function that converts the recieved value user_choice
+    to an integer. If user_choice is larger than 5 or if the value
+    cannot be converted to an integer an error is raised.
     """
 
     try:
