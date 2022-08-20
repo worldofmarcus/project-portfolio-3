@@ -154,7 +154,8 @@ def search_item():
     data = collection.get_all_values()
     data = list(map(lambda x: list(map(lambda y: y.upper(), x)), data))
     matches = []
-    user_input = input("Value ").upper()
+    console.print("\nInput your search credentials below. 0 for main menu", style="cyan")
+    user_input = input("\nInput your search credential: \n").upper()
     for match in data:
         if user_input in match:
             matches.append(match)
@@ -195,7 +196,7 @@ def add_item():
                 )
                 sleep(3)
                 os.system("clear")
-                console.print(f"{WELCOME}", style="cyan")
+                console.print(f"{WELCOME}", style="dark_orange")
                 show_menu()
                 break
             elif option == "Y":
@@ -306,7 +307,7 @@ def edit_item():
             console.print("\nHeading back to main menu", style="success")
             sleep(3)
             os.system("clear")
-            console.print(f"{WELCOME}", style="cyan")
+            console.print(f"{WELCOME}", style="dark_orange")
             show_menu()
         elif validate_max_rows(option):
             while True:
@@ -339,7 +340,7 @@ def edit_item():
                     )
                     sleep(3)
                     os.system("clear")
-                    console.print(f"{WELCOME}", style="cyan")
+                    console.print(f"{WELCOME}", style="dark_orange")
                     edit_item()
                 elif user_input == "1":
                     update_cell(option, user_input)
@@ -378,7 +379,7 @@ def remove_item():
             console.print("\nHeading back to main menu", style="success")
             sleep(3)
             os.system("clear")
-            console.print(f"{WELCOME}", style="cyan")
+            console.print(f"{WELCOME}", style="dark_orange")
             show_menu()
             break
         elif validate_max_rows(option):
@@ -434,7 +435,7 @@ def sort_collection():
             console.print("\nHeading back to main menu", style="success")
             sleep(3)
             os.system("clear")
-            console.print(f"{WELCOME}", style="cyan")
+            console.print(f"{WELCOME}", style="dark_orange")
             show_menu()
             break
         elif validate_data(sorting_credential):
@@ -536,7 +537,7 @@ def main():
     """
 
     os.system("clear")
-    console.print(f"{WELCOME}", style="cyan")
+    console.print(f"{WELCOME}", style="dark_orange")
     show_menu()
 
 
