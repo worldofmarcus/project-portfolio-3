@@ -181,68 +181,71 @@ def add_item():
     """
     os.system("clear")
     add_id()
-
     while True:
-        console.print(
-            "\nTo add an item to the record collection,follow these"
-            "\ninstructions (or choose 0 to return to main menu):",
-            style="cyan",
-        )
-        console.print(
-            "\n* Add all columns with comma separation and without spaces"
-            "\n(Artist,Title,Label,Format,Value)",
-            style="cyan",
-        )
-        console.print(
-            "\n* Example: Shield,Vampiresongs,Desperate Fight Records,"
-            "\nCD,50", style="cyan"
-        )
+        while True:
+            option = input("Do you want to add a new item (Y/N)? ").upper()
+            if option == "N":
+                console.print(
+                    "\nHeading back to main menu", style="success"
+                )
+                sleep(3)
+                os.system("clear")
+                console.print(f"{WELCOME}", style="cyan")
+                show_menu()
+            elif option == "Y":
+                break
+            else:
+                console.print("Please choose Y or N", style="error")
+        while True:
+            user_artist = input("\nAdd artist: \n").upper()
+            if not user_artist.strip():
+                console.print("You did not provide any artist information. Please try again.", style="error")
+            else:
+                break
+        while True:
+            user_title = input("\nAdd title: \n").upper()
+            if not user_title.strip():
+                console.print("You did not provide any title information. Please try again.", style="error")
+            else:
+                break
 
-        user_input = input("\nAdd items: \n")
-        user_input = user_input.replace(" ", "")
-        user_data = list(user_input.split(","))
-        while " " in user_data:
-            user_data.remove(" ")
+        while True:
+            user_label = input("\nAdd label: \n").upper()
+            if not user_label.strip():
+                console.print("You did not provide any label information. Please try again.", style="error")
+            else:
+                break
+        while True:
+            user_format = input("\nAdd format: \n").upper()
+            if not user_format.strip():
+                console.print("You did not provide any information. Please try again.", style="error")
+            else:
+                break
 
-        if not any(user_data):
-            console.print(
-                "\nYou did not provide any information. Please try again",
-                style="error"
-            )
-            sleep(3)
+        while True:
+            try:
+                user_value = input("Add value: \n")
+                user_value.strip()
+                user_value = int(user_value)
+                break
+            except ValueError:
+                console.print("You need to provide a number! Please try again!", style="error")
 
-        elif user_input == "0":
-            console.print(
-                "\nHeading back to main menu", style="success"
-            )
-            sleep(3)
-            os.system("clear")
-            console.print(f"{WELCOME}", style="cyan")
-            show_menu()
-            break
+        user_input = accumulate_input(user_artist, user_title, user_label, user_format, user_value)
 
-        elif len(user_data) != 5:
-            console.print(
-                "\nExactly 5 values are required. Please try again",
-                style="error"
-            )
-            sleep(3)
+        worksheet_to_update = SHEET.worksheet("collection")
+        user_input.insert(0, '0')
+        console.print("\nUpdating worksheet.", style="success")
+        sleep(2)
 
-        else:
-            worksheet_to_update = SHEET.worksheet("collection")
-            user_data.insert(0, '0')
-            console.print("\nUpdating worksheet.", style="success")
-            sleep(2)
+        # adds new row to the end of the current data
+        worksheet_to_update.append_row(user_input)
+        add_id()
 
-            # converts string numbers in list to integers - taken from
-            # https://www.geeksforgeeks.org/python-convert-numeric-string-to-integers-in-mixed-list/
-            new_row_converted = [
-                int(ele) if ele.isdigit() else ele for ele in user_data
-            ]
 
-            # adds new row to the end of the current data
-            worksheet_to_update.append_row(new_row_converted)
-            add_id()
+def accumulate_input(user_artist, user_title, user_label, user_format, user_value):
+    user_input = [user_artist.strip(), user_title.strip(), user_label.strip(), user_format.strip(), user_value]
+    return user_input
 
 
 def edit_item():
@@ -497,5 +500,6 @@ def main():
     os.system("clear")
     console.print(f"{WELCOME}", style="cyan")
     show_menu()
+
 
 main()
