@@ -1,6 +1,7 @@
 """Import modules"""
 
 import os
+import sys
 from time import sleep
 import gspread
 from google.oauth2.service_account import Credentials
@@ -84,7 +85,7 @@ def show_menu():
                 "\nyou want to restart the app.",
                 style="success",
             )
-            break
+            sys.exit()
         else:  # print out to user that option is invalid
             console.print(
                 "\nInvalid Option. Please Try Again", style="red bold"
@@ -249,7 +250,6 @@ def add_item():
                 user_value = input("Add value: \n")
                 user_value.strip()
                 user_value = int(user_value)
-                break_out_flag = False
                 break
             except ValueError:
                 console.print(
@@ -298,8 +298,7 @@ def edit_item():
     add_id()
     data = collection.get_all_values()
 
-    break_out_flag = True
-    while break_out_flag:
+    while True:
         option = input("\nEnter ID for row to edit (0 for main menu): \n")
         option = option.strip()
 
@@ -309,8 +308,6 @@ def edit_item():
             os.system("clear")
             console.print(f"{WELCOME}", style="cyan")
             show_menu()
-            break_out_flag = False
-            break
         elif validate_max_rows(option):
             while True:
                 os.system("clear")
@@ -344,8 +341,6 @@ def edit_item():
                     os.system("clear")
                     console.print(f"{WELCOME}", style="cyan")
                     edit_item()
-                    break_out_flag = False
-                    break
                 elif user_input == "1":
                     update_cell(option, user_input)
                 elif user_input == "2":
@@ -373,8 +368,8 @@ def remove_item():
     add_id()
     data = collection.get_all_values()
 
-    break_out_flag = True
-    while break_out_flag:
+
+    while True:
         option = input(
             "\nEnter ID for row to remove (0 for main menu): \n"
         )
@@ -385,17 +380,15 @@ def remove_item():
             os.system("clear")
             console.print(f"{WELCOME}", style="cyan")
             show_menu()
-            break_out_flag = False
             break
         elif validate_max_rows(option):
             user_confirm = input("\nAre you sure?(Y/N) ").upper()
 
-            if user_confirm == "n":
+            if user_confirm == "N":
                 console.print("Aborting...", style="error")
                 sleep(2)
                 remove_item()
-                break_out_flag = False
-            elif user_confirm == "y":
+            elif user_confirm == "Y":
                 console.print(
                     f"Removing row with ID {option}", style="error"
                 )
@@ -404,7 +397,7 @@ def remove_item():
                 row = cell.row
                 collection.delete_rows(row)
                 data = collection.get_all_values()
-                create_table(data)
+                add_id()
             else:
                 console.print(
                     "Invalid input. Please try again", style="error"
@@ -478,7 +471,7 @@ def update_cell(row, column):
     from user.
     """
 
-    new_value = input("\nPlease add new value: \n")
+    new_value = input("\nPlease add new value: \n").upper()
     column = int(column)
     column += 1
     worksheet_to_update = SHEET.worksheet("collection")
