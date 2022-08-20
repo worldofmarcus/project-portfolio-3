@@ -112,6 +112,7 @@ def add_id():
             progress.update(task, advance=1)
     collection.update_cell(i, 1, (i))
     data = collection.get_all_values()
+    data = list(map(lambda x: list(map(lambda y: y.upper(), x)), data))  #Change all strings to uppercase
     create_table(data)
 
 
@@ -124,11 +125,11 @@ def create_table(data):
 
     table = Table(box=box.MINIMAL_DOUBLE_HEAD)
     table.add_column("ID")
-    table.add_column("Artist")
-    table.add_column("Title")
-    table.add_column("Label")
-    table.add_column("Format")
-    table.add_column("Value (€)")
+    table.add_column("ARTIST")
+    table.add_column("TITLE")
+    table.add_column("LABEL")
+    table.add_column("FORMAT")
+    table.add_column("VALUE (€)")
 
     for row in data[0::1]:
         table.add_row(*row)
@@ -140,7 +141,38 @@ def create_table(data):
 def search_item():
     """
     This function search for item in the record collection
+    Allows the user to search for specific contact(s),
+    either by first name, last name or category.
+    Function will then print all matches if they are found.
     """
+
+    data = collection.get_all_values()
+    data = list(map(lambda x: list(map(lambda y: y.upper(), x)), data))
+    matches = []
+    user_input = input("Value ").upper()
+    for match in data:
+        if user_input in match:
+            matches.append(match)
+
+    table = Table(box=box.MINIMAL_DOUBLE_HEAD)
+    table.add_column("ID")
+    table.add_column("ARTIST")
+    table.add_column("TITLE")
+    table.add_column("LABEL")
+    table.add_column("FORMAT")
+    table.add_column("VALUE (€)")
+    for row in matches[0::1]:
+        table.add_row(*row)
+    os.system("clear")
+    console.print(table)
+
+    rows = len(matches)
+    if rows == 0:
+        console.print("\nNo match! Please try again\n", style="error")
+        sleep(2)
+    else:
+        pass
+    search_item()
 
 
 def add_item():
@@ -242,11 +274,11 @@ def edit_item():
                 os.system("clear")
                 data = collection.row_values(option)
                 table = Table(box=box.MINIMAL_DOUBLE_HEAD)
-                table.add_column("Artist")
-                table.add_column("Title")
-                table.add_column("Label")
-                table.add_column("Format")
-                table.add_column("Value (€)")
+                table.add_column("ARTIST")
+                table.add_column("TITLE")
+                table.add_column("LABEL")
+                table.add_column("FORMAT")
+                table.add_column("VALUE (€)")
                 table.add_row(data[1], data[2], data[3], data[4], data[5])
                 console.print(table)
                 console.print(
@@ -465,6 +497,5 @@ def main():
     os.system("clear")
     console.print(f"{WELCOME}", style="cyan")
     show_menu()
-
 
 main()
