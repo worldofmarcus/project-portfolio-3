@@ -152,38 +152,49 @@ def search_item():
     matches = []
     console.print("\nInput your search credentials below. "
                   "0 for main menu", style="cyan")
-    user_input = input("\nInput your search credential: \n").upper()
 
-    if user_input == "0":
-        console.print("\nHeading back to main menu", style="success")
-        sleep(3)
-        os.system("clear")
-        console.print(f"{WELCOME}", style="dark_orange")
-        show_menu()
-    else:
-        for match in data:
-            if user_input in match:
-                matches.append(match)
+    while True:
+        user_input = input("\nInput your search credential: \n").upper()
+        user_input = user_input.strip()
 
-        table = Table(box=box.MINIMAL_DOUBLE_HEAD)
-        table.add_column("ID")
-        table.add_column("ARTIST")
-        table.add_column("TITLE")
-        table.add_column("LABEL")
-        table.add_column("FORMAT")
-        table.add_column("VALUE (€)")
-        for row in matches[0::1]:
-            table.add_row(*row)
-        os.system("clear")
-        console.print(table)
+        if user_input == "0":
+            console.print("\nHeading back to main menu", style="success")
+            sleep(3)
+            os.system("clear")
+            console.print(f"{WELCOME}", style="dark_orange")
+            show_menu()
 
-        rows = len(matches)
-        if rows == 0:
-            console.print("\nNo match! Please try again\n", style="error")
-            sleep(2)
+        elif not user_input:
+                console.print(
+                    "You did not provide any information. "
+                    "Please try again.",
+                    style="error"
+                )
+
         else:
-            pass
-        search_item()
+            for match in data:
+                if user_input in match:
+                    matches.append(match)
+
+            table = Table(box=box.MINIMAL_DOUBLE_HEAD)
+            table.add_column("ID")
+            table.add_column("ARTIST")
+            table.add_column("TITLE")
+            table.add_column("LABEL")
+            table.add_column("FORMAT")
+            table.add_column("VALUE (€)")
+            for row in matches[0::1]:
+                table.add_row(*row)
+            os.system("clear")
+            console.print(table)
+
+            rows = len(matches)
+            if rows == 0:
+                console.print("\nNo match! Please try again\n", style="error")
+                sleep(2)
+            else:
+                pass
+            search_item()
 
 
 def add_item():
