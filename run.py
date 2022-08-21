@@ -59,16 +59,12 @@ def show_menu():
             search_item()
         elif option == "3":  # call function 'add item'
             add_item()
-            break
         elif option == "4":  # call function 'edit item'
             edit_item()
-            break
         elif option == "5":  # call function 'remove item'
             remove_item()
-            break
         elif option == "6":  # call function 'sort_collection'
             sort_collection()
-            break
         elif option == "7":  # call function 'calculate_total_value'
             sum_value = calculate_total_value()
             console.print(
@@ -159,11 +155,11 @@ def search_item():
     user_input = input("\nInput your search credential: \n").upper()
 
     if user_input == "0":
-            console.print("\nHeading back to main menu", style="success")
-            sleep(3)
-            os.system("clear")
-            console.print(f"{WELCOME}", style="dark_orange")
-            show_menu()
+        console.print("\nHeading back to main menu", style="success")
+        sleep(3)
+        os.system("clear")
+        console.print(f"{WELCOME}", style="dark_orange")
+        show_menu()
     else:
         for match in data:
             if user_input in match:
@@ -197,6 +193,7 @@ def add_item():
     os.system("clear")
     add_id()
     while True:
+
         while True:
             option = input("Do you want to add a new item (Y/N)? ").upper()
             if option == "N":
@@ -212,13 +209,14 @@ def add_item():
                 break
             else:
                 console.print("Please choose Y or N", style="error")
+
         while True:
             user_artist = input("\nAdd artist: \n").upper()
             if not user_artist.strip():
                 console.print(
                     "You did not provide any artist information. "
                     "Please try again.",
-                    style="error",
+                    style="error"
                 )
             else:
                 break
@@ -229,7 +227,7 @@ def add_item():
                 console.print(
                     "You did not provide any title information. "
                     "Please try again.",
-                    style="error",
+                    style="error"
                 )
             else:
                 break
@@ -240,7 +238,7 @@ def add_item():
                 console.print(
                     "You did not provide any label information. "
                     "Please try again.",
-                    style="error",
+                    style="error"
                 )
             else:
                 break
@@ -250,7 +248,7 @@ def add_item():
                 console.print(
                     "You did not provide any format information. "
                     "Please try again.",
-                    style="error",
+                    style="error"
                 )
             else:
                 break
@@ -342,6 +340,7 @@ def edit_item():
                     style="cyan",
                 )
                 user_input = input("\nChoose cell to edit: \n")
+                user_input = user_input.strip()
 
                 if user_input == "0":
                     console.print(
@@ -407,7 +406,8 @@ def remove_item():
                 break
             else:
                 console.print(
-                    "Invalid input. Please choose ID to remove again.", style="error"
+                    "Invalid input. Please choose ID to remove "
+                    "again.", style="error"
                 )
                 sleep(1)
 
@@ -478,13 +478,37 @@ def update_cell(row, column):
     from user.
     """
 
-    new_value = input("\nPlease add new value: \n").upper()
+    while True:
+        print(column)
+        new_value = input("\nPlease add new value: \n").upper()
+        new_value = new_value.strip()
+
+        if column == "5":
+            try:
+                new_value = int(new_value)
+                break
+            except ValueError:
+                console.print(
+                    "You need to provide a number! Please try again!",
+                    style="error"
+                )
+        elif not new_value:
+            console.print(
+                "You did not provide any information. "
+                "Please try again.",
+                style="error"
+            )
+
+        else:
+            break
+
     column = int(column)
     column += 1
     worksheet_to_update = SHEET.worksheet("collection")
     worksheet_to_update.update_cell(row, column, new_value)
     console.print("\nUpdating cell.", style="success")
     sleep(2)
+    edit_item()
 
 
 def validate_max_rows(option):
