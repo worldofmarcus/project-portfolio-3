@@ -124,9 +124,21 @@ When the application starts it calls the *main function* which *clears the scree
 * ### List Collection
 The list collection function simply lists the music collection by retrieving all data from the Google Sheet 'collection'. Before listing the collection the function *add id* is being called to add an numeric ID to each row in the first column in the sheet. This needs to be done to make sure that every item has an ID so that the other functions in the application can keep track on the items in the collection. When the adding of the ID:s is done the *create table* function is being called to plot out the table columns and rows. The table functionality is a part of the [Rich](https://rich.readthedocs.io/en/stable/introduction.html) Python library. When the list is being fetched from the Google Sheet a progress indicator is being shown to the user.
 
- ![Welcome Screen](to be updated)
+![List Collection Progress](readme/assets/images/list_progress.png)
 
-  * The welcome screen...
+[List Collection](readme/assets/images/list_collection.png)
+
+* ### Search item in collection
+The search item in collection function lets the user to search for a specific item in the collection. The user can search for anything and if the item exists in the collection it's being printed out in a table (this works for multiple items as well). If no match is being found an empty table and an error message will appear. In both cases (match / no match) the user gets the possibility to add a new search credential and also go back to the main menu by choosing '0'. The search function is not case sensitive but only works with an  **exact** match of the words/numbers in the collection.
+
+![Search Credential](readme/assets/images/search_credential.png)
+
+ ![Search Match](readme/assets/images/search_match.png)
+
+
+ ![Search No Match](readme/assets/images/list_collection.png)
+
+
 
 [Back to top](<#table-of-content>)
 

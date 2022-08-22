@@ -142,9 +142,10 @@ def create_table(data):
 def search_item():
     """
     This function search for item in the record collection
-    Allows the user to search for specific contact(s),
-    either by first name, last name or category.
-    Function will then print all matches if they are found.
+    Allows the user to search for a specific item. The user
+    can search for anything and if the item exists in the
+    collection it's being printed in a table (this works
+    for multiple matches as well)
     """
 
     data = collection.get_all_values()
@@ -190,7 +191,8 @@ def search_item():
 
             rows = len(matches)
             if rows == 0:
-                console.print("\nNo match! Please try again\n", style="error")
+                console.print(f"\nNo match on {user_input}! Please try "
+                              "again\n", style="error")
                 sleep(2)
             else:
                 pass
