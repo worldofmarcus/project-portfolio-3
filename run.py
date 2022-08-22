@@ -494,7 +494,6 @@ def update_cell(row, column):
     """
 
     while True:
-        print(column)
         new_value = input("\nPlease add new value: \n").upper()
         new_value = new_value.strip()
 
