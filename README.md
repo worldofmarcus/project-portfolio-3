@@ -211,9 +211,19 @@ The sort item function sorts the collection based on the users choice of sorting
 
 ![Sorting On Value](readme/assets/images/sorting_credential_value.png)
 
+### **Show Total Value Of Collection**
+This function allows the user to get the total financial value of the collection. When the value has been presentented the main menu is being printed again.
+
+*Show Total Value Of Collection*
+
+![Shot Total Value Of Collection](readme/assets/images/show_total_value.png)
+
 ### Features Left to Implement
 
-* To be updated
+* Add other type of storing
+
+* Add possibility for the user to choose sorting order (inc / dec)
+
 
 
 [Back to top](<#table-of-content>)
