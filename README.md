@@ -125,7 +125,7 @@ When the application starts it calls the *main function* which *clears the scree
 ## **Existing Features**
 
 ### **Main Menu**
-
+![Main Menu](readme/assets/images/main_menu.png)
 
 ### **List Collection**
 The list collection function simply lists the music collection by retrieving all data from the Google Sheet 'collection'. Before listing the collection the function *add id* is being called to add an numeric ID to each row in the first column in the sheet. This needs to be done to make sure that every item has an ID so that the other functions in the application can keep track on the items in the collection. When the adding of the ID:s is done the *create table* function is being called to plot out the table columns and rows. The table functionality is a part of the [Rich](https://rich.readthedocs.io/en/stable/introduction.html) Python library. When the list is being fetched from the Google Sheet a progress indicator is being shown to the user.
@@ -170,10 +170,23 @@ The add item to collection function let's the user add own items to the collecti
 ![Add Item Sequence Not Correct Input Int](readme/assets/images/add_item_sequence_error_int.png)
 
 ### **Edit Item In Collection**
-The add item to collection function let's the user add own items to the collection. The user first gets the question if they want to add an item. If they choose *no* they will be sent back to the main menu and if they answer *yes* the input sequence starts. The user provides data for all columns(*Artist*, *Title*, *Label*, *Format* and *Value (€)*). The ID column is not necessary for the user to fill in, that is being handled by the application itself. The function also checks for valid user input in each cell to secure that not empty content is being exported to the Google Sheet. If all the user input is correct it is being exported to the Google Sheet and then the table updates. After that the user will get the add item uestion again.
+The edit item in collection function let's the user edit a specific item in the collection by choosing the ID for the item (or choose '0' to get back to the main menu). When the user has provided the ID the user needs to choose a value to edit. The ID column is not visible in the table because it's being updated by the application itself. When the user feeds in the input the update cell function is being called for validation to secure that not empty content is being exported to the Google Sheet. If the user input is correct it is being exported to the Google Sheet and then the table updates. After that the user will be redirected to the edit menu agin.
 
-*Add item question*
-![Add Item Sequence Not Correct Input Strings](readme/assets/images/add_item.png)
+*Users ID Choice*
+
+![Edit Item ID Choice](readme/assets/images/edit_item_choice.png)
+
+*Users Choice Of Value To Edit*
+
+![Edit Item Choose Value To Edit](readme/assets/images/edit_item_choose_value.png)
+
+*Edit item where user doesn't add correct input (strings)*
+
+![Edit Item Not Correct Input Strings](readme/assets/images/add_item_sequence_error_strings.png)
+
+*Edit item sequence where user doesn't add correct input (int)*
+
+![Edit Item Not Correct Input Int](readme/assets/images/add_item_sequence_error_int.png)
 
 
 
