@@ -27,7 +27,18 @@ custom_theme = Theme({"error": "bold red", "success": "bold green"})
 console = Console(theme=custom_theme)
 
 WELCOME = """
-*** WOM RECORD COLLECTION ***
+
+██     ██  ██████  ███    ███
+██     ██ ██    ██ ████  ████
+██  █  ██ ██    ██ ██ ████ ██
+██ ███ ██ ██    ██ ██  ██  ██
+ ███ ███   ██████  ██      ██
+
+ ██████  ██████  ██      ██      ███████  ██████ ████████ ██  ██████  ███    ██
+██      ██    ██ ██      ██      ██      ██         ██    ██ ██    ██ ████   ██
+██      ██    ██ ██      ██      █████   ██         ██    ██ ██    ██ ██ ██  ██
+██      ██    ██ ██      ██      ██      ██         ██    ██ ██    ██ ██  ██ ██
+ ██████  ██████  ███████ ███████ ███████  ██████    ██    ██  ██████  ██   ████
 
 WOM keeps track on your record collection!
 Use the menu below to start using the application!
@@ -84,7 +95,8 @@ def show_menu():
             sys.exit()
         else:  # print out to user that option is invalid
             console.print(
-                "\nInvalid Option. Please Try Again", style="red bold"
+                "\nInvalid Option. Please provide a number between 0 - 7",
+                style="red bold"
             )
             sleep(3)
             main()
@@ -165,11 +177,11 @@ def search_item():
             show_menu()
 
         elif not user_input:
-                console.print(
-                    "You did not provide any information. "
-                    "Please try again.",
-                    style="error"
-                )
+            console.print(
+                "You did not provide any information. "
+                "Please try again.",
+                style="error"
+            )
 
         else:
             for match in data:
