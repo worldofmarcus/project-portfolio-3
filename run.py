@@ -201,7 +201,9 @@ def search_item():
 
 def add_item():
     """
-    This function adds item to the record collection
+    This function adds item to the record collection. It also checks for
+    valid input for each cell input to secure that not empty strings are
+    being sent to the Google Sheet.
     """
     os.system("clear")
     add_id()
@@ -268,7 +270,7 @@ def add_item():
 
         while True:
             try:
-                user_value = input("Add value: \n")
+                user_value = input("\nAdd value: \n")
                 user_value.strip()
                 user_value = int(user_value)
                 break

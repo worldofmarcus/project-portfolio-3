@@ -18,10 +18,13 @@
     * [Design Choices](<#design-choices>)
 
 * [**Features**](<#features>)
-    * [Logo Area](<#logo-area>)
-    * [Scoreboard Area](<#scoreboard-area>)
-    * [Game Area](<#game-area>)
-    * [Modals](<#modals>)
+    * [List Collection](<#list-collection>)
+    * [Search Item In Collection](<#search-item-in-collection>)
+    * [Add Item To Collection](<#add-item-to-collection>)
+    * [Edit Item In Collection](<#edit-item-in-collection>)
+    * [Remove Item From Collection](<#edit-item-in-collection>)
+    * [Sort Collection](<#sort-collection>)
+    * [Show Total value of collection](<#show-total-value-of-collection>)
 
 * [**Features Left To Implement**](<#features-left-to-implement>)
 
@@ -128,21 +131,24 @@ The list collection function simply lists the music collection by retrieving all
 
 [List Collection](readme/assets/images/list_collection.png)
 
-* ### Search item in collection
+* ### Search Item In collection
 The search item in collection function lets the user to search for a specific item in the collection. The user can search for anything and if the item exists in the collection it's being printed out in a table (this works for multiple items as well). If no match is being found an empty table and an error message will appear. In both cases (match / no match) the user gets the possibility to add a new search credential and also go back to the main menu by choosing '0'. The search function is not case sensitive but only works with an  **exact** match of the words/numbers in the collection.
+
+*Search credential provided by user:*
 
 ![Search Credential](readme/assets/images/search_credential.png)
 
- ![Search Match](readme/assets/images/search_match.png)
+*We have a match!*
 
+![Search Match](readme/assets/images/search_match.png)
 
- ![Search No Match](readme/assets/images/list_collection.png)
+*We have no match!*
 
-
+![Search No Match](readme/assets/images/search_no_match.png)
 
 [Back to top](<#table-of-content>)
 
-* ### List Collections
+* ### Add Item To Collection
 
  ![Welcome Screen](to be updated)
 
