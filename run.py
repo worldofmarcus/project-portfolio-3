@@ -41,8 +41,8 @@ def show_menu():
 
     while True:
         print("\n")
-        console.print("1: List music collection", style="cyan2")
-        console.print("2: Search item in music collection", style="cyan2")
+        console.print("1: List collection", style="cyan2")
+        console.print("2: Search item in collection", style="cyan2")
         console.print("3: Add item to collection", style="cyan2")
         console.print("4: Edit item in collection", style="cyan2")
         console.print("5: Remove item from collection", style="cyan2")

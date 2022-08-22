@@ -124,14 +124,17 @@ When the application starts it calls the *main function* which *clears the scree
 
 ## **Existing Features**
 
-* ### List Collection
+### **Main Menu**
+
+
+### **List Collection**
 The list collection function simply lists the music collection by retrieving all data from the Google Sheet 'collection'. Before listing the collection the function *add id* is being called to add an numeric ID to each row in the first column in the sheet. This needs to be done to make sure that every item has an ID so that the other functions in the application can keep track on the items in the collection. When the adding of the ID:s is done the *create table* function is being called to plot out the table columns and rows. The table functionality is a part of the [Rich](https://rich.readthedocs.io/en/stable/introduction.html) Python library. When the list is being fetched from the Google Sheet a progress indicator is being shown to the user.
 
 ![List Collection Progress](readme/assets/images/list_progress.png)
 
-[List Collection](readme/assets/images/list_collection.png)
+![List Collection](readme/assets/images/list_collection.png)
 
-* ### Search Item In collection
+### **Search Item In collection**
 The search item in collection function lets the user to search for a specific item in the collection. The user can search for anything and if the item exists in the collection it's being printed out in a table (this works for multiple items as well). If no match is being found an empty table and an error message will appear. In both cases (match / no match) the user gets the possibility to add a new search credential and also go back to the main menu by choosing '0'. The search function is not case sensitive but only works with an  **exact** match of the words/numbers in the collection.
 
 *Search credential provided by user:*
@@ -148,12 +151,29 @@ The search item in collection function lets the user to search for a specific it
 
 [Back to top](<#table-of-content>)
 
-* ### Add Item To Collection
+### **Add Item To Collection**
+The add item to collection function let's the user add own items to the collection. The user first gets the question if they want to add an item. If they choose *no* they will be sent back to the main menu and if they answer *yes* the input sequence starts. The user provides data for all columns(*Artist*, *Title*, *Label*, *Format* and *Value (€)*). The ID column is not necessary for the user to fill in, that is being handled by the application itself. The function also checks for valid user input in each cell to secure that not empty content is being exported to the Google Sheet. If all the user input is correct it is being exported to the Google Sheet and then the table updates. After that the user will get the add item uestion again.
 
- ![Welcome Screen](to be updated)
+*Add item question*
+![Add Item Sequence Not Correct Input Strings](readme/assets/images/add_item.png)
 
-  * The welcome screen...
+*Add item sequence*
 
+![Add Item Sequence Not Correct Input Strings](readme/assets/images/add_item_sequence.png)
+
+*Add item sequence where user doesn't add correct input (strings)*
+
+![Add Item Sequence Not Correct Input Strings](readme/assets/images/add_item_sequence_error_strings.png)
+
+*Add item sequence where user doesn't add correct input (int)*
+
+![Add Item Sequence Not Correct Input Int](readme/assets/images/add_item_sequence_error_int.png)
+
+### **Edit Item In Collection**
+The add item to collection function let's the user add own items to the collection. The user first gets the question if they want to add an item. If they choose *no* they will be sent back to the main menu and if they answer *yes* the input sequence starts. The user provides data for all columns(*Artist*, *Title*, *Label*, *Format* and *Value (€)*). The ID column is not necessary for the user to fill in, that is being handled by the application itself. The function also checks for valid user input in each cell to secure that not empty content is being exported to the Google Sheet. If all the user input is correct it is being exported to the Google Sheet and then the table updates. After that the user will get the add item uestion again.
+
+*Add item question*
+![Add Item Sequence Not Correct Input Strings](readme/assets/images/add_item.png)
 
 
 
