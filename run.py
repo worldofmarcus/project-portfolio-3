@@ -27,17 +27,7 @@ custom_theme = Theme({"error": "bold red", "success": "bold green"})
 console = Console(theme=custom_theme)
 
 WELCOME = """
-▄▄▌ ▐ ▄▌      • ▌ ▄ ·.
-██· █▌▐█▪     ·██ ▐███▪
-██▪▐█▐▐▌ ▄█▀▄ ▐█ ▌▐▌▐█·
-▐█▌██▐█▌▐█▌.▐▌██ ██▌▐█▌
- ▀▀▀▀ ▀▪ ▀█▄▀▪▀▀  █▪▀▀▀
- ▄▄·       ▄▄▌  ▄▄▌  ▄▄▄ . ▄▄· ▄▄▄▄▄▪         ▐ ▄
-▐█ ▌▪▪     ██•  ██•  ▀▄.▀·▐█ ▌▪•██  ██ ▪     •█▌▐█
-██ ▄▄ ▄█▀▄ ██▪  ██▪  ▐▀▀▪▄██ ▄▄ ▐█.▪▐█· ▄█▀▄ ▐█▐▐▌
-▐███▌▐█▌.▐▌▐█▌▐▌▐█▌▐▌▐█▄▄▌▐███▌ ▐█▌·▐█▌▐█▌.▐▌██▐█▌
-·▀▀▀  ▀█▄▀▪.▀▀▀ .▀▀▀  ▀▀▀ ·▀▀▀  ▀▀▀ ▀▀▀ ▀█▄▀▪▀▀ █▪
-
+*** WOM RECORD COLLECTION***
 WOM keeps track on your record collection!
 Use the menu below to start using the application!
 """
