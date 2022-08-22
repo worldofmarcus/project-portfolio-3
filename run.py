@@ -429,14 +429,13 @@ def remove_item():
 def sort_collection():
     """
     Sorting collection based on users choice of sorting
-    credentials. The function also creates a new table.
-    The reason is that the user should not be able to
-    sort the data based on ID.
+    credential. The function also creates a new table but
+    never prints the ID column. The reason is that the
+    user should not be able to sort the data based on ID.
     """
 
     os.system("clear")
     add_id()
-    data = collection.get_all_values()
     while True:
         console.print(
             "\nPlease choose a sorting credential.",
@@ -467,6 +466,7 @@ def sort_collection():
             sorting_credential += 1
             collection.sort((sorting_credential, "asc"))
             data = collection.get_all_values()
+            data = list(map(lambda x: list(map(lambda y: y.upper(), x)), data))
             create_table(data)
 
 

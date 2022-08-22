@@ -152,7 +152,7 @@ The search item in collection function lets the user to search for a specific it
 [Back to top](<#table-of-content>)
 
 ### **Add Item To Collection**
-The add item to collection function let's the user add own items to the collection. The user first gets the question if they want to add an item. If they choose *no* they will be sent back to the main menu and if they answer *yes* the input sequence starts. The user provides data for all columns(*Artist*, *Title*, *Label*, *Format* and *Value (€)*). The ID column is not necessary for the user to fill in, that is being handled by the application itself. The function also checks for valid user input in each cell to secure that not empty content is being exported to the Google Sheet. If all the user input is correct it is being exported to the Google Sheet and then the table updates. After that the user will get the add item uestion again.
+The add item to collection function let's the user add own items to the collection. The user first gets the question if they want to add an item. If they choose *no* they will be sent back to the main menu and if they answer *yes* the input sequence starts. The user provides data for all columns(*Artist*, *Title*, *Label*, *Format* and *Value (€)*). The ID column is not necessary for the user to fill in, that is being handled by the application itself. The function also checks for valid user input in each cell to secure that not empty content is being exported to the Google Sheet. If all the user input is correct the function accumulate input combines all the userdata and then it is being exported to the Google Sheet. After that the table us being printed and the user will get the add item question again.
 
 *Add item question*
 
@@ -190,15 +190,26 @@ The edit item in collection function let's the user edit a specific item in the 
 ![Edit Item Not Correct Input Int](readme/assets/images/edit_item_error_int.png)
 
 ### **Remove Item In Collection**
-The remove item in collection function is very straight forward. It lists the collection and ask the user to enter the ID connected to the row that is in scope for deletion. a specific item in the collection by choosing the ID for the item (or choose '0' to get back to the main menu). When the user has provided the ID the user needs to choose a value to edit. The ID column is not visible in the table because it's being updated by the application itself. When the user feeds in the input the update cell function is being called for validation to secure that not empty content is being exported to the Google Sheet. If the user input is correct it is being exported to the Google Sheet and then the table updates. After that the user will be redirected to the edit menu agin.
+The remove item in collection function is very straight forward. It lists the collection and ask the user to enter the ID connected to the row that is in scope for deletion. The user can also choose '0' to head back to the main menu.a specific item in the collection by choosing the ID for the item (or choose '0' to get back to the main menu). When the user has provided the ID the application asks the user if they really want to remove the item. If they choose 'N', the action will be aborted and the user is being redirected to the remove menu. If they choose yes, the item is being removed, the collection is being listed and the main menu is being printed.
 
-*Users ID Choice*
+*Remove Item*
 
-![Edit Item ID Choice](readme/assets/images/edit_item_choice.png)
+![Remove Item](readme/assets/images/remove_item.png)
 
+*Remove Item Confirm*
 
+![Remove Item](readme/assets/images/remove_confirm.png)
 
+### **Sort Item In Collection**
+The sort item function sorts the collection based on the users choice of sorting credential. The function also creates a new table and prints the table based on the users sorting credential. It can be worth mentioning that the table doesn't print out the ID column because the user should not be able to sort on ID. The function also checks for valid input to secure that the sorting credential is correct. When the sorting has been made the user is being redirected to the sorting menu.
 
+*Sorting Credential*
+
+![Sorting Credential](readme/assets/images/sorting_credential.png)
+
+*Sorting On Value*
+
+![Sorting On Value](readme/assets/images/sorting_credential_value.png)
 
 ### Features Left to Implement
 
