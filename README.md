@@ -155,6 +155,7 @@ The search item in collection function lets the user to search for a specific it
 The add item to collection function let's the user add own items to the collection. The user first gets the question if they want to add an item. If they choose *no* they will be sent back to the main menu and if they answer *yes* the input sequence starts. The user provides data for all columns(*Artist*, *Title*, *Label*, *Format* and *Value (€)*). The ID column is not necessary for the user to fill in, that is being handled by the application itself. The function also checks for valid user input in each cell to secure that not empty content is being exported to the Google Sheet. If all the user input is correct it is being exported to the Google Sheet and then the table updates. After that the user will get the add item uestion again.
 
 *Add item question*
+
 ![Add Item Sequence Not Correct Input Strings](readme/assets/images/add_item.png)
 
 *Add item sequence*
@@ -182,11 +183,20 @@ The edit item in collection function let's the user edit a specific item in the 
 
 *Edit item where user doesn't add correct input (strings)*
 
-![Edit Item Not Correct Input Strings](readme/assets/images/add_item_sequence_error_strings.png)
+![Edit Item Not Correct Input Strings](readme/assets/images/edit_item_error_string.png)
 
 *Edit item sequence where user doesn't add correct input (int)*
 
-![Edit Item Not Correct Input Int](readme/assets/images/add_item_sequence_error_int.png)
+![Edit Item Not Correct Input Int](readme/assets/images/edit_item_error_int.png)
+
+### **Remove Item In Collection**
+The remove item in collection function is very straight forward. It lists the collection and ask the user to enter the ID connected to the row that is in scope for deletion. a specific item in the collection by choosing the ID for the item (or choose '0' to get back to the main menu). When the user has provided the ID the user needs to choose a value to edit. The ID column is not visible in the table because it's being updated by the application itself. When the user feeds in the input the update cell function is being called for validation to secure that not empty content is being exported to the Google Sheet. If the user input is correct it is being exported to the Google Sheet and then the table updates. After that the user will be redirected to the edit menu agin.
+
+*Users ID Choice*
+
+![Edit Item ID Choice](readme/assets/images/edit_item_choice.png)
+
+
 
 
 

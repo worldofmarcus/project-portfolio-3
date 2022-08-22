@@ -320,7 +320,6 @@ def edit_item():
     os.system("clear")
     add_id()
     data = collection.get_all_values()
-
     while True:
         option = input("\nEnter ID for row to edit (0 for main menu): \n")
         option = option.strip()
@@ -341,7 +340,7 @@ def edit_item():
                 table.add_column("LABEL")
                 table.add_column("FORMAT")
                 table.add_column("VALUE (€)")
-                table.add_row(data[1], data[2], data[3], data[4], data[5])
+                table.add_row(data[1].upper(), data[2].upper(), data[3].upper(), data[4].upper(), data[5])
                 console.print(table)
                 console.print(
                     f"\nTo edit {data[2]} by {data[1]}, please choose the"
