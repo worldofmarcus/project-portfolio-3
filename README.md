@@ -1,9 +1,9 @@
-# **WoM Record Collection**
-'WoM Record collection' is an application that helps you catalog your music collection. Examples of functions are *listing the collection*, *adding / changing / removing items*, *sorting the collection* and *calculating the total value of the collection*. The application targets users with an interest of collecting music that have a need of keeping track of their collection.
+# **WOM Record Collection**
+'WOM Record collection' is an application that helps you catalog your music collection. Examples of functions are *listing the collection*, *adding / changing / removing items in the collection*, *sorting the collection* and *calculating the total value of the collection*. The application targets users with an interest of collecting music that have a need of keeping track of their collection.
 
 [View live website here](https://project-portfolio-3.herokuapp.com/)
 
-![WoM responsive design](To be updated)
+![WoM responsive design](readme/assets/images/am_i_responsive.png)
 
 # Table of Content
 
@@ -12,9 +12,9 @@
     * [Site Owners Goal](<#site-owners-goal>)
 
 * [**User Experience (UX)**](<#user-experience-ux>)
-    * [Flowchart](<#flowchart>)
-    * [Wireframes](<#wireframes>)
     * [Site Structure](<#site-structure>)
+    * [Flow chart](<#flow-chart>)
+    * [Data Model](<#data-model>)
     * [Design Choices](<#design-choices>)
 
 * [**Features**](<#features>)
@@ -42,46 +42,101 @@
 #   Project
 
 ## **Site Users Goal**
-To be updated
+The user of 'WOM Record Collection' wants to have access to an intuitive application that keeps track on the users record collection.
+
+## User Stories
+I have included some user stories to clarify why particular feature matters. This can then be tested in the [Testing](<#testing>) section.
+
+- As a user I want to be able to have access to a list function so that I can list all items in the collection.
+- As a user I want to have access to a search function to be able to search for specific items in the collection.
+- As a user I want to be able to add items to the collection.
+- As a user I want to be able to edit items in the collection.
+- As a user I want to be able to remove items in the collection.
+- As a user I want to be able to sort the collection on different sorting criterias.
+- As a user I want access to a function that shows the total value of the collection.
+- As a user I want have an easy way of getting back to the main menu.
 
 ## **Site Owners Goal**
-To be updated
+The goal of the site owner is to deliver an application where the user, in an easy way, can access a record collection and with easy commands have access to relevant functions to change the content of the collection.
 
 [Back to top](<#table-of-content>)
 
 # User Experience (UX)
 
-## Flowchart
-The flowchart for this application was made with the online service [Lucid App](https://lucid.app/).
+For this project I didn't make a wireframe in [Balsamiq](https://balsamiq.com/) as in the earlier projects. The reason is the 'WOM Record Collection' application will have a command line interface which means that there will not be room for that many creative design choices. Instead I decided to create a logic [Flow Chart](<#flow-chart>) to get a broad understanding of the application flow.
 
-![Flowchart](readme/assets/images/WoM_Record_Collection_Flowchart.png)
+## Flow chart
+The flow chart for this application was made with the online service [Lucid App](https://lucid.app/). I tried to keep in on a quite general level but with enough details to get a good understanding of how everything in the application is connected. The flow chart made it a lot more easy when going into the coding phase.
+
+![Flow chart](readme/assets/images/WoM_Record_Collection_Flowchart.png)
 
 [Back to top](<#table-of-content>)
 
 ## Site Structure
 
+The 'WOM Record Collection' is a terminal based application that is being presented in a one page website. When the application starts the user will be presented with a short welcome message and a menu with 8 options/areas (whereof 1 choice is to exit the application.). The menu consists of the following choices: *list collection*, *search item in collection*, *add item to collection*, *edit item in collection*, *remove item from collection*, *sort collection*, *show total value of collection* and *exit application*. Read more about the different choices in the [Features](<#features>) section.
+
+In the top of the page there is also a 'Run Program' button that the user can use to reload the application if needed.
+
+## Data Model
+To store all data in the application I made a choice to use [Google Sheets](https://www.google.co.uk/sheets/about/). All data in the application retrievs and sends data to to the Google Sheet and the workbook includes 1 worksheet.
+
+* Name of workbook: *music collection*
+* Name of worksheet: *collection*
+
+![Google Sheet](readme/assets/images/google_sheet.png)
+
+The worksheet holds 5 columns with information such as: *ID*, *Artist*, *Title*, *Label*, *Format* and *Value (€)* that is being fully controlled from the application via Python.
+
 ## Design Choices
 
 * ### Color Scheme
+'WOM Record Collection' is a terminal based application which means that there aren't that many visual design choices. I have though used the [Rich](https://rich.readthedocs.io/en/stable/introduction.html) for Python to be able to extend the design opportunities.
 
-![Color Palette image](to be updated)
+I have tried to use as clean colors as possible (see below):
+
+* Dark Orange 3 is being used for the welcome message.
+
+![Dark Orange 3](readme/assets/images/dark_orange3.png)
+
+* Cyan 2 is being used for the main menu.
+
+![Cyan 2](readme/assets/images/cyan2.png)
+
+* Red 3 is being used for all error messages.
+
+![Red 3](readme/assets/images/red3.png)
+
+* Green 3 is being used for all success messages.
+
+![Green 3](readme/assets/images/green3.png)
 
 * ### Typography
+No specific typography is being used in the application. The font is just the standard font that is being used in the terminal.
 
 [Back to top](<#table-of-content>)
 
 # **Features**
-To be updated
+When the application starts it calls the *main function* which *clears the screen*, *prints the welcome message* and *lists the menu*. As stated in the [Site Structure](<#site-structure>) area the application consists of 7 different areas (functions) and an exit option, *list collection*, *search item in collection*, *add item to collection*, *edit item in collection*, *remove item from collection*, *sort collection*, *show total value of collection* and *exit application*. Read more about the different choices in the [Features](<#features>) section. The features is being explained more in detail in the [Existing Features](<existing-features>) area below.
 
 ## **Existing Features**
 
-* ### Welcome screen
+* ### List Collection
+The list collection function simply lists the music collection by retrieving all data from the Google Sheet 'collection'. Before listing the collection the function *add id* is being called to add an numeric ID to each row in the first column in the sheet. This needs to be done to make sure that every item has an ID so that the other functions in the application can keep track on the items in the collection. When the adding of the ID:s is done the *create table* function is being called to plot out the table columns and rows. The table functionality is a part of the [Rich](https://rich.readthedocs.io/en/stable/introduction.html) Python library. When the list is being fetched from the Google Sheet a progress indicator is being shown to the user.
 
  ![Welcome Screen](to be updated)
 
   * The welcome screen...
 
 [Back to top](<#table-of-content>)
+
+* ### List Collections
+
+ ![Welcome Screen](to be updated)
+
+  * The welcome screen...
+
+
 
 
 ### Features Left to Implement

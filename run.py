@@ -23,7 +23,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("music_collection")
 collection = SHEET.worksheet("collection")
 
-custom_theme = Theme({"error": "bold red", "success": "bold green"})
+custom_theme = Theme({"error": "bold red3", "success": "bold green3"})
 console = Console(theme=custom_theme)
 
 WELCOME = """
@@ -41,14 +41,14 @@ def show_menu():
 
     while True:
         print("\n")
-        console.print("1: List music collection", style="cyan")
-        console.print("2: Search item in music collection", style="cyan")
-        console.print("3: Add item to collection", style="cyan")
-        console.print("4: Edit item in collection", style="cyan")
-        console.print("5: Remove item from collection", style="cyan")
-        console.print("6: Sort collection", style="cyan")
-        console.print("7: Show total value of collection", style="cyan")
-        console.print("0: Exit application", style="cyan")
+        console.print("1: List music collection", style="cyan2")
+        console.print("2: Search item in music collection", style="cyan2")
+        console.print("3: Add item to collection", style="cyan2")
+        console.print("4: Edit item in collection", style="cyan2")
+        console.print("5: Remove item from collection", style="cyan2")
+        console.print("6: Sort collection", style="cyan2")
+        console.print("7: Show total value of collection", style="cyan2")
+        console.print("0: Exit application", style="cyan2")
 
         option = input("\nEnter your choice: \n")
         option = option.strip()
@@ -84,7 +84,7 @@ def show_menu():
         else:  # print out to user that option is invalid
             console.print(
                 "\nInvalid Option. Please provide a number between 0 - 7",
-                style="red bold"
+                style="red3 bold"
             )
             sleep(3)
             main()
@@ -104,7 +104,7 @@ def add_id():
     max_rows = len(collection.get_all_values())
     i = 1
     with Progress() as progress:
-        task = progress.add_task("[green]Processing...", total=max_rows)
+        task = progress.add_task("[green3]Processing...", total=max_rows)
         while i < max_rows:
             collection.update_cell(i, 1, (i))
             i += 1
@@ -151,7 +151,7 @@ def search_item():
     data = list(map(lambda x: list(map(lambda y: y.upper(), x)), data))
     matches = []
     console.print("\nInput your search credentials below. "
-                  "0 for main menu", style="cyan")
+                  "0 for main menu", style="cyan2")
 
     while True:
         user_input = input("\nInput your search credential: \n").upper()
@@ -161,7 +161,7 @@ def search_item():
             console.print("\nHeading back to main menu", style="success")
             sleep(3)
             os.system("clear")
-            console.print(f"{WELCOME}", style="dark_orange")
+            console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
 
         elif not user_input:
@@ -213,7 +213,7 @@ def add_item():
                 )
                 sleep(3)
                 os.system("clear")
-                console.print(f"{WELCOME}", style="dark_orange")
+                console.print(f"{WELCOME}", style="dark_orange3")
                 show_menu()
                 break
             elif option == "Y":
@@ -325,7 +325,7 @@ def edit_item():
             console.print("\nHeading back to main menu", style="success")
             sleep(3)
             os.system("clear")
-            console.print(f"{WELCOME}", style="dark_orange")
+            console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
         elif validate_max_rows(option):
             while True:
@@ -348,7 +348,7 @@ def edit_item():
                     "\n4. Format"
                     "\n5. Value"
                     "\n0. Back to edit menu",
-                    style="cyan",
+                    style="cyan2",
                 )
                 user_input = input("\nChoose cell to edit: \n")
                 user_input = user_input.strip()
@@ -359,7 +359,7 @@ def edit_item():
                     )
                     sleep(3)
                     os.system("clear")
-                    console.print(f"{WELCOME}", style="dark_orange")
+                    console.print(f"{WELCOME}", style="dark_orange3")
                     edit_item()
                 elif user_input == "1":
                     update_cell(option, user_input)
@@ -395,7 +395,7 @@ def remove_item():
             console.print("\nHeading back to main menu", style="success")
             sleep(3)
             os.system("clear")
-            console.print(f"{WELCOME}", style="dark_orange")
+            console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
             break
         elif validate_max_rows(option):
@@ -439,12 +439,12 @@ def sort_collection():
             "\nPlease choose a sorting credential.",
             style="success",
         )
-        console.print("\n1. Artist", style="cyan")
-        console.print("2. Title", style="cyan")
-        console.print("3. Label", style="cyan")
-        console.print("4. Format", style="cyan")
-        console.print("5. Value", style="cyan")
-        console.print("0. Back to main menu", style="cyan")
+        console.print("\n1. Artist", style="cyan2")
+        console.print("2. Title", style="cyan2")
+        console.print("3. Label", style="cyan2")
+        console.print("4. Format", style="cyan2")
+        console.print("5. Value", style="cyan2")
+        console.print("0. Back to main menu", style="cyan2")
 
         sorting_credential = input("\nEnter your choice: \n")
         sorting_credential = sorting_credential.strip()
@@ -452,7 +452,7 @@ def sort_collection():
             console.print("\nHeading back to main menu", style="success")
             sleep(3)
             os.system("clear")
-            console.print(f"{WELCOME}", style="dark_orange")
+            console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
             break
         elif validate_data(sorting_credential):
@@ -540,7 +540,7 @@ def validate_max_rows(option):
     except ValueError as error_message:
         console.print(
             f"Invalid data: {error_message}. Please try again.\n",
-            style="red bold",
+            style="red3 bold",
         )
         sleep(3)
         return False
@@ -563,7 +563,7 @@ def validate_data(user_choice):
     except ValueError as error_message:
         console.print(
             f"Invalid data: {error_message}. Please try again.\n",
-            style="red bold",
+            style="red3 bold",
         )
         sleep(3)
         return False
@@ -578,7 +578,7 @@ def main():
     """
 
     os.system("clear")
-    console.print(f"{WELCOME}", style="dark_orange")
+    console.print(f"{WELCOME}", style="dark_orange3")
     show_menu()
 
 
