@@ -262,8 +262,6 @@ The show total value function calculate the sum of column *value*, prints out th
 ## Languages
 
 * [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) - Provides the functionality for the application.
-* [HTML5](https://sv.wikipedia.org/wiki/HTML5) - Provides the structure for the website.
-* [CSS3](https://en.wikipedia.org/wiki/CSS) - Provides the styling for the website.
 
 ## Frameworks, Libraries & Software
 
@@ -477,6 +475,8 @@ To create a local clone of your repository, follow these steps:
 * [Template](https://github.com/Code-Institute-Solutions/readme-template) for read.me provided by Code Institute (*with some additional changes that my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/))* suggested.
 
 ## Technical
+
+* Inspiration on importing Google Sheet to Rich table was taken from [Stack Overflow](https://stackoverflow.com/questions/71799108/how-do-i-zip-a-list-of-lists-into-a-python-rich-table-with-headers-and-rows)
 
 * Convert to uppercase in list of lists taken (*and slightly modified*) from [Stack Overflow](https://stackoverflow.com/questions/54438770/lowercase-a-list-of-lists)
 
