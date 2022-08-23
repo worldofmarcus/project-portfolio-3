@@ -102,6 +102,7 @@ def add_id():
 
     console.print("\nPlease wait. Listing collection.", style="success")
     max_rows = len(collection.get_all_values())
+
     i = 1
     with Progress() as progress:
         task = progress.add_task("[green3]Processing...", total=max_rows)

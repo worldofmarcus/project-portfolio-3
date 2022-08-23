@@ -370,10 +370,12 @@ Additional testing of the application was conducted by people outside of the sof
 
 ### Unfixed Bugs
 
-**2022-08-20**
-* Bug: To be updated
+**2022-08-23**
+* Bug: If the sheet is empty when being imported there is a scenario which causes a crash. The add_id function adds a '1' in the first row/column if the sheet is empty which becomes a problem if the user tries to edit the empty row with ID '1'. This might not be a probable scenario but needs to be fixed long term. For this project I might leave it as it is.
 
-![HTML Result Form Confirmation With Errors](to be updated)
+![Bug Edit Item](readme/assets/images/bug_edit_item_1_2.png)
+
+![Bug Edit Item](readme/assets/images/bug_edit_item_2_2.png)
 
 [Back to top](<#table-of-content>)
 
