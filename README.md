@@ -381,26 +381,67 @@ Additional testing of the application was conducted by people outside of the sof
 
 # Deployment
 
-## To Deploy The Project
-The site was deployed to GitHub pages. The steps to deploy are as follows:
+## Deployment To Heroku
 
-1. In the GitHub repository, navigate to the Settings tab
+The project was deployed to [Heroku](https://www.heroku.com). To deploy, please follow the process below:
 
-![Github Deploy Page 1](readme/assets/images/github_deploy_1.png)
+1. The first step is to log in to Heroku (or create an account if needed)
 
-[Back to top](<#table-of-content>)
+<details><summary><b>Heroku Step 1</b></summary>
 
-2. Go to the Pages link in the left menu
+![Heroku Step 1](readme/assets/images/heroku_step_1.png)
+</details><br />
 
-![Github Deploy Page 2](readme/assets/images/github_deploy_2.png)
+2. In the top right corner there is a button that is labeled 'New'. Click that and then select 'Create new app'.
 
-[Back to top](<#table-of-content>)
+<details><summary><b>Heroku Step 2</b></summary>
 
-3. From the source section drop-down menu, select the main branch (can be master in some cases but for me it was main)
+![Heroku Step 2](readme/assets/images/heroku_step_2.png)
+</details><br />
 
-4. Once the main branch has been selected, the page will be automatically refreshed and information about successful deployment / publishing can be seen on screen. The live link can be found [here](https://worldofmarcus.github.io/project-portfolio-2/).
+3. Now it's time to enter an application name that needs to be unique. When you have chose the name, choose your region and click 'Create app".
 
-![Github Deploy Page 3](readme/assets/images/github_deploy_3.png)
+<details><summary><b>Heroku Step 3</b></summary>
+
+![Heroku Step 3](readme/assets/images/heroku_step_3.png)
+</details><br />
+
+4. On the next page, click the 'Settings' tab and find the "Config Vars" section. When you have found it, click "Reveal Config Vars". Now it's time to add values. In the 'WOM Record Collection' case I needed to add two values. The first one was the credentials (KEY input field = "CREDS", VALUE input field = "your credentials", I have blurred out my credentials for security reasons), click the 'Add' button. Next you need to add another key, enter "PORT" in the KEY input field and "8000" in the VALUE field, click the 'Add' button.
+
+<details><summary><b>Heroku Step 4</b></summary>
+
+![Heroku Step 4](readme/assets/images/heroku_step_4.png)
+</details><br />
+
+5. Next step is to add buildpacks to the application which will be run when the application is deployed. The reason why this is needed is because all dependencies and configurations will be installed for the application. To do this you scroll down to the buildpacks section on the settings page and click the button 'Add buildpack'.
+
+<details><summary><b>Heroku Step 5</b></summary>
+
+![Heroku Step 5](readme/assets/images/heroku_step_5.png)
+</details><br />
+
+6. Add "Python" and node.js". It is important that Python is listed above node.js. If it's not you can sort it by dragging and dropping.
+
+<details><summary><b>Heroku Step 6</b></summary>
+
+![Heroku Step 6](readme/assets/images/heroku_step_6.png)
+</details><br />
+
+7. Now it's time for deployment. Scroll to the topp of the settings page and click the 'Deploy' tab. For deployment method, select 'Github'. Search for the repository name you want to deploy and then click connect.
+
+<details><summary><b>Heroku Step 7</b></summary>
+
+![Heroku Step 7](readme/assets/images/heroku_step_7.png)
+</details><br />
+
+8. Scroll down on the deploy page and choose deployment type. Choose to enable automatic deployments if you want to and then  click 'Deploy Branch'.
+
+<details><summary><b>Heroku Step 8</b></summary>
+
+![Heroku Step 8](readme/assets/images/heroku_step_8.png)
+</details><br />
+
+The live link to the 'WOM Record Collection' Github repository can be found [here](https://github.com/worldofmarcus/project-portfolio-3).
 
 [Back to top](<#table-of-content>)
 
@@ -433,20 +474,17 @@ To create a local clone of your repository, follow these steps:
 
 * All text content written by Marcus Eriksson.
 
-* All the icons on the website were taken from [Font Awesome](https://fontawesome.com/).
-
 * [Template](https://github.com/Code-Institute-Solutions/readme-template) for read.me provided by Code Institute (*with some additional changes that my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/))* suggested.
 
 ## Technical
 
-To be updated
+* Convert to uppercase in list of lists taken (*and slightly modified*) from [Stack Overflow](https://stackoverflow.com/questions/54438770/lowercase-a-list-of-lists)
 
-* onLoad modal function taken from [Stack Overflow](https://stackoverflow.com/questions/10233550/launch-bootstrap-modal-on-page-load).
-
+* Inspiration taken from [Computing Learner](https://computinglearner.com/how-to-create-a-menu-for-a-python-console-application/) to create menu in a console application.
 
 # Acknowledgements
-The application 'WoM Record Collection' was completed as the Portfolio Project #2 (*JavaScript*) for the Full Stack Software Development Diploma at the [Code Institute](https://codeinstitute.net/). I would like to thank my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/) for relevant feedback during the project.
+The application 'WOM Record Collection' was completed as the Portfolio Project #3 (*Python*) for the Full Stack Software Development Diploma at the [Code Institute](https://codeinstitute.net/). I would like to thank my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/) for relevant feedback during the project.
 
-*Marcus Eriksson 2022-08-xx.*
+*Marcus Eriksson 2022-08-23.*
 
 [Back to top](<#table-of-content>)
