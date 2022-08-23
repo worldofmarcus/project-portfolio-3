@@ -368,6 +368,9 @@ Additional testing of the application was conducted by people outside of the sof
 **2022-08-21**
 * Bug: When printing the table in the sort function the content wasn't written in uppercase. This was an easy fix with a map/lambda function.
 
+**2022-08-23**
+* Bug: On the edit and remove function the application crasches if the user inputs a negative number. This was fixed by adding a negative integer check in the validate max rows function.
+
 ### Unfixed Bugs
 
 **2022-08-23**

@@ -537,7 +537,7 @@ def validate_max_rows(option):
 
     max_rows = len(collection.get_all_values())
     try:
-        if int(option) > max_rows:
+        if int(option) > max_rows or int(option) < 0:
             raise ValueError(
                 f"Only numbers within the ID range! You provided {option}"
             )
