@@ -340,7 +340,9 @@ def edit_item():
                 table.add_column("LABEL")
                 table.add_column("FORMAT")
                 table.add_column("VALUE (€)")
-                table.add_row(data[1].upper(), data[2].upper(), data[3].upper(), data[4].upper(), data[5])
+                table.add_row(data[1].upper(), data[2].upper(),
+                              data[3].upper(), data[4].upper(),
+                              data[5])
                 console.print(table)
                 console.print(
                     f"\nTo edit {data[2]} by {data[1]}, please choose the"

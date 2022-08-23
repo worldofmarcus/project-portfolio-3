@@ -71,7 +71,10 @@ For this project I didn't make a wireframe in [Balsamiq](https://balsamiq.com/) 
 ## Flow chart
 The flow chart for this application was made with the online service [Lucid App](https://lucid.app/). I tried to keep in on a quite general level but with enough details to get a good understanding of how everything in the application is connected. The flow chart made it a lot more easy when going into the coding phase.
 
-![Flow chart](readme/assets/images/WoM_Record_Collection_Flowchart.png)
+<details><summary><b>Flow Chart</b></summary>
+
+![Flow Chart](readme/assets/images/WoM_Record_Collection_Flowchart.png)
+</details><br/>
 
 [Back to top](<#table-of-content>)
 
@@ -125,106 +128,132 @@ When the application starts it calls the *main function* which *clears the scree
 ## **Existing Features**
 
 ### **Main Menu**
+<details><summary><b>Main Menu</b></summary>
+
 ![Main Menu](readme/assets/images/main_menu.png)
+</details><br/>
+
+
 
 ### **List Collection**
 The list collection function simply lists the music collection by retrieving all data from the Google Sheet 'collection'. Before listing the collection the function *add id* is being called to add an numeric ID to each row in the first column in the sheet. This needs to be done to make sure that every item has an ID so that the other functions in the application can keep track on the items in the collection. When the adding of the ID:s is done the *create table* function is being called to plot out the table columns and rows. The table functionality is a part of the [Rich](https://rich.readthedocs.io/en/stable/introduction.html) Python library. When the list is being fetched from the Google Sheet a progress indicator is being shown to the user.
 
+<details><summary><b>List Collection Progress</b></summary>
+
 ![List Collection Progress](readme/assets/images/list_progress.png)
+</details><br/>
+
+<details><summary><b>List Collection</b></summary>
 
 ![List Collection](readme/assets/images/list_collection.png)
+</details><br/>
 
 ### **Search Item In collection**
 The search item in collection function lets the user to search for a specific item in the collection. The user can search for anything and if the item exists in the collection it's being printed out in a table (this works for multiple items as well). If no match is being found an empty table and an error message will appear. In both cases (match / no match) the user gets the possibility to add a new search credential and also go back to the main menu by choosing '0'. The search function is not case sensitive but only works with an  **exact** match of the words/numbers in the collection.
 
-*Search credential provided by user:*
+<details><summary><b>Search Credential Provided By User</b></summary>
 
 ![Search Credential](readme/assets/images/search_credential.png)
+</details><br/>
 
-*We have a match!*
+<details><summary><b>Search Credential Match</b></summary>
 
 ![Search Match](readme/assets/images/search_match.png)
+</details><br/>
 
-*We have no match!*
+<details><summary><b>Search Credential No Match</b></summary>
 
 ![Search No Match](readme/assets/images/search_no_match.png)
+</details><br/>
 
 [Back to top](<#table-of-content>)
 
 ### **Add Item To Collection**
 The add item to collection function let's the user add own items to the collection. The user first gets the question if they want to add an item. If they choose *no* they will be sent back to the main menu and if they answer *yes* the input sequence starts. The user provides data for all columns(*Artist*, *Title*, *Label*, *Format* and *Value (€)*). The ID column is not necessary for the user to fill in, that is being handled by the application itself. The function also checks for valid user input in each cell to secure that not empty content is being exported to the Google Sheet. If all the user input is correct the function accumulate input combines all the userdata and then it is being exported to the Google Sheet. After that the table us being printed and the user will get the add item question again.
 
-*Add item question*
+<details><summary><b>Add Item Question</b></summary>
 
-![Add Item Sequence Not Correct Input Strings](readme/assets/images/add_item.png)
+![Add Item](readme/assets/images/add_item.png)
+</details><br/>
 
-*Add item sequence*
+<details><summary><b>Add Item Sequence</b></summary>
 
-![Add Item Sequence Not Correct Input Strings](readme/assets/images/add_item_sequence.png)
+![Add Item Sequence](readme/assets/images/add_item_sequence.png)
+</details><br/>
 
-*Add item sequence where user doesn't add correct input (strings)*
+<details><summary><b>Add Item Sequence (error string)</b></summary>
 
 ![Add Item Sequence Not Correct Input Strings](readme/assets/images/add_item_sequence_error_strings.png)
 
-*Add item sequence where user doesn't add correct input (int)*
+</details><br/>
+
+<details><summary><b>Add Item Sequence (error int)</b></summary>
 
 ![Add Item Sequence Not Correct Input Int](readme/assets/images/add_item_sequence_error_int.png)
+</details><br/>
+
 
 ### **Edit Item In Collection**
 The edit item in collection function let's the user edit a specific item in the collection by choosing the ID for the item (or choose '0' to get back to the main menu). When the user has provided the ID the user needs to choose a value to edit. The ID column is not visible in the table because it's being updated by the application itself. When the user feeds in the input the update cell function is being called for validation to secure that not empty content is being exported to the Google Sheet. If the user input is correct it is being exported to the Google Sheet and then the table updates. After that the user will be redirected to the edit menu agin.
 
-*Users ID Choice*
+<details><summary><b>Users ID Choice</b></summary>
 
 ![Edit Item ID Choice](readme/assets/images/edit_item_choice.png)
+</details><br/>
 
-*Users Choice Of Value To Edit*
+<details><summary><b>Users Choice Of Value To Edit</b></summary>
 
 ![Edit Item Choose Value To Edit](readme/assets/images/edit_item_choose_value.png)
+</details><br/>
 
-*Edit item where user doesn't add correct input (strings)*
+<details><summary><b>Edit Item Sequence (error string)</b></summary>
 
 ![Edit Item Not Correct Input Strings](readme/assets/images/edit_item_error_string.png)
+</details><br/>
 
-*Edit item sequence where user doesn't add correct input (int)*
+<details><summary><b>Edit Item Sequence (error string)</b></summary>
 
 ![Edit Item Not Correct Input Int](readme/assets/images/edit_item_error_int.png)
+</details><br/>
 
 ### **Remove Item In Collection**
 The remove item in collection function is very straight forward. It lists the collection and ask the user to enter the ID connected to the row that is in scope for deletion. The user can also choose '0' to head back to the main menu.a specific item in the collection by choosing the ID for the item (or choose '0' to get back to the main menu). When the user has provided the ID the application asks the user if they really want to remove the item. If they choose 'N', the action will be aborted and the user is being redirected to the remove menu. If they choose yes, the item is being removed, the collection is being listed and the main menu is being printed.
 
-*Remove Item*
+<details><summary><b>Remove Item</b></summary>
 
 ![Remove Item](readme/assets/images/remove_item.png)
+</details><br/>
 
-*Remove Item Confirm*
+<details><summary><b>Remove Item Confirm</b></summary>
 
 ![Remove Item](readme/assets/images/remove_confirm.png)
+</details><br/>
 
 ### **Sort Item In Collection**
 The sort item function sorts the collection based on the users choice of sorting credential. The function also creates a new table and prints the table based on the users sorting credential. It can be worth mentioning that the table doesn't print out the ID column because the user should not be able to sort on ID. The function also checks for valid input to secure that the sorting credential is correct. When the sorting has been made the user is being redirected to the sorting menu.
 
-*Sorting Credential*
+<details><summary><b>Sorting Credential</b></summary>
 
 ![Sorting Credential](readme/assets/images/sorting_credential.png)
+</details><br/>
 
-*Sorting On Value*
+<details><summary><b>Sorting Credential On Value</b></summary>
 
-![Sorting On Value](readme/assets/images/sorting_credential_value.png)
+![Sorting Credential Value](readme/assets/images/sorting_credential_value.png)
+</details><br/>
 
 ### **Show Total Value Of Collection**
-This function allows the user to get the total financial value of the collection. When the value has been presentented the main menu is being printed again.
+The show total value function calculate the sum of column *value*, prints out the sum to the user and then prints out the main menu.
 
-*Show Total Value Of Collection*
+<details><summary><b>Show Total Value Of Collection</b></summary>
 
-![Shot Total Value Of Collection](readme/assets/images/show_total_value.png)
+![Show Total Value Of Collection](readme/assets/images/show_total_value.png)
+</details><br/>
 
-### Features Left to Implement
+### **Features Left to Implement**
 
-* Add other type of storing
-
-* Add possibility for the user to choose sorting order (inc / dec)
-
-
+* Add other type of storing (i.e. MySql or JSON-file) to speed up the application.
+* Add possibility for the user to choose sorting order (inc / dec).
 
 [Back to top](<#table-of-content>)
 
@@ -232,93 +261,77 @@ This function allows the user to get the total financial value of the collection
 
 ## Languages
 
-* [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) - provides the the functionality for the application.
-
+* [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) - Provides the functionality for the application.
+* [HTML5](https://sv.wikipedia.org/wiki/HTML5) - Provides the structure for the website.
+* [CSS3](https://en.wikipedia.org/wiki/CSS) - Provides the styling for the website.
 
 ## Frameworks, Libraries & Software
 
-* [Github](https://github.com/) - used to host and edit the website.
-* [Gitpod](https://www.gitpod.io/#get-started) - used to deploy the website.
-* [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) - used to test performance of site.
-* [Responsive Design Checker](https://www.responsivedesignchecker.com/) - used for responsiveness check.
-* [Wave Web Accessibility Evaluation Tool](https://wave.webaim.org/) - used to validate the sites accessibility.
+* [Google Sheets](https://www.google.co.uk/sheets/about/) - Used to host the application data.
+* [Microsoft Excel](https://www.microsoft.com/sv-se/microsoft-365/excel) - Used to create testing scenarios.
+* [Github](https://github.com/) - Used to host and edit the website.
+* [GitBash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) - Terminal in [Gitpod](https://www.gitpod.io) used to push changes to the GitHub repository.
+* [Heroku](https://en.wikipedia.org/wiki/Heroku) - A cloud platform that the application is deployed to.
+* [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) - Used to test performance of site.
+* [Responsive Design Checker](https://www.responsivedesignchecker.com/) - Used for responsiveness check.
+* [Wave Web Accessibility Evaluation Tool](https://wave.webaim.org/) - Used to validate the sites accessibility.
+
+## Python Packages
+* [GSpread](https://pypi.org/project/gspread/) - A Python API for Google Sheets that makes it possible to transfer data between the application and the Google Sheet.
+* [Sys](https://docs.python.org/3/library/sys.html) - A module that provides access to used or maintained by the interpreter and to functions that interact strongly with the interpreter. It is always available (*text taken from [here](https://docs.python.org/3/library/sys.html)*)
+* [OS](https://docs.python.org/3/library/os.html) - A module that provdes a portable way of using OS dependent functionality.
+* [Time](https://docs.python.org/3/library/time.html) - A module that provides various time-related functions
+* [Rich](https://rich.readthedocs.io/en/stable/introduction.html) - Rich is a Python library that makes command line applications visually more appealing. In WOM Record Collection it's mainly used to format colors and implement tables.
 
 [Back to top](<#table-of-content>)
 
 # Testing
 
 ## Code Validation
-To be updated...
-  been tested through [W3C Markup Validaton Service](https://validator.w3.org/), [W3C CSS Validaton Service](https://jigsaw.w3.org/css-validator/) and [JSHint](https://jshint.com/). Errors were found on index.html in the W3C Markup Validaton Service but could quite easily be fixed (see [bugs section](#known-bugs)).
+The WOM Record Collection application has been tested through [W3C Markup Validaton Service](https://validator.w3.org/), [W3C CSS Validaton Service](https://jigsaw.w3.org/css-validator/) and [PEP Online Validator](http://pep8online.com/). Errors were found by the PEP Online Validator but could easily be fixed (see [bugs section](#known-bugs)).
 
 ### Markup Validation
-The Markup validator result, after fixing the minor errors can be seen below:
-
-* Home Page
-
 No errors were returned when passing through the official W3C validator.
 
-![HTML Result Home Page](readme/assets/images/html_result_home_page.png)
+![HTML Result Home Page](readme/assets/images/html_validation.png)
 
 [Back to top](<#table-of-content>)
 
 ### CSS Validaton
-The CSS validator results can be seen below:
-
 No errors were returned when passing through the official W3C validator.
 
-![CSS Result](readme/assets/images/css_result.png)
+![CSS Result](readme/assets/images/css_validation.png)
 
 [Back to top](<#table-of-content>)
 
-### JSHint
-The JSHint validator results can be seen below:
+### PEP Validation
+No errors were returned when passing through the PEP Validator.
 
-No errors were returned when passing through JSHint (*script.js*, *audio.js*, *modals.js*) but all tests reported issues connected to unused and undefined variables. These issues are not valid as the variables are used in other JavaScript files.
-
-* script.js
-
-![CSS Result](readme/assets/images/jshint_script.png)
-
-* audio.js
-
-![CSS Result](readme/assets/images/jshint_audio.png)
-
-* modals.js
-
-![CSS Result](readme/assets/images/jshint_modals.png)
+![PEP Validation](readme/assets/images/pep_validation_ok.png)
 
 [Back to top](<#table-of-content>)
 
-# Responsiveness Test
-
-The responsive design tests were carried out manually with [Google Chrome DevTools](https://developer.chrome.com/docs/devtools/) and [Responsive Design Checker](https://www.responsivedesignchecker.com/).
-
-| Desktop    | Display <1280px       | Display >1280px    |
-|------------|-----------------------|--------------------|
-| Render     | pass                  | pass               |
-| Images     | pass                  | pass               |
-| Links      | pass                  | pass               |
-
-| Tablet     | Samsung Galaxy Tab 10 | Amazon Kindle Fire | iPad Mini | iPad Pro |
-|------------|-----------------------|--------------------|-----------|----------|
-| Render     | pass                  | pass               | pass      | pass     |
-| Images     | pass                  | pass               | pass      | pass     |
-| Links      | pass                  | pass               | pass      | pass     |
-
-| Phone      | Galaxy S5/S6/S7       | iPhone 6/7/8       | iPhone 12pro         |
-|------------|-----------------------|--------------------|----------------------|
-| Render     | pass                  | pass               | pass                 |
-| Images.    | pass                  | pass               | pass                 |
-| Links      | pass                  | pass               | pass                 |
-
-*Comment: Scrolling is needed to some extent on some of the smaller screens*
+### JavaScript Validation
+As the JavaScript for this project has been provided by Code Institute I have not tested it. Though I can mention that there was a vulnerability warning connected to the JQuery version (when I made the tests in Lighthouse).
 
 [Back to top](<#table-of-content>)
 
-## Browser Compatibility
+## Additional Testing
 
-'Memory of Queen Oblivion' was tested for responsiveness, functionality and appearance in the following browsers on desktop, tablet and phone with no visible issues for the user.
+### Lighthouse
+[Google Lighthouse](https://developers.google.com/web/tools/lighthouse) in Chrome Developer Tools was used to test the application within the areas of *Performance*, *Accessibility*, *Best Practices* and *SEO*. The testing showed these results: *Accessability*: 97, *Best Practices*: 92, *SEO*: 91%, *Performance*: 86. I have not that many comments on these results because the opportunities are connected mostly to the JavaScripts being used (which I have not altered).
+
+![Lighthouse Form Confirmation Page Result](readme/assets/images/lighthouse.png)
+
+### Responsiveness Test
+
+This project does not require a fully responsive design but I made some basic tests and could quite fast state that the application in general is not supported by phones and tablets. I had the chance though to try it on an iPad pro which passed the test, but that was an exception.
+
+[Back to top](<#table-of-content>)
+
+### Browser Compatibility
+
+'WOM Record Collection' was tested for functionality and appearance in the following browsers on desktop with no visible issues for the user.
 
 * Google Chrome Version (103.0.5060.114)
 * Mozilla Firefox (version 102.0.1)
@@ -328,37 +341,34 @@ The responsive design tests were carried out manually with [Google Chrome DevToo
 
 [Back to top](<#table-of-content>)
 
-## Additional Testing
-
 ### WAVE
 
-[WAVE](https://wave.webaim.org/) was used to check accessibility. 0 errors and 1 alerts was found. The alert was connected to page lacking a h1 (which is not a problem because the game has a headline image).
+[WAVE](https://wave.webaim.org/) was used to check accessibility. 1 error and 2 alerts was found. The error was connected to very low contrast on the 'run program' button (white text on red background) and the alerts was connected to 'no heading structure' and 'no page regions'. The error and alerts are not connected to my application why I will let it be for this project.
 
 ![WAVE Result](readme/assets/images/wave_result.png)
 
 [Back to top](<#table-of-content>)
 
-### Lighthouse
-[Google Lighthouse](https://developers.google.com/web/tools/lighthouse) in Chrome Developer Tools was used to test the application within the areas of *Performance*, *Accessibility*, *Best Practices* and *SEO*. The testing showed that the *Accessability*, *Best Practices* and *SEO* was 100%. The Performance fluctuated between 75 and 90. To handle this I first compressed the *.png files and then also converted them to *.webp. After that I managed to squeeze the performance up to 88. I think the performance also is affected by the external scripts (connected to i.e. Bootstrap).
-
-![Lighthouse Form Confirmation Page Result](readme/assets/images/lighthouse_result.png)
-
-[Back to top](<#table-of-content>)
-
 ### Peer Review
-Additional testing of the application was conducted by people outside of the software development field. Some spelling and grammar errors were found and corrected. No issues connected to gaming experience and visual design was reported. Template was used to control the different levels scenarios (see image below).
+Additional testing of the application was conducted by people outside of the software development field. Some spelling and grammar errors were found and corrected. No issues connected to design or handling of the application An Excel template was used to control the application for bugs.
 
-![Test Scenarios](readme/assets/images/level_scenarios.png)
+![Test Scenarios](TO BE UPDATED)
 
 ## Known bugs
 
 ### Fixed Bugs
 
 **2022-08-19**
-* Bug: To be updated
+* Bug: During the mid project session with my mentor Precious he found a bug in the add item function. The bug made it possible for the user to input empty strings (which means that empty cells/rows was exporeted to the Google Sheet). This generated a problem when listing the table due to empty lines. It also generated a problem for the total value function because it could not summarize empty rows. The bug was fixed by changing the function and add a validation to check for empty values.
 
-![HTML Result Form Confirmation With Errors](to be updated)
+**2022-08-20**
+* Bug: I discovered a bug when adding new items connected to the value column. There was no check if the value was integer or string which potentially could crash the application if a string was exported to the value celll (which demands an integer). I fixed this by adding a int/string validation.
 
+**2022-08-21**
+* Bug: Quite similar to the bug from 2022-08-19 (add item bug). This bug was though connected to the edit item function. There was no check for empty values which could cause the application to crash. I solved this by adding a validation to check for empty values.
+
+**2022-08-21**
+* Bug: When printing the table in the sort function the content wasn't written in uppercase. This was an easy fix with a map/lambda function.
 
 ### Unfixed Bugs
 
