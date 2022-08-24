@@ -348,9 +348,11 @@ This project does not require a fully responsive design but I made some basic te
 [Back to top](<#table-of-content>)
 
 ### Peer Review
-Additional testing of the application was conducted by people outside of the software development field. Some spelling and grammar errors were found and corrected. No issues connected to design or handling of the application An Excel template was used to control the application for bugs.
+Additional testing of the application was conducted by people outside of the software development field. Some spelling and grammar errors were found and corrected. No issues connected to design or handling of the application. An Excel template was also used to control the application for bugs within different scenarios. During the testing, a check of the user stories also wos done. One [bug](<#unfixed-bugs>) was found that still is unfixed.
 
-![Test Scenarios](TO BE UPDATED)
+![Test Scenarios](readme/assets/images/testing_scenarios.png)
+
+![User Stories](readme/assets/images/testing_user_stories.png)
 
 ## Known bugs
 
@@ -380,7 +382,7 @@ Additional testing of the application was conducted by people outside of the sof
 ### Unfixed Bugs
 
 **2022-08-23**
-* Bug: If the sheet is empty when being imported there is a scenario which causes a crash. The add_id function adds a '1' in the first row/column if the sheet is empty which becomes a problem if the user tries to edit the empty row with ID '1'. This might not be a probable scenario but needs to be fixed long term. For this project I might leave it as it is.
+* Bug: If the sheet is empty when being imported there is a scenario which causes a crash. The add_id function adds a '1' in the first row/column if the sheet is empty which becomes a problem if the user tries to edit the empty row with ID '1'. This might not be a probable scenario but needs to be fixed long term. For this project I it as it is due to deadline to send in the project.
 
 ![Bug Edit Item](readme/assets/images/bug_edit_item_1_2.png)
 
