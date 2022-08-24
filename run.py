@@ -71,7 +71,7 @@ def show_menu():
             )
         elif option == "0":  # exits program
             console.print(
-                "\nThank you for using WoM Record Collection!",
+                "\nThank you for using WOM Record Collection!",
                 style="success",
             )
             sleep(2)

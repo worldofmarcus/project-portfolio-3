@@ -128,7 +128,7 @@ When the application starts it calls the *main function* which *clears the scree
 
 ## **Existing Features**
 
-### **Main Menu**
+### Main Menu
 The Main Menu is quite straight forward and consists of 8 choices. See each choice being explained below.
 
 <details><summary><b>Main Menu</b></summary>
@@ -138,7 +138,7 @@ The Main Menu is quite straight forward and consists of 8 choices. See each choi
 
 
 
-### **List Collection**
+### List Collection
 The list collection function simply lists the music collection by retrieving all data from the Google Sheet 'collection'. Before listing the collection the function *add id* is being called to add an numeric ID to each row in the first column in the sheet. This needs to be done to make sure that every item has an ID so that the other functions in the application can keep track on the items in the collection. When the adding of the ID:s are done the *create table* function is being called to plot out the table columns and rows. The table functionality is a part of the [Rich](https://rich.readthedocs.io/en/stable/introduction.html) Python library. When the list is being fetched from the Google Sheet a progress indicator is being shown to the user.
 
 <details><summary><b>List Collection Progress</b></summary>
@@ -151,7 +151,7 @@ The list collection function simply lists the music collection by retrieving all
 ![List Collection](readme/assets/images/list_collection.png)
 </details><br/>
 
-### **Search Item In collection**
+### Search Item In collection
 The search item in collection function lets the user search for a specific item in the collection. The user can search for anything and if the item exists in the collection it's being printed out in a table (this works if multiple items are found as well). If no match is being found an empty table and an error message will appear. In both cases (match / no match) the user gets the possibility to add a new search credential and also go back to the main menu by choosing '0'. The search function is not case sensitive and only works with an  **exact** match of the words/numbers in the collection.
 
 <details><summary><b>Search Credential Provided By User</b></summary>
@@ -171,7 +171,7 @@ The search item in collection function lets the user search for a specific item 
 
 [Back to top](<#table-of-content>)
 
-### **Add Item To Collection**
+### Add Item To Collection
 The add item to collection function let's the user add own items to the collection. The user first gets the question if they want to add an item. If they choose *no* they will be sent back to the main menu and if they answer *yes* the input sequence starts. The user provides data for all columns(*Artist*, *Title*, *Label*, *Format* and *Value (€)*). The ID column is not necessary for the user to fill in, that is being handled by the application itself. The function also checks for valid user input in each cell to secure that not empty content (or negative numbers on the value input) is being exported to the Google Sheet. If all the user input is correct the function accumulate input combines all the userdata and then it is being exported to the Google Sheet. After that the table is being printed and the user will get the add item question again.
 
 <details><summary><b>Add Item Question</b></summary>
@@ -195,9 +195,14 @@ The add item to collection function let's the user add own items to the collecti
 ![Add Item Sequence Not Correct Input Int](readme/assets/images/add_item_sequence_error_int.png)
 </details><br/>
 
+<details><summary><b>Add Item Sequence (error negative int)</b></summary>
 
-### **Edit Item In Collection**
-The edit item in collection function let's the user edit a specific item in the collection by choosing the ID for the item (or choose '0' to get back to the main menu). When the user has provided the ID the user needs to choose a value to edit. The ID column is not visible in the table because it's being updated by the application itself. When the user feeds in the input the update cell function is being called for validation to secure that not empty content is being exported to the Google Sheet. If the user input is correct it is being exported to the Google Sheet and then the table updates. After that the user will be redirected to the edit menu agin.
+![Add Item Sequence Negative Int](readme/assets/images/add_item_sequence_error_negative_int.png)
+</details><br/>
+
+
+### Edit Item In Collection
+The edit item in collection function let's the user edit a specific item in the collection by choosing the ID for the item (or choose '0' to get back to the main menu). When the user has provided the ID the user needs to choose a value to edit. The ID column is not visible in the table because it's being updated by the application itself. When the user feeds in the input the update cell function is being called for validation to secure that not empty content (or negative numbers for the value cell) is being exported to the Google Sheet. If the user input is correct it is being exported to the Google Sheet and then the table updates. After that the user will be redirected to the edit menu agin.
 
 <details><summary><b>Users ID Choice</b></summary>
 
@@ -219,8 +224,13 @@ The edit item in collection function let's the user edit a specific item in the 
 ![Edit Item Not Correct Input Int](readme/assets/images/edit_item_error_int.png)
 </details><br/>
 
-### **Remove Item In Collection**
-The remove item in collection function is very straight forward. It lists the collection and ask the user to enter the ID connected to the row that is in scope for deletion. The user can also choose '0' to head back to the main menu.a specific item in the collection by choosing the ID for the item (or choose '0' to get back to the main menu). When the user has provided the ID the application asks the user if they really want to remove the item. If they choose 'N', the action will be aborted and the user is being redirected to the remove menu. If they choose yes, the item is being removed, the collection is being listed and the main menu is being printed.
+<details><summary><b>Edit Item Sequence (error negative int)</b></summary>
+
+![Edit Item Sequence Negative Int](readme/assets/images/edit_item_sequence_error_negative_int.png)
+</details><br/>
+
+### Remove Item In Collection
+The remove item in collection function is very straight forward. It lists the collection and ask the user to enter the ID connected to the row that is in scope for deletion. The user can also choose '0' to head back to the main menu. When the user has provided the ID, the application checks for a valid input and then asks the user for deletion confirmation. If they choose 'N', the action will be aborted and the user is being redirected to the remove menu. If they choose 'Y', the item is being removed, the collection is being listed and the main menu is being printed.
 
 <details><summary><b>Remove Item</b></summary>
 
@@ -232,7 +242,7 @@ The remove item in collection function is very straight forward. It lists the co
 ![Remove Item](readme/assets/images/remove_confirm.png)
 </details><br/>
 
-### **Sort Item In Collection**
+### Sort Item In Collection
 The sort item function sorts the collection based on the users choice of sorting credential. The function also creates a new table and prints the table based on the users sorting credential. It can be worth mentioning that the table doesn't print out the ID column because the user should not be able to sort on ID. The function also checks for valid input to secure that the sorting credential is correct. When the sorting has been made the user is being redirected to the sorting menu.
 
 <details><summary><b>Sorting Credential</b></summary>
@@ -245,7 +255,7 @@ The sort item function sorts the collection based on the users choice of sorting
 ![Sorting Credential Value](readme/assets/images/sorting_credential_value.png)
 </details><br/>
 
-### **Show Total Value Of Collection**
+### Show Total Value Of Collection
 The show total value function calculate the sum of column *value*, prints out the sum to the user and then prints out the main menu.
 
 <details><summary><b>Show Total Value Of Collection</b></summary>
@@ -253,10 +263,19 @@ The show total value function calculate the sum of column *value*, prints out th
 ![Show Total Value Of Collection](readme/assets/images/show_total_value.png)
 </details><br/>
 
-### **Features Left to Implement**
+### Exit Application
+The exit application choice simply ends the program.
+
+<details><summary><b>Exit Application</b></summary>
+
+![Exit Application](readme/assets/images/exit_application.png)
+</details><br/>
+
+### Features Left to Implement
 
 * Add other type of storing (i.e. MySql or JSON-file) to speed up the application.
 * Add possibility for the user to choose sorting order (inc / dec).
+* Add a more intelligent searching function so that the user can search for parts words and still get a match.
 
 [Back to top](<#table-of-content>)
 
