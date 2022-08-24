@@ -23,8 +23,8 @@
     * [Search Item In Collection](<#search-item-in-collection>)
     * [Add Item To Collection](<#add-item-to-collection>)
     * [Edit Item In Collection](<#edit-item-in-collection>)
-    * [Remove Item From Collection](<#edit-item-in-collection>)
-    * [Sort Collection](<#sort-collection>)
+    * [Remove Item From Collection](<#remove-item-in-collection>)
+    * [Sort Collection](<#sort-item-in-collection>)
     * [Show Total value of collection](<#show-total-value-of-collection>)
 
 * [**Features Left To Implement**](<#features-left-to-implement>)
@@ -32,11 +32,10 @@
 * [**Technologies Used**](<#technologies-used>)
     * [Languages](<#languages>)
     * [Frameworks, Librarys & Software](<#frameworks-libraries--software>)
+    * [Python Packages](<#python-packages>)
 
 * [**Testing**](<#testing>)
   * [Code Validation](<#code-validation>)
-  * [Responsiveness Test](<#responsiveness-test>)
-  * [Browser Compatibility](<#browser-compatibility>)
   * [Additional Testing](<#additional-testing>)
   * [Known Bugs](<#known-bugs>)
 * [Deployment](<#deployment>)
@@ -91,9 +90,14 @@ To store all data in the application I made a choice to use [Google Sheets](http
 * Name of workbook: *music collection*
 * Name of worksheet: *collection*
 
-![Google Sheet](readme/assets/images/google_sheet.png)
+<details><summary><b>Google Sheet</b></summary>
 
-The worksheet holds 5 columns with information such as: *ID*, *Artist*, *Title*, *Label*, *Format* and *Value (€)* that is being fully controlled from the application via Python.
+![Google Sheet](readme/assets/images/google_sheet.png)
+</details><br/>
+
+The worksheet holds 5 columns with information such as: *ID*, *Artist*, *Title*, *Label*, *Format* and *Value (€)* that is being controlled from the application via Python.
+
+[Back to top](<#table-of-content>)
 
 ## Design Choices
 
@@ -103,20 +107,30 @@ The worksheet holds 5 columns with information such as: *ID*, *Artist*, *Title*,
 I have tried to use as clean colors as possible (see below):
 
 * Dark Orange 3 is being used for the welcome message.
+<details><summary><b>Dark Orange 3</b></summary>
 
 ![Dark Orange 3](readme/assets/images/dark_orange3.png)
+</details><br/>
 
 * Cyan 2 is being used for the main menu.
 
-![Cyan 2](readme/assets/images/cyan2.png)
+<details><summary><b>Cyan 2</b></summary>
 
+![Cyan 2](readme/assets/images/cyan2.png)
+</details><br/>
 * Red 3 is being used for all error messages.
 
+<details><summary><b>Red 3</b></summary>
+
 ![Red 3](readme/assets/images/red3.png)
+</details><br/>
 
 * Green 3 is being used for all success messages.
 
+<details><summary><b>Green 3</b></summary>
+
 ![Green 3](readme/assets/images/green3.png)
+</details><br/>
 
 * ### Typography
 No specific typography is being used in the application. The font is just the standard font that is being used in the terminal.
@@ -124,7 +138,7 @@ No specific typography is being used in the application. The font is just the st
 [Back to top](<#table-of-content>)
 
 # **Features**
-When the application starts it calls the *main function* which *clears the screen* and  *prints the welcome message*. As stated in the [Site Structure](<#site-structure>) area the application consists of 7 different areas (functions) and an exit option, *list collection*, *search item in collection*, *add item to collection*, *edit item in collection*, *remove item from collection*, *sort collection*, *show total value of collection* and *exit application*. The features are being explained more in detail in the [Existing Features](<existing-features>) area below (click the small arrow to show screenshot).
+When the application starts it calls the *main function* which *clears the screen* and  *prints the welcome message*. As stated in the [Site Structure](<#site-structure>) area the application consists of 7 different areas (functions) and an exit option: *list collection*, *search item in collection*, *add item to collection*, *edit item in collection*, *remove item from collection*, *sort collection*, *show total value of collection* and *exit application*. The features are being explained more in detail in the [Existing Features](<existing-features>) area below.
 
 ## **Existing Features**
 
@@ -135,8 +149,6 @@ The Main Menu is quite straight forward and consists of 8 choices. See each choi
 
 ![Main Menu](readme/assets/images/main_menu.png)
 </details><br/>
-
-
 
 ### List Collection
 The list collection function simply lists the music collection by retrieving all data from the Google Sheet 'collection'. Before listing the collection the function *add id* is being called to add an numeric ID to each row in the first column in the sheet. This needs to be done to make sure that every item has an ID so that the other functions in the application can keep track on the items in the collection. When the adding of the ID:s are done the *create table* function is being called to plot out the table columns and rows. The table functionality is a part of the [Rich](https://rich.readthedocs.io/en/stable/introduction.html) Python library. When the list is being fetched from the Google Sheet a progress indicator is being shown to the user.
@@ -172,7 +184,7 @@ The search item in collection function lets the user search for a specific item 
 [Back to top](<#table-of-content>)
 
 ### Add Item To Collection
-The add item to collection function let's the user add own items to the collection. The user first gets the question if they want to add an item. If they choose *no* they will be sent back to the main menu and if they answer *yes* the input sequence starts. The user provides data for all columns(*Artist*, *Title*, *Label*, *Format* and *Value (€)*). The ID column is not necessary for the user to fill in, that is being handled by the application itself. The function also checks for valid user input in each cell to secure that not empty content (or negative numbers on the value input) is being exported to the Google Sheet. If all the user input is correct the function accumulate input combines all the userdata and then it is being exported to the Google Sheet. After that the table is being printed and the user will get the add item question again.
+The add item to collection function let's the user add own items to the collection. The user first gets the question if they want to add an item. If they choose *no* they will be sent back to the main menu and if they answer *yes* the input sequence starts. The user provides data for all columns(*Artist*, *Title*, *Label*, *Format* and *Value (€)*). The ID column is not necessary for the user to fill in, that is being handled by the application itself. The function also checks for valid user input in each cell to secure that not empty content (or negative numbers on the value input) is being exported to the Google Sheet. If all the user input is correct the function accumulate input combines all the user data and then it's being exported to the Google Sheet. After that the table is being printed and the user will get the add item question again.
 
 <details><summary><b>Add Item Question</b></summary>
 
@@ -200,6 +212,7 @@ The add item to collection function let's the user add own items to the collecti
 ![Add Item Sequence Negative Int](readme/assets/images/add_item_sequence_error_negative_int.png)
 </details><br/>
 
+[Back to top](<#table-of-content>)
 
 ### Edit Item In Collection
 The edit item in collection function let's the user edit a specific item in the collection by choosing the ID for the item (or choose '0' to get back to the main menu). When the user has provided the ID the user needs to choose a value to edit. The ID column is not visible in the table because it's being updated by the application itself. When the user feeds in the input the update cell function is being called for validation to secure that not empty content (or negative numbers for the value cell) is being exported to the Google Sheet. If the user input is correct it is being exported to the Google Sheet and then the table updates. After that the user will be redirected to the edit menu agin.
@@ -229,6 +242,8 @@ The edit item in collection function let's the user edit a specific item in the 
 ![Edit Item Sequence Negative Int](readme/assets/images/edit_item_sequence_error_negative_int.png)
 </details><br/>
 
+[Back to top](<#table-of-content>)
+
 ### Remove Item In Collection
 The remove item in collection function is very straight forward. It lists the collection and ask the user to enter the ID connected to the row that is in scope for deletion. The user can also choose '0' to head back to the main menu. When the user has provided the ID, the application checks for a valid input and then asks the user for deletion confirmation. If they choose 'N', the action will be aborted and the user is being redirected to the remove menu. If they choose 'Y', the item is being removed, the collection is being listed and the main menu is being printed.
 
@@ -241,6 +256,8 @@ The remove item in collection function is very straight forward. It lists the co
 
 ![Remove Item](readme/assets/images/remove_confirm.png)
 </details><br/>
+
+[Back to top](<#table-of-content>)
 
 ### Sort Item In Collection
 The sort item function sorts the collection based on the users choice of sorting credential. The function also creates a new table and prints the table based on the users sorting credential. It can be worth mentioning that the table doesn't print out the ID column because the user should not be able to sort on ID. The function also checks for valid input to secure that the sorting credential is correct. When the sorting has been made the user is being redirected to the sorting menu.
@@ -256,7 +273,7 @@ The sort item function sorts the collection based on the users choice of sorting
 </details><br/>
 
 ### Show Total Value Of Collection
-The show total value function calculate the sum of column *value*, prints out the sum to the user and then prints out the main menu.
+The show total value function calculate the sum of the column *value*, prints out the sum to the user and then prints out the main menu.
 
 <details><summary><b>Show Total Value Of Collection</b></summary>
 
@@ -273,9 +290,9 @@ The exit application choice simply ends the program.
 
 ### Features Left to Implement
 
-* Add other type of storing (i.e. MySql or JSON-file) to speed up the application.
+* Add other type of storing (i.e. MySql or a JSON-file) to speed up the application.
 * Add possibility for the user to choose sorting order (inc / dec).
-* Add a more intelligent searching function so that the user can search for parts words and still get a match.
+* Add a more intelligent searching function so that the user can search for parts of words and still get a match.
 
 [Back to top](<#table-of-content>)
 
@@ -313,21 +330,30 @@ The WOM Record Collection application has been tested through [W3C Markup Valida
 ### Markup Validation
 No errors were returned when passing through the official W3C validator.
 
+<details><summary><b>HTML Validation Result</b></summary>
+
 ![HTML Result Home Page](readme/assets/images/html_validation.png)
+</details><br/>
 
 [Back to top](<#table-of-content>)
 
 ### CSS Validaton
 No errors were returned when passing through the official W3C validator.
 
+<details><summary><b>CSS Validation Result</b></summary>
+
 ![CSS Result](readme/assets/images/css_validation.png)
+</details><br/>
 
 [Back to top](<#table-of-content>)
 
 ### PEP Validation
 No errors were returned when passing through the PEP Validator.
 
+<details><summary><b>PEP Validation Result</b></summary>
+
 ![PEP Validation](readme/assets/images/pep_validation_ok.png)
+</details><br/>
 
 [Back to top](<#table-of-content>)
 
@@ -338,19 +364,12 @@ As the JavaScript for this project has been provided by Code Institute I have no
 
 ## Additional Testing
 
-### Lighthouse
-[Google Lighthouse](https://developers.google.com/web/tools/lighthouse) in Chrome Developer Tools was used to test the application within the areas of *Performance*, *Accessibility*, *Best Practices* and *SEO*. The testing showed these results: *Accessability*: 97, *Best Practices*: 92, *SEO*: 91%, *Performance*: 86. I have not that many comments on these results because the opportunities are connected mostly to the JavaScripts being used (which I have not altered).
-
-![Lighthouse Form Confirmation Page Result](readme/assets/images/lighthouse.png)
-
 ### Responsiveness Test
-
 This project does not require a fully responsive design but I made some basic tests and could quite fast state that the application in general is not supported by phones and tablets. I had the chance though to try it on an iPad pro which passed the test, but that was an exception.
 
 [Back to top](<#table-of-content>)
 
 ### Browser Compatibility
-
 'WOM Record Collection' was tested for functionality and appearance in the following browsers on desktop with no visible issues for the user.
 
 * Google Chrome Version (103.0.5060.114)
@@ -361,20 +380,37 @@ This project does not require a fully responsive design but I made some basic te
 
 [Back to top](<#table-of-content>)
 
+### Lighthouse
+[Google Lighthouse](https://developers.google.com/web/tools/lighthouse) in Chrome Developer Tools was used to test the application within the areas of *Performance*, *Accessibility*, *Best Practices* and *SEO*. The testing showed these results: *Accessability*: 97, *Best Practices*: 92, *SEO*: 91, *Performance*: 86. I have not that many comments on these results because the opportunities are connected mostly to the JavaScripts being used (which I have not altered).
+
+<details><summary><b>Lighthouse Result Result</b></summary>
+
+![Lighthouse Form Confirmation Page Result](readme/assets/images/lighthouse.png)
+</details><br/>
+
 ### WAVE
 
-[WAVE](https://wave.webaim.org/) was used to check accessibility. 1 error and 2 alerts was found. The error was connected to very low contrast on the 'run program' button (white text on red background) and the alerts was connected to 'no heading structure' and 'no page regions'. The error and alerts are not connected to my application why I will let it be for this project.
+[WAVE](https://wave.webaim.org/) was used to check accessibility. 1 error and 2 alerts were found. The error was connected to very low contrast on the 'run program' button (white text on red background) and the alerts were connected to 'no heading structure' and 'no page regions'. The error and alerts are not connected to my application why I will let it be for this project.
+
+<details><summary><b>WAVE Result</b></summary>
 
 ![WAVE Result](readme/assets/images/wave_result.png)
+</details><br/>
 
 [Back to top](<#table-of-content>)
 
 ### Peer Review
-Additional testing of the application was conducted by people outside of the software development field. Some spelling and grammar errors were found and corrected. No issues connected to design or handling of the application. An Excel template was also used to control the application for bugs within different scenarios. During the testing, a check of the user stories also wos done. One [bug](<#unfixed-bugs>) was found that still is unfixed.
+Additional testing of the application was conducted by people outside of the software development field. Some spelling and grammar errors were found and corrected. No issues connected to design or handling of the application. An Excel template was also used to control the application for bugs within different scenarios. One [bug](<#unfixed-bugs>) was found that still is unfixed. During the testing, a check of the user stories also was performed.
+
+<details><summary><b>Test Scenarios</b></summary>
 
 ![Test Scenarios](readme/assets/images/testing_scenarios.png)
+</details><br/>
+
+<details><summary><b>User Stories</b></summary>
 
 ![User Stories](readme/assets/images/testing_user_stories.png)
+</details><br/>
 
 ## Known bugs
 
@@ -396,7 +432,7 @@ Additional testing of the application was conducted by people outside of the sof
 * Bug: On the edit and remove function the application crasches if the user inputs a negative number. This was fixed by adding a negative integer check in the validate max rows function.
 
 **2022-08-24**
-* Bug: When the user edits the 'value' cell on the edit function and inputs a negative number, the calculate total value function crasches. Thiw was fixed by adding a negative integer check in the update cell function.
+* Bug: When the user edits the 'value' cell on the edit function and inputs a negative number, the calculate total value function crasches. This was fixed by adding a negative integer check in the update cell function.
 
 **2022-08-24**
 * Bug: When the user inputs a negative number on the sorting credential choice screen the application crasches. This was fixed by adding a negative integer check in the validate data function.
@@ -407,11 +443,14 @@ Additional testing of the application was conducted by people outside of the sof
 ### Unfixed Bugs
 
 **2022-08-23**
-* Bug: If the sheet is empty when being imported there is a scenario which causes a crash. The add_id function adds a '1' in the first row/column if the sheet is empty which becomes a problem if the user tries to edit the empty row with ID '1'. This might not be a probable scenario but needs to be fixed long term. For this project I it as it is due to deadline to send in the project.
+* Bug: If the sheet is empty when being imported there is a scenario which causes a crash. The add_id function adds a '1' in the first row/column if the sheet is empty which becomes a problem if the user tries to edit the empty row with ID '1'. This might not be a probable scenario but needs to be fixed long term. For this project I will leave it as it is due to the upcoming deadline for the project.
+
+<details><summary><b>Bug Edit Item</b></summary>
 
 ![Bug Edit Item](readme/assets/images/bug_edit_item_1_2.png)
 
 ![Bug Edit Item](readme/assets/images/bug_edit_item_2_2.png)
+</details><br/>
 
 [Back to top](<#table-of-content>)
 
@@ -487,7 +526,10 @@ It is possible to do a copy of a GitHub Repository by forking the GitHub account
 
 1. After logging in to GitHub, locate the repository. On the top right side of the page there is a 'Fork' button. Click on the button to create a copy of the original repository.
 
+<details><summary><b>Github Fork</b></summary>
+
 ![Fork](readme/assets/images/github_fork.png)
+</details><br />
 
 [Back to top](<#table-of-content>)
 
@@ -500,7 +542,10 @@ To create a local clone of your repository, follow these steps:
 3. Use an IDE and open Git Bash. Change directory to the location where you want the cloned directory to be made.
 4. Type 'git clone', and then paste the URL that you copied from GitHub. Press enter and a local clone will be created.
 
+<details><summary><b>Github Create Local Clone</b></summary>
+
 ![Clone](readme/assets/images/github_local_clone.png)
+</details><br />
 
 [Back to top](<#table-of-content>)
 
@@ -518,11 +563,11 @@ To create a local clone of your repository, follow these steps:
 
 * Convert to uppercase in list of lists taken (*and slightly modified*) from [Stack Overflow](https://stackoverflow.com/questions/54438770/lowercase-a-list-of-lists)
 
-* Inspiration taken from [Computing Learner](https://computinglearner.com/how-to-create-a-menu-for-a-python-console-application/) to create menu in a console application.
+* Inspiration taken from [Computing Learner](https://computinglearner.com/how-to-create-a-menu-for-a-python-console-application/) to create a menu in a console application.
 
 # Acknowledgements
 The application 'WOM Record Collection' was completed as the Portfolio Project #3 (*Python*) for the Full Stack Software Development Diploma at the [Code Institute](https://codeinstitute.net/). I would like to thank my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/) for relevant feedback during the project.
 
-*Marcus Eriksson 2022-08-23.*
+*Marcus Eriksson 2022-08-25.*
 
 [Back to top](<#table-of-content>)
