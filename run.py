@@ -475,16 +475,18 @@ def sort_collection():
 
 def calculate_total_value():
     """
-    Calculate the total value of record collection.
+    This function converts all strings in the value column,
+    converts them to integers and then calculate the total
+    value of the collection.
     """
     console.print(
-        "\nPlease wait. Calculating total value of the record collection.",
+        "\nPlease wait. Calculating total value of the collection.",
         style="success",
     )
     sleep(2)
     value_data = collection.col_values(6)
-    value_data = list(map(int, value_data))
-    sum_value = sum(value_data)
+    value_data_converted = list(map(int, value_data))
+    sum_value = sum(value_data_converted)
     os.system("clear")
     return sum_value
 
@@ -492,7 +494,10 @@ def calculate_total_value():
 def update_cell(row, column):
     """
     This function updates a specific cell based on input
-    from user.
+    from user. Before updating the cell a validation of the
+    data is being made (check for empty string, int or not int
+    and negative number). This is to secure that no invalid data
+    is being exported to the Google Sheet.
     """
 
     while True:
@@ -502,12 +507,20 @@ def update_cell(row, column):
         if column == "5":
             try:
                 new_value = int(new_value)
-                break
+                if new_value < 0:
+                    console.print(
+                        "You need to provide a positive number! "
+                        "Please try again!", style="error"
+                    )
+                else:
+                    break
+
             except ValueError:
                 console.print(
                     "You need to provide a number! Please try again!",
                     style="error"
                 )
+
         elif not new_value:
             console.print(
                 "You did not provide any information. "

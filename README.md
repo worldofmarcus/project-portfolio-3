@@ -371,6 +371,9 @@ Additional testing of the application was conducted by people outside of the sof
 **2022-08-23**
 * Bug: On the edit and remove function the application crasches if the user inputs a negative number. This was fixed by adding a negative integer check in the validate max rows function.
 
+**2022-08-24**
+* Bug: When the user edits the 'value' cell on the edit function and inputs a negative number, the calculate total value function crasches. Thiw was fixed by adding a negative integer check in the update cell function.
+
 ### Unfixed Bugs
 
 **2022-08-23**
