@@ -1,5 +1,5 @@
 # **WOM Record Collection**
-'WOM Record collection' is an application that helps you catalog your music collection. Examples of functions are *listing the collection*, *adding / changing / removing items in the collection*, *sorting the collection* and *calculating the total value of the collection*. The application targets users with an interest of collecting music that have a need of keeping track of their collection.
+'WOM Record Collection' is an application that helps you catalog your music collection. Examples of functions are *listing the collection*, *adding / changing / removing items in the collection*, *sorting the collection* and *calculating the total value of the collection*. The application targets users with an interest of collecting music that have a need of keeping track of their collection.
 
 [View live website here](https://project-portfolio-3.herokuapp.com/)
 
@@ -9,6 +9,7 @@
 
 * [**Project**](<#project>)
     * [Site Users Goal](<#site-users-goal>)
+    * [User Stories](<#user-stories>)
     * [Site Owners Goal](<#site-owners-goal>)
 
 * [**User Experience (UX)**](<#user-experience-ux>)
@@ -42,13 +43,13 @@
 * [Credits](<#credits>)
 * [Acknowledgements](<#acknowledgements>)
 
-#   Project
+# **Project**
 
-## **Site Users Goal**
-The user of 'WOM Record Collection' wants to have access to an intuitive application that keeps track on the users record collection.
+## Site Users Goal
+The user of 'WOM Record Collection' wants to have access to an intuitive application that keeps track on the users collection.
 
 ## User Stories
-I have included some user stories to clarify why particular feature matters. This can then be tested in the [Testing](<#testing>) section.
+I have included some user stories to clarify why particular feature matters. These will then be tested and confirmed in the [Testing](<#testing>) section.
 
 - As a user I want to be able to have access to a list function so that I can list all items in the collection.
 - As a user I want to have access to a search function to be able to search for specific items in the collection.
@@ -59,12 +60,12 @@ I have included some user stories to clarify why particular feature matters. Thi
 - As a user I want access to a function that shows the total value of the collection.
 - As a user I want have an easy way of getting back to the main menu.
 
-## **Site Owners Goal**
+## Site Owners Goal
 The goal of the site owner is to deliver an application where the user, in an easy way, can access a record collection and with easy commands have access to relevant functions to change the content of the collection.
 
 [Back to top](<#table-of-content>)
 
-# User Experience (UX)
+# **User Experience (UX)**
 
 For this project I didn't make a wireframe in [Balsamiq](https://balsamiq.com/) as in the earlier projects. The reason is the 'WOM Record Collection' application will have a command line interface which means that there will not be room for that many creative design choices. Instead I decided to create a logic [Flow Chart](<#flow-chart>) to get a broad understanding of the application flow.
 
@@ -85,7 +86,7 @@ The 'WOM Record Collection' is a terminal based application that is being presen
 In the top of the page there is also a 'Run Program' button that the user can use to reload the application if needed.
 
 ## Data Model
-To store all data in the application I made a choice to use [Google Sheets](https://www.google.co.uk/sheets/about/). All data in the application retrievs and sends data to to the Google Sheet and the workbook includes 1 worksheet.
+To store all data in the application I made a choice to use [Google Sheets](https://www.google.co.uk/sheets/about/). All data in the application is being sent and retrieved from the Google Sheet.
 
 * Name of workbook: *music collection*
 * Name of worksheet: *collection*
@@ -97,7 +98,7 @@ The worksheet holds 5 columns with information such as: *ID*, *Artist*, *Title*,
 ## Design Choices
 
 * ### Color Scheme
-'WOM Record Collection' is a terminal based application which means that there aren't that many visual design choices. I have though used the [Rich](https://rich.readthedocs.io/en/stable/introduction.html) for Python to be able to extend the design opportunities.
+'WOM Record Collection' is a terminal based application which means that there aren't that many visual design choices. I have though used the [Rich](https://rich.readthedocs.io/en/stable/introduction.html) library for Python to be able to extend the design opportunities.
 
 I have tried to use as clean colors as possible (see below):
 
@@ -123,11 +124,13 @@ No specific typography is being used in the application. The font is just the st
 [Back to top](<#table-of-content>)
 
 # **Features**
-When the application starts it calls the *main function* which *clears the screen*, *prints the welcome message* and *lists the menu*. As stated in the [Site Structure](<#site-structure>) area the application consists of 7 different areas (functions) and an exit option, *list collection*, *search item in collection*, *add item to collection*, *edit item in collection*, *remove item from collection*, *sort collection*, *show total value of collection* and *exit application*. Read more about the different choices in the [Features](<#features>) section. The features is being explained more in detail in the [Existing Features](<existing-features>) area below.
+When the application starts it calls the *main function* which *clears the screen* and  *prints the welcome message*. As stated in the [Site Structure](<#site-structure>) area the application consists of 7 different areas (functions) and an exit option, *list collection*, *search item in collection*, *add item to collection*, *edit item in collection*, *remove item from collection*, *sort collection*, *show total value of collection* and *exit application*. The features are being explained more in detail in the [Existing Features](<existing-features>) area below (click the small arrow to show screenshot).
 
 ## **Existing Features**
 
 ### **Main Menu**
+The Main Menu is quite straight forward and consists of 8 choices. See each choice being explained below.
+
 <details><summary><b>Main Menu</b></summary>
 
 ![Main Menu](readme/assets/images/main_menu.png)
@@ -136,7 +139,7 @@ When the application starts it calls the *main function* which *clears the scree
 
 
 ### **List Collection**
-The list collection function simply lists the music collection by retrieving all data from the Google Sheet 'collection'. Before listing the collection the function *add id* is being called to add an numeric ID to each row in the first column in the sheet. This needs to be done to make sure that every item has an ID so that the other functions in the application can keep track on the items in the collection. When the adding of the ID:s is done the *create table* function is being called to plot out the table columns and rows. The table functionality is a part of the [Rich](https://rich.readthedocs.io/en/stable/introduction.html) Python library. When the list is being fetched from the Google Sheet a progress indicator is being shown to the user.
+The list collection function simply lists the music collection by retrieving all data from the Google Sheet 'collection'. Before listing the collection the function *add id* is being called to add an numeric ID to each row in the first column in the sheet. This needs to be done to make sure that every item has an ID so that the other functions in the application can keep track on the items in the collection. When the adding of the ID:s are done the *create table* function is being called to plot out the table columns and rows. The table functionality is a part of the [Rich](https://rich.readthedocs.io/en/stable/introduction.html) Python library. When the list is being fetched from the Google Sheet a progress indicator is being shown to the user.
 
 <details><summary><b>List Collection Progress</b></summary>
 
@@ -149,7 +152,7 @@ The list collection function simply lists the music collection by retrieving all
 </details><br/>
 
 ### **Search Item In collection**
-The search item in collection function lets the user to search for a specific item in the collection. The user can search for anything and if the item exists in the collection it's being printed out in a table (this works for multiple items as well). If no match is being found an empty table and an error message will appear. In both cases (match / no match) the user gets the possibility to add a new search credential and also go back to the main menu by choosing '0'. The search function is not case sensitive but only works with an  **exact** match of the words/numbers in the collection.
+The search item in collection function lets the user search for a specific item in the collection. The user can search for anything and if the item exists in the collection it's being printed out in a table (this works if multiple items are found as well). If no match is being found an empty table and an error message will appear. In both cases (match / no match) the user gets the possibility to add a new search credential and also go back to the main menu by choosing '0'. The search function is not case sensitive and only works with an  **exact** match of the words/numbers in the collection.
 
 <details><summary><b>Search Credential Provided By User</b></summary>
 
@@ -169,7 +172,7 @@ The search item in collection function lets the user to search for a specific it
 [Back to top](<#table-of-content>)
 
 ### **Add Item To Collection**
-The add item to collection function let's the user add own items to the collection. The user first gets the question if they want to add an item. If they choose *no* they will be sent back to the main menu and if they answer *yes* the input sequence starts. The user provides data for all columns(*Artist*, *Title*, *Label*, *Format* and *Value (€)*). The ID column is not necessary for the user to fill in, that is being handled by the application itself. The function also checks for valid user input in each cell to secure that not empty content is being exported to the Google Sheet. If all the user input is correct the function accumulate input combines all the userdata and then it is being exported to the Google Sheet. After that the table us being printed and the user will get the add item question again.
+The add item to collection function let's the user add own items to the collection. The user first gets the question if they want to add an item. If they choose *no* they will be sent back to the main menu and if they answer *yes* the input sequence starts. The user provides data for all columns(*Artist*, *Title*, *Label*, *Format* and *Value (€)*). The ID column is not necessary for the user to fill in, that is being handled by the application itself. The function also checks for valid user input in each cell to secure that not empty content (or negative numbers on the value input) is being exported to the Google Sheet. If all the user input is correct the function accumulate input combines all the userdata and then it is being exported to the Google Sheet. After that the table is being printed and the user will get the add item question again.
 
 <details><summary><b>Add Item Question</b></summary>
 
@@ -378,6 +381,9 @@ Additional testing of the application was conducted by people outside of the sof
 
 **2022-08-24**
 * Bug: When the user inputs a negative number on the sorting credential choice screen the application crasches. This was fixed by adding a negative integer check in the validate data function.
+
+**2022-08-24**
+* Bug: When the user inputs a negative number on the value input in the add function the application crasches. This was fixed by adding a negative integer check in the add item function.
 
 ### Unfixed Bugs
 

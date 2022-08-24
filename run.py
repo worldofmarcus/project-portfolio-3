@@ -274,7 +274,14 @@ def add_item():
                 user_value = input("\nAdd value: \n")
                 user_value.strip()
                 user_value = int(user_value)
-                break
+                if user_value < 0:
+                    console.print(
+                        "You need to provide a positive number! "
+                        "Please try again!", style="error"
+                    )
+                else:
+                    break
+
             except ValueError:
                 console.print(
                     "You need to provide a number! Please try again!",
