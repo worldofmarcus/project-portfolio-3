@@ -573,7 +573,7 @@ def validate_data(user_choice):
     """
 
     try:
-        if int(user_choice) > 5:
+        if int(user_choice) > 5 or int(user_choice) < 0:
             raise ValueError(
                 f"Only numbers between 0-5! You provided {user_choice}"
             )

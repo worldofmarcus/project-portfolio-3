@@ -374,6 +374,9 @@ Additional testing of the application was conducted by people outside of the sof
 **2022-08-24**
 * Bug: When the user edits the 'value' cell on the edit function and inputs a negative number, the calculate total value function crasches. Thiw was fixed by adding a negative integer check in the update cell function.
 
+**2022-08-24**
+* Bug: When the user inputs a negative number on the sorting credential choice screen the application crasches. This was fixed by adding a negative integer check in the validate data function.
+
 ### Unfixed Bugs
 
 **2022-08-23**
