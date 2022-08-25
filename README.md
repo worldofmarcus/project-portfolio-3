@@ -138,7 +138,7 @@ No specific typography is being used in the application. The font is just the st
 [Back to top](<#table-of-content>)
 
 # **Features**
-When the application starts it calls the *main function* which *clears the screen* and  *prints the welcome message*. As stated in the [Site Structure](<#site-structure>) area the application consists of 7 different areas (functions) and an exit option: *list collection*, *search item in collection*, *add item to collection*, *edit item in collection*, *remove item from collection*, *sort collection*, *show total value of collection* and *exit application*. The features are being explained more in detail in the [Existing Features](<existing-features>) area below.
+When the application starts it calls the *main function* which *clears the screen* and  *prints the welcome message*. As stated in the [Site Structure](<#site-structure>) area the application consists of 7 different areas (functions) and an exit option: *list collection*, *search item in collection*, *add item to collection*, *edit item in collection*, *remove item from collection*, *sort collection*, *show total value of collection* and *exit application*. The features are being explained more in detail in the [Existing Features](<#existing-features>) area below.
 
 ## **Existing Features**
 
@@ -272,6 +272,8 @@ The sort item function sorts the collection based on the users choice of sorting
 ![Sorting Credential Value](readme/assets/images/sorting_credential_value.png)
 </details><br/>
 
+[Back to top](<#table-of-content>)
+
 ### Show Total Value Of Collection
 The show total value function calculate the sum of the column *value*, prints out the sum to the user and then prints out the main menu.
 
@@ -280,6 +282,8 @@ The show total value function calculate the sum of the column *value*, prints ou
 ![Show Total Value Of Collection](readme/assets/images/show_total_value.png)
 </details><br/>
 
+[Back to top](<#table-of-content>)
+
 ### Exit Application
 The exit application choice simply ends the program.
 
@@ -287,6 +291,8 @@ The exit application choice simply ends the program.
 
 ![Exit Application](readme/assets/images/exit_application.png)
 </details><br/>
+
+[Back to top](<#table-of-content>)
 
 ### Features Left to Implement
 
@@ -370,7 +376,7 @@ This project does not require a fully responsive design but I made some basic te
 [Back to top](<#table-of-content>)
 
 ### Browser Compatibility
-'WOM Record Collection' was tested for functionality and appearance in the following browsers on desktop with no visible issues for the user.
+'WOM Record Collection' was tested for functionality and appearance in the following browsers on desktop. No visible or funcional issues on all browsers except Apple Safari where the user input did not work at all (bug documented [here](<#unfixed-bugs>).
 
 * Google Chrome Version (103.0.5060.114)
 * Mozilla Firefox (version 102.0.1)
@@ -445,6 +451,9 @@ Additional testing of the application was conducted by people outside of the sof
 **2022-08-23**
 * Bug: If the sheet is empty when being imported there is a scenario which causes a crash. The add_id function adds a '1' in the first row/column if the sheet is empty which becomes a problem if the user tries to edit the empty row with ID '1'. This might not be a probable scenario but needs to be fixed long term. For this project I will leave it as it is due to the upcoming deadline for the project.
 
+**2022-08-25**
+* Bug: When using Apple Safari the user input don't work at all (already in the main menu). I have tried other student projects in Safari with the same result. I don't know what the reason for this bug is but I felt it was necessary to report and document.
+
 <details><summary><b>Bug Edit Item</b></summary>
 
 ![Bug Edit Item](readme/assets/images/bug_edit_item_1_2.png)
@@ -460,7 +469,7 @@ Additional testing of the application was conducted by people outside of the sof
 
 The project was deployed to [Heroku](https://www.heroku.com). To deploy, please follow the process below:
 
-1. The first step is to log in to Heroku (or create an account if needed)
+1. The first step is to log in to Heroku (or create an account if needed).
 
 <details><summary><b>Heroku Step 1</b></summary>
 
@@ -488,7 +497,7 @@ The project was deployed to [Heroku](https://www.heroku.com). To deploy, please 
 ![Heroku Step 4](readme/assets/images/heroku_step_4.png)
 </details><br />
 
-5. Next step is to add buildpacks to the application which will be run when the application is deployed. The reason why this is needed is because all dependencies and configurations will be installed for the application. To do this you scroll down to the buildpacks section on the settings page and click the button 'Add buildpack'.
+5. Next step is to add buildpacks to the application which will run when the application is deployed. The reason why this is needed is because all dependencies and configurations will be installed for the application. To do this you scroll down to the buildpacks section on the settings page and click the button 'Add buildpack'.
 
 <details><summary><b>Heroku Step 5</b></summary>
 
@@ -502,7 +511,7 @@ The project was deployed to [Heroku](https://www.heroku.com). To deploy, please 
 ![Heroku Step 6](readme/assets/images/heroku_step_6.png)
 </details><br />
 
-7. Now it's time for deployment. Scroll to the topp of the settings page and click the 'Deploy' tab. For deployment method, select 'Github'. Search for the repository name you want to deploy and then click connect.
+7. Now it's time for deployment. Scroll to the top of the settings page and click the 'Deploy' tab. For deployment method, select 'Github'. Search for the repository name you want to deploy and then click connect.
 
 <details><summary><b>Heroku Step 7</b></summary>
 
@@ -555,7 +564,7 @@ To create a local clone of your repository, follow these steps:
 
 * All text content written by Marcus Eriksson.
 
-* [Template](https://github.com/Code-Institute-Solutions/readme-template) for read.me provided by Code Institute (*with some additional changes that my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/))* suggested.
+* Template for read.me provided by Code Institute (*with some additional changes that my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/))* suggested.
 
 ## Technical
 
