@@ -1,4 +1,4 @@
-"""Import modules"""
+"""Import relevant modules for the application"""
 
 import os
 import sys
@@ -21,8 +21,6 @@ CREDS = Credentials.from_service_account_file("creds.json")
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("music_collection")
-collection = SHEET.worksheet("collection")
-
 custom_theme = Theme({"error": "bold red3", "success": "bold green3"})
 console = Console(theme=custom_theme)
 
@@ -35,8 +33,9 @@ Use the menu below to start using the application!
 
 def show_menu():
     """
-    Function prints out the menu and get the user input.
-    Validation of users choice is also being made.
+    Function prints out the menu, waits for the user input
+    and then calls the relevant function. Validation of users
+    choice is also being made.
     """
 
     while True:
@@ -49,7 +48,6 @@ def show_menu():
         console.print("6: Sort collection", style="cyan2")
         console.print("7: Show total value of collection", style="cyan2")
         console.print("0: Exit application", style="cyan2")
-
         option = input("\nEnter your choice: \n")
         option = option.strip()
         if option == "1":  # call function 'list_collection'
@@ -92,7 +90,7 @@ def show_menu():
 
 def add_id():
     """
-    This function adds an numeric ID to each row in the first column
+    This function adds a numeric ID to each row in the first column
     in the sheet. This is being used by the other functions to keep
     track of what ID each item has. A process indicator is also being
     showed so that the user has an idea of how long the listing of
@@ -101,6 +99,7 @@ def add_id():
     """
 
     console.print("\nPlease wait. Listing collection.", style="success")
+    collection = SHEET.worksheet("collection")
     max_rows = len(collection.get_all_values())
 
     i = 1
@@ -114,7 +113,7 @@ def add_id():
     data = collection.get_all_values()
     data = list(
         map(lambda x: list(map(lambda y: y.upper(), x)), data)
-    )  # Change all strings to uppercase
+    )
     create_table(data)
 
 
@@ -122,7 +121,7 @@ def create_table(data):
     """
     This function creates the table. First it plots the
     columns and then it plots out all the rows in the
-    data collection (from the collection sheet)
+    data collection (from the collection sheet).
     """
 
     table = Table(box=box.MINIMAL_DOUBLE_HEAD)
@@ -132,52 +131,45 @@ def create_table(data):
     table.add_column("LABEL")
     table.add_column("FORMAT")
     table.add_column("VALUE (€)")
-
     for row in data[0::1]:
         table.add_row(*row)
-
     os.system("clear")
     console.print(table)
 
 
 def search_item():
     """
-    This function search for item in the record collection
-    Allows the user to search for a specific item. The user
-    can search for anything and if the item exists in the
-    collection it's being printed in a table (this works
-    for multiple matches as well)
+    This function allows the user to search for a specific item
+    in the collection. The user can search for anything and if
+    the item exists in the collection it's being printed in a table
+    (this works for multiple matches as well).
     """
 
+    collection = SHEET.worksheet("collection")
     data = collection.get_all_values()
     data = list(map(lambda x: list(map(lambda y: y.upper(), x)), data))
     matches = []
     console.print("\nInput your search credentials below. "
                   "0 for main menu", style="cyan2")
-
     while True:
         user_input = input("\nInput your search credential: \n").upper()
         user_input = user_input.strip()
-
         if user_input == "0":
             console.print("\nHeading back to main menu", style="success")
             sleep(3)
             os.system("clear")
             console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
-
         elif not user_input:
             console.print(
                 "You did not provide any information. "
                 "Please try again.",
                 style="error"
             )
-
         else:
             for match in data:
                 if user_input in match:
                     matches.append(match)
-
             table = Table(box=box.MINIMAL_DOUBLE_HEAD)
             table.add_column("ID")
             table.add_column("ARTIST")
@@ -189,7 +181,6 @@ def search_item():
                 table.add_row(*row)
             os.system("clear")
             console.print(table)
-
             rows = len(matches)
             if rows == 0:
                 console.print(f"\nNo match on {user_input}! Please try "
@@ -202,14 +193,15 @@ def search_item():
 
 def add_item():
     """
-    This function adds item to the record collection. It also checks for
-    valid input for each cell input to secure that not empty strings are
-    being sent to the Google Sheet.
+    This function lets the user add an item to the record collection.
+    It also checks for valid input for each cell input to secure that
+    not invalid data is being sent to the Google Sheet. Before updating
+    the Google Sheet the function accumulate data is being called to
+    merge all the valid user input.
     """
     os.system("clear")
     add_id()
     while True:
-
         while True:
             option = input("Do you want to add a new item (Y/N)? ").upper()
             if option == "N":
@@ -225,7 +217,6 @@ def add_item():
                 break
             else:
                 console.print("Please choose Y or N", style="error")
-
         while True:
             user_artist = input("\nAdd artist: \n").upper()
             if not user_artist.strip():
@@ -236,7 +227,6 @@ def add_item():
                 )
             else:
                 break
-
         while True:
             user_title = input("\nAdd title: \n").upper()
             if not user_title.strip():
@@ -247,7 +237,6 @@ def add_item():
                 )
             else:
                 break
-
         while True:
             user_label = input("\nAdd label: \n").upper()
             if not user_label.strip():
@@ -268,7 +257,6 @@ def add_item():
                 )
             else:
                 break
-
         while True:
             try:
                 user_value = input("\nAdd value: \n")
@@ -281,23 +269,18 @@ def add_item():
                     )
                 else:
                     break
-
             except ValueError:
                 console.print(
                     "You need to provide a number! Please try again!",
                     style="error",
                 )
-
         user_input = accumulate_input(
             user_artist, user_title, user_label, user_format, user_value
         )
-
         worksheet_to_update = SHEET.worksheet("collection")
         user_input.insert(0, "0")
         console.print("\nUpdating worksheet.", style="success")
         sleep(2)
-
-        # adds new row to the end of the current data
         worksheet_to_update.append_row(user_input)
         add_id()
 
@@ -322,16 +305,23 @@ def accumulate_input(str1, str2, str3, str4, int1):
 
 def edit_item():
     """
-    This function changes item in the record collection
+    This function let's the user edit a specific item in the collection
+    by choosing the ID for the item (or choose '0' to get back to the main
+    menu). When the user has provided the ID the user needs to choose a value
+    to edit. When the user feeds in the input the update cell function is
+    being called for validation to secure that not empty content (or negative
+    numbers for the value cell) is being exported to the Google Sheet.
+    If the user input is correct it is being exported to the Google Sheet and
+    then the table updates.
     """
 
     os.system("clear")
     add_id()
+    collection = SHEET.worksheet("collection")
     data = collection.get_all_values()
     while True:
         option = input("\nEnter ID for row to edit (0 for main menu): \n")
         option = option.strip()
-
         if option == "0":
             console.print("\nHeading back to main menu", style="success")
             sleep(3)
@@ -365,7 +355,6 @@ def edit_item():
                 )
                 user_input = input("\nChoose cell to edit: \n")
                 user_input = user_input.strip()
-
                 if user_input == "0":
                     console.print(
                         "\nHeading back to edit menu", style="success"
@@ -394,7 +383,15 @@ def edit_item():
 
 def remove_item():
     """
-    This function removes item in the record collection
+    This function lets the user remove a specific item from the collection
+    It first lists the collection and then ask the user to enter the ID
+    connected to the row that is in scope for deletion. The user can also
+    choose '0' to head back to the main menu. When the user has provided
+    the ID, the application checks for a valid input and then asks the user
+    for deletion confirmation. If they choose 'N', the action will be aborted
+    and the user is being redirected to the remove menu. If they choose 'Y',
+    the item is being removed, the collection is being listed and the main
+    menu is being printed.
     """
 
     os.system("clear")
@@ -423,6 +420,7 @@ def remove_item():
                     f"Removing row with ID {option}", style="error"
                 )
                 sleep(1)
+                collection = SHEET.worksheet("collection")
                 cell = collection.find(option, in_column=1)
                 row = cell.row
                 collection.delete_rows(row)
@@ -438,10 +436,14 @@ def remove_item():
 
 def sort_collection():
     """
-    Sorting collection based on users choice of sorting
-    credential. The function also creates a new table but
-    never prints the ID column. The reason is that the
-    user should not be able to sort the data based on ID.
+    This function lets the user sort the collection based on
+    the users choice of sorting credential. The function also
+    creates a new table and prints the table based on the users
+    sorting credential. The table doesn't print out the ID column
+    because the user should not be able to sort on ID. The function
+    also checks for valid input to secure that the sorting
+    credential is correct. When the sorting has been made the user
+    is being redirected to the sorting menu.
     """
 
     os.system("clear")
@@ -457,7 +459,6 @@ def sort_collection():
         console.print("4. Format", style="cyan2")
         console.print("5. Value", style="cyan2")
         console.print("0. Back to main menu", style="cyan2")
-
         sorting_credential = input("\nEnter your choice: \n")
         sorting_credential = sorting_credential.strip()
         if sorting_credential == "0":
@@ -474,6 +475,7 @@ def sort_collection():
             sleep(2)
             sorting_credential = int(sorting_credential)
             sorting_credential += 1
+            collection = SHEET.worksheet("collection")
             collection.sort((sorting_credential, "asc"))
             data = collection.get_all_values()
             data = list(map(lambda x: list(map(lambda y: y.upper(), x)), data))
@@ -482,15 +484,17 @@ def sort_collection():
 
 def calculate_total_value():
     """
-    This function converts all strings in the value column,
-    converts them to integers and then calculate the total
-    value of the collection.
+    This function checks all values in the value column and
+    convert them to integers. Then the total sum is being
+    calculated and stored in the sum_value variable which
+    then is being returned.
     """
     console.print(
         "\nPlease wait. Calculating total value of the collection.",
         style="success",
     )
     sleep(2)
+    collection = SHEET.worksheet("collection")
     value_data = collection.col_values(6)
     value_data_converted = list(map(int, value_data))
     sum_value = sum(value_data_converted)
@@ -510,7 +514,6 @@ def update_cell(row, column):
     while True:
         new_value = input("\nPlease add new value: \n").upper()
         new_value = new_value.strip()
-
         if column == "5":
             try:
                 new_value = int(new_value)
@@ -521,23 +524,19 @@ def update_cell(row, column):
                     )
                 else:
                     break
-
             except ValueError:
                 console.print(
                     "You need to provide a number! Please try again!",
                     style="error"
                 )
-
         elif not new_value:
             console.print(
                 "You did not provide any information. "
                 "Please try again.",
                 style="error"
             )
-
         else:
             break
-
     column = int(column)
     column += 1
     worksheet_to_update = SHEET.worksheet("collection")
@@ -553,15 +552,17 @@ def validate_max_rows(option):
     from the function edit_value to an integer and then checks
     if the option is within the max row in the sheet and if the
     value can be converted to an integer. If not, an error is raised.
+    It also checks for negative numbers to secure valid data is being
+    exported to the Google Sheet.
     """
 
+    collection = SHEET.worksheet("collection")
     max_rows = len(collection.get_all_values())
     try:
         if int(option) > max_rows or int(option) < 0:
             raise ValueError(
                 f"Only numbers within the ID range! You provided {option}"
             )
-
     except ValueError as error_message:
         console.print(
             f"Invalid data: {error_message}. Please try again.\n",
@@ -575,8 +576,8 @@ def validate_max_rows(option):
 def validate_data(user_choice):
     """
     Validation function that converts the recieved value user_choice
-    to an integer. If user_choice is larger than 5 or if the value
-    cannot be converted to an integer an error is raised.
+    to an integer. If user_choice is larger than 5, a negative number,
+    or if the value cannot be converted to an integer an error is raised.
     """
 
     try:
@@ -584,7 +585,6 @@ def validate_data(user_choice):
             raise ValueError(
                 f"Only numbers between 0-5! You provided {user_choice}"
             )
-
     except ValueError as error_message:
         console.print(
             f"Invalid data: {error_message}. Please try again.\n",
