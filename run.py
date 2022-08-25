@@ -72,7 +72,7 @@ def show_menu():
                 "\nThank you for using WOM Record Collection!",
                 style="success",
             )
-            sleep(2)
+            sleep(1)
             console.print(
                 "\nApplication has shutdown. Use the RUN PROGRAM button if"
                 "\nyou want to restart the app.",
@@ -84,7 +84,7 @@ def show_menu():
                 "\nInvalid Option. Please provide a number between 0 - 7",
                 style="red3 bold"
             )
-            sleep(3)
+            sleep(1)
             main()
 
 
@@ -192,7 +192,7 @@ def search_item():
             if rows == 0:
                 console.print(f"\nNo match on {user_input}! Please try "
                               "again\n", style="error")
-                sleep(2)
+                sleep(1)
             else:
                 pass
             search_item()
@@ -215,7 +215,7 @@ def add_item():
                 console.print(
                     "\nHeading back to main menu", style="success"
                 )
-                sleep(3)
+                sleep(1)
                 os.system("clear")
                 console.print(f"{WELCOME}", style="dark_orange3")
                 show_menu()
@@ -287,7 +287,7 @@ def add_item():
         worksheet_to_update = SHEET.worksheet("collection")
         user_input.insert(0, "0")
         console.print("\nUpdating worksheet.", style="success")
-        sleep(2)
+        sleep(1)
         worksheet_to_update.append_row(user_input)
         add_id()
 
@@ -331,7 +331,7 @@ def edit_item():
         option = option.strip()
         if option == "0":
             console.print("\nHeading back to main menu", style="success")
-            sleep(3)
+            sleep(1)
             os.system("clear")
             console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
@@ -366,7 +366,7 @@ def edit_item():
                     console.print(
                         "\nHeading back to edit menu", style="success"
                     )
-                    sleep(3)
+                    sleep(1)
                     os.system("clear")
                     console.print(f"{WELCOME}", style="dark_orange3")
                     edit_item()
@@ -385,7 +385,7 @@ def edit_item():
                         "Please choose a number between 0 and 5",
                         style="error",
                     )
-                    sleep(2)
+                    sleep(1)
 
 
 def remove_item():
@@ -410,7 +410,7 @@ def remove_item():
         option = option.strip()
         if option == "0":
             console.print("\nHeading back to main menu", style="success")
-            sleep(3)
+            sleep(1)
             os.system("clear")
             console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
@@ -419,7 +419,7 @@ def remove_item():
             user_confirm = input("\nAre you sure?(Y/N) ").upper()
             if user_confirm == "N":
                 console.print("Aborting...", style="error")
-                sleep(2)
+                sleep(1)
                 remove_item()
                 break
             elif user_confirm == "Y":
@@ -472,7 +472,7 @@ def sort_collection():
         sorting_credential = sorting_credential.strip()
         if sorting_credential == "0":
             console.print("\nHeading back to main menu", style="success")
-            sleep(3)
+            sleep(1)
             os.system("clear")
             console.print(f"{WELCOME}", style="dark_orange3")
             show_menu()
@@ -481,7 +481,7 @@ def sort_collection():
             console.print(
                 "\nPlease wait. Sorting collection.", style="success"
             )
-            sleep(2)
+            sleep(1)
             sorting_credential = int(sorting_credential)
             sorting_credential += 1
             collection = SHEET.worksheet("collection")
@@ -502,7 +502,7 @@ def calculate_total_value():
         "\nPlease wait. Calculating total value of the collection.",
         style="success",
     )
-    sleep(2)
+    sleep(1)
     collection = SHEET.worksheet("collection")
     value_data = collection.col_values(6)
     value_data_converted = list(map(int, value_data))
@@ -551,7 +551,7 @@ def update_cell(row, column):
     worksheet_to_update = SHEET.worksheet("collection")
     worksheet_to_update.update_cell(row, column, new_value)
     console.print("\nUpdating cell.", style="success")
-    sleep(2)
+    sleep(1)
     edit_item()
 
 
@@ -577,7 +577,7 @@ def validate_max_rows(option):
             f"Invalid data: {error_message}. Please try again.\n",
             style="red3 bold",
         )
-        sleep(3)
+        sleep(1)
         return False
     return True
 
@@ -599,7 +599,7 @@ def validate_data(user_choice):
             f"Invalid data: {error_message}. Please try again.\n",
             style="red3 bold",
         )
-        sleep(3)
+        sleep(1)
         return False
     return True
 
