@@ -502,7 +502,7 @@ def calculate_total_value():
         "\nPlease wait. Calculating total value of the collection.",
         style="success",
     )
-    sleep(1)
+    sleep(2)
     collection = SHEET.worksheet("collection")
     value_data = collection.col_values(6)
     value_data_converted = list(map(int, value_data))
