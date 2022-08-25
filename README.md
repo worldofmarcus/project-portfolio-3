@@ -451,15 +451,15 @@ Additional testing of the application was conducted by people outside of the sof
 **2022-08-23**
 * Bug: If the sheet is empty when being imported there is a scenario which causes a crash. The add_id function adds a '1' in the first row/column if the sheet is empty which becomes a problem if the user tries to edit the empty row with ID '1'. This might not be a probable scenario but needs to be fixed long term. For this project I will leave it as it is due to the upcoming deadline for the project.
 
-**2022-08-25**
-* Bug: When using Apple Safari the user input don't work at all (already in the main menu). I have tried other student projects in Safari with the same result. I don't know what the reason for this bug is but I felt it was necessary to report and document.
-
 <details><summary><b>Bug Edit Item</b></summary>
 
 ![Bug Edit Item](readme/assets/images/bug_edit_item_1_2.png)
 
 ![Bug Edit Item](readme/assets/images/bug_edit_item_2_2.png)
 </details><br/>
+
+**2022-08-25**
+* Bug: When using Apple Safari the user input don't work at all (already in the main menu). I have tried other student projects in Safari with the same result. I don't know what the reason for this bug is but I felt it was necessary to report and document.
 
 [Back to top](<#table-of-content>)
 
@@ -577,6 +577,6 @@ To create a local clone of your repository, follow these steps:
 # Acknowledgements
 The application 'WOM Record Collection' was completed as the Portfolio Project #3 (*Python*) for the Full Stack Software Development Diploma at the [Code Institute](https://codeinstitute.net/). I would like to thank my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/) for relevant feedback during the project.
 
-*Marcus Eriksson 2022-08-25.*
+*Marcus Eriksson, 2022-08-25*
 
 [Back to top](<#table-of-content>)
