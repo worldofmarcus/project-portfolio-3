@@ -128,7 +128,7 @@ def create_table(data):
     on importing Google Sheet to Rich table was taken from
     Stack Overflow: https://stackoverflow.com/questions/71799108/
     how-do-i-zip-a-list-of-lists-into-a-python-rich-table-with-
-    headers-and-rows/
+    headers-and-rows
     """
 
     table = Table(box=box.MINIMAL_DOUBLE_HEAD)
