@@ -95,7 +95,10 @@ def add_id():
     track of what ID each item has. A process indicator is also being
     showed so that the user has an idea of how long the listing of
     the collection will take. When the adding of ID:s is done
-    the create_table function is called.
+    the create_table function is called. Convert to uppercase in list
+    of lists taken (and slightly modified) from Stack Overflow:
+    https://stackoverflow.com/questions/54438770/lowercase-a-list-of-lists
+
     """
 
     console.print("\nPlease wait. Listing collection.", style="success")
@@ -121,7 +124,11 @@ def create_table(data):
     """
     This function creates the table. First it plots the
     columns and then it plots out all the rows in the
-    data collection (from the collection sheet).
+    data collection (from the collection sheet). Inspiration
+    on importing Google Sheet to Rich table was taken from
+    Stack Overflow: https://stackoverflow.com/questions/71799108/
+    how-do-i-zip-a-list-of-lists-into-a-python-rich-table-with-
+    headers-and-rows/
     """
 
     table = Table(box=box.MINIMAL_DOUBLE_HEAD)
@@ -443,7 +450,9 @@ def sort_collection():
     because the user should not be able to sort on ID. The function
     also checks for valid input to secure that the sorting
     credential is correct. When the sorting has been made the user
-    is being redirected to the sorting menu.
+    is being redirected to the sorting menu. Convert to uppercase in list
+    of lists taken (and slightly modified) from Stack Overflow:
+    https://stackoverflow.com/questions/54438770/lowercase-a-list-of-lists
     """
 
     os.system("clear")
